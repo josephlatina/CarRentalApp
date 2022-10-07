@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Branch, Customer, Employee, Car, CarType
+from .models import Branch, Customer, Employee, EmployeePhoneNumber, Car, CarType
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +22,13 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ('id', 'first_name', 'last_name', 'email', 'password', 'salt', 'salary', 'rank', 'DOB',
                   'province', 'city', 'postal_code', 'street_number', 'street_name', 'unit_number')
+
+
+class EmployeePhoneNumberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeePhoneNumber
+        fields = ('id', 'employee_id', 'phone_number')
+
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
