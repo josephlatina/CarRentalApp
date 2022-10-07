@@ -35,7 +35,7 @@ class Employee(models.Model):
 class EmployeePhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)
     employee_id = models.ForeignKey(Employee, models.DO_NOTHING)
-    phone_number = models.CharField(max_lenth=30)
+    phone_number = models.CharField(max_length=15)
 
 
 class Customer(models.Model):
