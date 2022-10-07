@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
-from .serializers import BranchSerializer, EmployeeSerializer
-from .models import Branch, Employee
+from .serializers import BranchSerializer, EmployeeSerializer, CustomerSerializer
+from .models import Branch, Employee, Customer
 
 # Create your views here.
 
@@ -12,3 +12,7 @@ class BranchView(viewsets.ModelViewSet):
 class EmployeeView(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     queryset = Employee.objects.all()
+
+class CustomerView(viewsets.ModelViewSet):
+    serializer_class = CustomerSerializer
+    queryset = Customer.objects.all()
