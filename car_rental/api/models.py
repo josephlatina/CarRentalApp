@@ -15,6 +15,7 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
+    # Password and number will now temporarily be chars. Might need to hash them later
     password = models.CharField(max_length=255)
     salt = models.CharField(max_length=255)
     salary = models.IntegerField()
