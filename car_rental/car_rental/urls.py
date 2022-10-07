@@ -20,6 +20,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'branches', views.BranchView, 'Branch')
+router.register(r'branch_phone_numbers', views.Branch_Phone_NumberView, 'Branch_Phone_Number')
 router.register(r'employees', views.EmployeeView, 'Employee')
 router.register(r'customers', views.CustomerView, 'Customer')
 
