@@ -22,6 +22,7 @@ router = routers.DefaultRouter()
 router.register(r'branches', views.BranchView, 'Branch')
 router.register(r'employees', views.EmployeeView, 'Employee')
 router.register(r'customers', views.CustomerView, 'Customer')
+router.register(r'employee-phone-number', views.EmployeePhoneNumberView, 'Employee Phone Number')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
