@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import Branch, Branch_Phone_Number, Customer, Employee
+from .models import Branch, BranchPhoneNumber, Customer, Employee
 
 
 class BranchSerializer(serializers.ModelSerializer):
@@ -9,9 +9,9 @@ class BranchSerializer(serializers.ModelSerializer):
         fields = ('id', 'province', 'city', 'postalcode',
                   'streetnumber', 'streetname', 'unitnumber')
 
-class Branch_Phone_NumberSerializer(serializers.ModelSerializer):
+class BranchPhoneNumberSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Branch_Phone_Number
+        model = BranchPhoneNumber
         fields = ('id', 'branch_id', 'phone_number')
 
 

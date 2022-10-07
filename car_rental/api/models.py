@@ -14,9 +14,9 @@ class Branch(models.Model):
     street_name = models.CharField(max_length=30)
     unit_number = models.CharField(max_length=5)
 
-class Branch_Phone_Number(models.Model):
+class BranchPhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)
-    branch_id = models.ForeignKey('Branch', on_delete=models.CASCADE)
+    branch_id = models.ForeignKey('Branch', on_delete=models.DO_NOTHING)
     phone_number = models.CharField(max_length=20)
 
 class Employee(models.Model):
