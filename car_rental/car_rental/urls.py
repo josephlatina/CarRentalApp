@@ -20,6 +20,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'branches', views.BranchView, 'Branch')
+router.register(r'employees', views.EmployeeView, 'Employee')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
