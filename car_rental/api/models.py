@@ -1,3 +1,5 @@
+from tkinter import CASCADE
+from unittest.mock import DEFAULT
 from django.db import models
 
 # Create your models here.
@@ -7,10 +9,15 @@ class Branch(models.Model):
     id = models.AutoField(primary_key=True)
     province = models.CharField(max_length=30)
     city = models.CharField(max_length=30)
-    postalcode = models.CharField(max_length=6)
-    streetnumber = models.CharField(max_length=10)
-    streetname = models.CharField(max_length=30)
-    unitnumber = models.CharField(max_length=5)
+    postal_code = models.CharField(max_length=6)
+    street_number = models.CharField(max_length=10)
+    street_name = models.CharField(max_length=30)
+    unit_number = models.CharField(max_length=5)
+
+class BranchPhoneNumber(models.Model):
+    id = models.AutoField(primary_key=True)
+    branch_id = models.ForeignKey('Branch', on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20)
 
 class CarType(models.Model):
     car_type_id         = models.AutoField(primary_key=True)
