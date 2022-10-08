@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from .models import Branch, BranchPhoneNumber, Customer, Employee, EmployeePhoneNumber, Car, CarType
+from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Employee, EmployeePhoneNumber, Car, CarType
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +41,8 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ('id', 'first_name', 'last_name', 'drivers_license', 'email', 'DOB', 'gold_member',
                   'province', 'city', 'postal_code', 'street_number', 'street_name', 'unit_number')
+
+class CustomerPhoneNumberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerPhoneNumber
+        fields = ('id', 'customer_id', 'phone_number')
