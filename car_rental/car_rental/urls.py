@@ -25,6 +25,7 @@ router.register(r'cartypes', views.CarTypeView, 'CarType')
 router.register(r'cars', views.CarView, 'Car')
 router.register(r'employees', views.EmployeeView, 'Employee')
 router.register(r'customers', views.CustomerView, 'Customer')
+router.register(r'customer-phone-number', views.CustomerPhoneNumberView, 'Customer Phone Number')
 router.register(r'employee-phone-number', views.EmployeePhoneNumberView, 'Employee Phone Number')
 
 urlpatterns = [
