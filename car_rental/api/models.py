@@ -88,3 +88,9 @@ class Customer(models.Model):
     street_number = models.CharField(max_length=10)
     street_name = models.CharField(max_length=30)
     unit_number = models.CharField(max_length=5)
+
+class CustomerPhoneNumber(models.Model):
+    id = models.AutoField(primary_key=True)
+    customer_id = models.ForeignKey(Customer, models.DO_NOTHING)
+    phone_number = models.CharField(max_length=15)
+
