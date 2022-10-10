@@ -19,6 +19,7 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
+router.register(r'rentals', views.RentalView, 'Rental')
 router.register(r'branches', views.BranchView, 'Branch')
 router.register(r'branch-phone-number', views.BranchPhoneNumberView, 'Branch Phone Number')
 router.register(r'cartypes', views.CarTypeView, 'CarType')
@@ -30,5 +31,5 @@ router.register(r'employee-phone-number', views.EmployeePhoneNumberView, 'Employ
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
 ]
