@@ -1,9 +1,9 @@
 from tkinter import CASCADE
 from unittest.mock import DEFAULT
+from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
-
 
 class Branch(models.Model):
     id = models.AutoField(primary_key=True)
@@ -94,3 +94,11 @@ class CustomerPhoneNumber(models.Model):
     customer_id = models.ForeignKey(Customer, models.DO_NOTHING)
     phone_number = models.CharField(max_length=15)
 
+class Rental(models.Model):
+    rental_id =  models.AutoField(primary_key=True)
+    date_from = models.DateField()
+    date_to = models.DateField()
+    date_returned = models.DateField()
+    total_cost = models.FloatField(max_length = 10)
+    licence_plate = models.ForeignKey(Car, models.DO_NOTHING)
+    gold_member = models.ForeignKey(Customer, models.DO_NOTHING)

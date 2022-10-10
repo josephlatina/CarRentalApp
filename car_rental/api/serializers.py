@@ -1,6 +1,12 @@
 from dataclasses import field
+from pyexpat import model
 from rest_framework import serializers
-from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Employee, EmployeePhoneNumber, Car, CarType
+from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Employee, EmployeePhoneNumber, Car, CarType, Rental
+
+class RentalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rental
+        fields = ('rental_id', 'date_from', 'date_to', 'date_returned', 'total_cost','licence_plate','gold_member')
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
