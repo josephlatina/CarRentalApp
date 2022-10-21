@@ -13,8 +13,8 @@ class RentalSerializer(serializers.ModelSerializer):
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = ('id', 'province', 'city', 'postalcode',
-                  'streetnumber', 'streetname', 'unitnumber')
+        fields = ('id', 'province', 'city', 'postal_code',
+                  'street_number', 'street_name', 'unit_number')
 
 
 class CarTypeSerializer(serializers.ModelSerializer):
