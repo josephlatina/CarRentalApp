@@ -111,6 +111,6 @@ class Rental(models.Model):
     licence_plate = models.ForeignKey(Car, models.DO_NOTHING)
     gold_member = models.ForeignKey(Customer, models.DO_NOTHING)
     given_by = models.ForeignKey(Employee, models.DO_NOTHING)
-    came_from = models.ForeignKey(Branch, models.DO_NOTHING)
-    goes_to = models.ForeignKey(Branch, models.DO_NOTHING)
+    came_from = models.ForeignKey(Branch, related_name='%(class)s_came_from', on_delete=models.DO_NOTHING)
+    goes_to = models.ForeignKey(Branch, related_name='%(class)s_goes_to', on_delete=models.DO_NOTHING)
     requested_car_type = models.ForeignKey(CarType, models.DO_NOTHING)
