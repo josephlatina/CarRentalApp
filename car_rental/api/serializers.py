@@ -7,7 +7,7 @@ from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Em
 class RentalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rental
-        fields = ('rental_id', 'date_from', 'date_to', 'date_returned', 'total_cost', 'licence_plate', 'gold_member')
+        fields = ('rental_id', 'date_from', 'date_to', 'date_returned', 'total_cost', 'licence_plate', 'gold_member', 'came_from', 'goes_to', 'given_by', 'requested_car_type')
 
 
 class BranchSerializer(serializers.ModelSerializer):
