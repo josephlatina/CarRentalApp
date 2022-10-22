@@ -54,7 +54,7 @@ class Car(models.Model):
     mileage = models.FloatField(max_length=25)
 
     def __str__(self):
-        return self.manufacturer + " " + self.model
+        return self.license_plate
 
 
 class Employee(models.Model):
