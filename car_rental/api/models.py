@@ -13,10 +13,10 @@ class Branch(models.Model):
     postal_code = models.CharField(max_length=6)
     street_number = models.CharField(max_length=10)
     street_name = models.CharField(max_length=30)
-    unit_number = models.CharField(max_length=5)
+    unit_number = models.CharField(max_length=5, blank=True)
 
     def __str__(self):
-        return self.street_number + " " + self.street_name + " " + self.city
+        return "Branch " + str(self.id) 
 
 
 class BranchPhoneNumber(models.Model):
@@ -40,7 +40,7 @@ class CarType(models.Model):
 
 class Car(models.Model):
     # choices for status
-    STATUS_CHOICES = (('Available', 'Not Rented'),('Not Available', 'Rented'))
+    STATUS_CHOICES = (('Available', 'Rented'), ('Not Available', 'Not Rented'))
 
     car_id = models.AutoField(primary_key=True)
     car_type = models.ForeignKey(CarType, related_name='car_type', on_delete=models.CASCADE)
@@ -54,7 +54,7 @@ class Car(models.Model):
     mileage = models.FloatField(max_length=25)
 
     def __str__(self):
-        return self.license_plate
+        return self.manufacturer + self.model
 
 
 class Employee(models.Model):
@@ -73,13 +73,18 @@ class Employee(models.Model):
     postal_code = models.CharField(max_length=6)
     street_number = models.CharField(max_length=10)
     street_name = models.CharField(max_length=30)
-    unit_number = models.CharField(max_length=5)
-    works_at = models.ForeignKey(Branch, models.DO_NOTHING)
+    unit_number = models.CharField(max_length=5, blank=True)
+    works_at = models.ForeignKey(Branch, models.SET_NULL, null=True)
+
+    def __str__(self):
+        return str(self.id) + " " + self.first_name + " " + self.last_name
+
+    
 
 
 class EmployeePhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)
-    employee_id = models.ForeignKey(Employee, models.DO_NOTHING)
+    employee_id = models.ForeignKey(Employee, models.SET_NULL, null=True)
     phone_number = models.CharField(max_length=15)
 
 
@@ -96,12 +101,15 @@ class Customer(models.Model):
     postal_code = models.CharField(max_length=6)
     street_number = models.CharField(max_length=10)
     street_name = models.CharField(max_length=30)
-    unit_number = models.CharField(max_length=5)
+    unit_number = models.CharField(max_length=5, blank=True)
+
+    def __str__(self):
+        return str(self.id) + " " + self.first_name + " " + self.last_name
 
 
 class CustomerPhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)
-    customer_id = models.ForeignKey(Customer, models.DO_NOTHING)
+    customer_id = models.ForeignKey(Customer, models.SET_NULL, null=True)
     phone_number = models.CharField(max_length=15)
 
 
@@ -111,9 +119,9 @@ class Rental(models.Model):
     date_to = models.DateField()
     date_returned = models.DateField()
     total_cost = models.FloatField(max_length=10)
-    licence_plate = models.ForeignKey(Car, models.DO_NOTHING, default="")
-    gold_member = models.ForeignKey(Customer, models.DO_NOTHING, default="")
-    given_by = models.ForeignKey(Employee, models.DO_NOTHING, default="")
+    licence_plate = models.ForeignKey(Car, models.SET_NULL, null=True, default="")
+    gold_member = models.ForeignKey(Customer, models.SET_NULL, null=True, default="")
+    given_by = models.ForeignKey(Employee, models.SET_NULL, null=True, default="")
     came_from = models.ForeignKey(Branch, related_name='%(class)s_came_from', on_delete=models.DO_NOTHING, default="")
     goes_to = models.ForeignKey(Branch, related_name='%(class)s_goes_to', on_delete=models.DO_NOTHING, default="")
-    requested_car_type = models.ForeignKey(CarType, models.DO_NOTHING, default="")
+    requested_car_type = models.ForeignKey(CarType, models.SET_NULL, null=True, default="")
