@@ -15,6 +15,9 @@ class Branch(models.Model):
     street_name = models.CharField(max_length=30)
     unit_number = models.CharField(max_length=5)
 
+    def __str__(self):
+        return self.street_number + " " + self.street_name + " " + self.city
+
 
 class BranchPhoneNumber(models.Model):
     id = models.AutoField(primary_key=True)
@@ -37,7 +40,7 @@ class CarType(models.Model):
 
 class Car(models.Model):
     # choices for status
-    STATUS_CHOICES = (('Available', 'Rented'), ('Not Available', 'Not Rented'))
+    STATUS_CHOICES = (('Available', 'Not Rented'),('Not Available', 'Rented'))
 
     car_id = models.AutoField(primary_key=True)
     car_type = models.ForeignKey(CarType, related_name='car_type', on_delete=models.CASCADE)
@@ -51,7 +54,7 @@ class Car(models.Model):
     mileage = models.FloatField(max_length=25)
 
     def __str__(self):
-        return self.manufacturer + self.model
+        return self.license_plate
 
 
 class Employee(models.Model):
