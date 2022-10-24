@@ -40,7 +40,7 @@ class CarType(models.Model):
 
 class Car(models.Model):
     # choices for status
-    STATUS_CHOICES = (('Available', 'Not Rented'),('Not Available', 'Rented'))
+    STATUS_CHOICES = (('Available', 'Available'),('Not Available', 'Not Available'))
 
     car_id = models.AutoField(primary_key=True)
     car_type = models.ForeignKey(CarType, related_name='car_type', on_delete=models.CASCADE)
@@ -122,6 +122,6 @@ class Rental(models.Model):
     licence_plate = models.ForeignKey(Car, models.SET_NULL, null=True, default="")
     gold_member = models.ForeignKey(Customer, models.SET_NULL, null=True, default="")
     given_by = models.ForeignKey(Employee, models.SET_NULL, null=True, default="")
-    came_from = models.ForeignKey(Branch, related_name='%(class)s_came_from', on_delete=models.DO_NOTHING, default="")
-    goes_to = models.ForeignKey(Branch, related_name='%(class)s_goes_to', on_delete=models.DO_NOTHING, default="")
+    came_from = models.ForeignKey(Branch, related_name='%(class)s_came_from', on_delete=models.SET_NULL, null=True, default="")
+    goes_to = models.ForeignKey(Branch, related_name='%(class)s_goes_to', on_delete=models.SET_NULL, null=True, default="")
     requested_car_type = models.ForeignKey(CarType, models.SET_NULL, null=True, default="")
