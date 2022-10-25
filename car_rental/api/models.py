@@ -40,7 +40,7 @@ class CarType(models.Model):
 
 class Car(models.Model):
     # choices for status
-    STATUS_CHOICES = (('Available', 'Not Rented'),('Not Available', 'Rented'))
+    STATUS_CHOICES = (('Available', 'Available'),('Not Available', 'Not Available'))
 
     car_id = models.AutoField(primary_key=True)
     car_type = models.ForeignKey(CarType, related_name='car_type', on_delete=models.CASCADE)
