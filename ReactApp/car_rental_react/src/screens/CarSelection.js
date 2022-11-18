@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link } from "react-router-dom";
 import ReserveSummary from "../components/ReserveSummary";
 import CarCard from "../components/CarCard";
 import axios from "axios";
-import '../css/style.css'
+import "../css/style.css";
 
 const CarSelection = () => {
     const location = useLocation();
-    cons [ cars, setCars ] = useState();
-    const manufacturers = ["Nissan", "Toyota", "Honda", "Lexus", "Dodge"]
-    const fueltype = ["Gasoline", "Electric", "Hybrid"]
-    const cartype = ["Economy", "Compact", "SUV", "Van"]
+    const [cars, setCars] = useState();
+    const manufacturers = ["Nissan", "Toyota", "Honda", "Lexus", "Dodge"];
+    const fueltype = ["Gasoline", "Electric", "Hybrid"];
+    const cartype = ["Economy", "Compact", "SUV", "Van"];
 
-    useEffect(() => {
-
-    }, [])
+    useEffect(() => {}, []);
 
     return (
         <body class="root-style font-link">
@@ -30,7 +28,11 @@ const CarSelection = () => {
                     <div class="col-3 bottom-line">
                         <h5>2. Select Branch</h5>
                     </div>
-                    <div class="col-3 bottom-line" id="selected" style={{"border-bottom": "10px solid #0FB877"}}>
+                    <div
+                        class="col-3 bottom-line"
+                        id="selected"
+                        style={{ "border-bottom": "10px solid #0FB877" }}
+                    >
                         <h5>3. Select Car</h5>
                     </div>
                     <div class="col-3 bottom-line">
@@ -40,7 +42,7 @@ const CarSelection = () => {
             </section>
             {/* Section 3: Reserve Summary */}
             <section class="container">
-                <ReserveSummary 
+                <ReserveSummary
                     pickuplocation="Edmonton, AB"
                     returnlocation="Calgary, AB"
                     pickupdate="Aug 18, 2022 8:00am"
@@ -55,30 +57,24 @@ const CarSelection = () => {
                         <h4>Filter By</h4>
                         <h5 id="selected">Manufacturer</h5>
                         {manufacturers.map((item, index) => {
-                            return (
-                                <p key={index}>{item}</p>
-                            )
+                            return <p key={index}>{item}</p>;
                         })}
                         <h5 id="selected">Fuel Type</h5>
                         {fueltype.map((item, index) => {
-                            return (
-                                <p key={index}>{item}</p>
-                            )
+                            return <p key={index}>{item}</p>;
                         })}
                         <h5 id="selected">Car Type</h5>
                         {cartype.map((item, index) => {
-                            return (
-                                <p key={index}>{item}</p>
-                            )
+                            return <p key={index}>{item}</p>;
                         })}
                     </div>
                 </div>
                 {/* Car Cards #393939*/}
-                <div class="box" style={{"background-color": "#393939"}}>
+                <div class="box" style={{ "background-color": "#393939" }}>
                     <CarCard />
                 </div>
             </section>
-            </body>
+        </body>
     );
 };
 
