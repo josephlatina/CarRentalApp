@@ -3,11 +3,11 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.http import JsonResponse
-from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
+from .serializers import MyTokenObtainPairSerializer, RegisterSerializer, RegisterEmployeeSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from api.models import User
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 
 # Create your views here.
@@ -23,11 +23,23 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
 
 
+class isSuperUser(IsAdminUser):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_superuser)
+
+
+class RegisterEmployeeView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (isSuperUser,)
+    serializer_class = RegisterEmployeeSerializer
+
+
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
         '/auth/token/',
         '/auth/register/',
+        '/auth/register/employee',
         '/auth/token/refresh/',
         '/auth/prediction/'
     ]
