@@ -1,21 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
-import App from './App';
-import { BrowserRouter as Router, Routes, Route } from  'react-router-dom';
-import CarSelection from './screens/CarSelection';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.css";
+import "./index.css";
+import App from "./App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CarSelection from "./screens/CarSelection";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Router>
-    <Routes>
-      <Route exact path="/" element={<App />} />
-      <Route exact path="/Car" element={<CarSelection />}/>
-    </Routes>
-  </Router>
-);
+const router = createBrowserRouter([
+    { path: "/", element: <App /> },
+    { path: "/Car", element: <CarSelection /> },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
