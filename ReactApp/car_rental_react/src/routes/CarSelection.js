@@ -15,9 +15,7 @@ const CarSelection = () => {
     useEffect(() => {}, []);
 
     return (
-        <body class="root-style font-link">
-            {/* Section 1: Jumbotron */}
-            <section class="container-fluid jumbotron"></section>
+        <>
             {/* Section 2: Progress */}
             <section class="container">
                 {/* Progress Bar */}
@@ -74,7 +72,7 @@ const CarSelection = () => {
                     <CarCard />
                 </div>
             </section>
-        </body>
+        </>
     );
 };
 
