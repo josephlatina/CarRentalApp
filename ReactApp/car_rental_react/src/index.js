@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
-import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CarSelection from "./screens/CarSelection";
+import CarSelection from "./routes/CarSelection";
 import reportWebVitals from "./reportWebVitals";
+import Root from "./routes/Root";
 
 const router = createBrowserRouter([
-    { path: "/", element: <App /> },
-    { path: "/Car", element: <CarSelection /> },
+    {
+        path: "/",
+        element: <Root />,
+        children: [{ path: "/car", element: <CarSelection /> }],
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
