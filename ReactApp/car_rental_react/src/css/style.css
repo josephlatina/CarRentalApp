@@ -1,0 +1,113 @@
+.font-link {
+    font-family: 'Poppins', sans-serif;
+}
+
+.root-style {
+    background-color: #393939;
+    position: absolute;
+    width: 100%;
+    height: '100vh';
+    min-height: '100vh';
+    color: black;
+}
+
+.jumbotron {
+    background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5) ), url("../assets/car-banner.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 150px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+#progress-bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.bottom-line {
+    border-bottom: 10px solid black;
+    flex: 1 1 auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#selected {
+    color: #0FB877;
+}
+
+.box {
+    background-color: #242424;
+    border-radius: 10px;
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.innerbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /* display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); */
+    margin: 5px 10px 5px 10px;
+}
+
+.field {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 15px 20px 15px 20px;
+    flex: auto;
+    padding: 20px 0px 0px 40px;
+    height: 100px;
+    color: #BFBFBF;
+}
+
+#car-selection {
+    height: 800px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 3fr;
+}
+
+#filter-box {
+    background-color: #242424;
+    border-radius: 10px;
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 20px 40px;
+    color: white;
+}
+
+#car-box {
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.car-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.car-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.car-btn {
+    background-color: #C8E745;
+    color: black;
+    margin: auto;
+    height: 65px;
+}

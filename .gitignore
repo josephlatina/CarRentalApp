@@ -7,3 +7,7 @@ media
 
 # Environments 
 virtualenv/
+
+#React
+ReactApp/car_rental_react/node_modules/
+.DS_Store
