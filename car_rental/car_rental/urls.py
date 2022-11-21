@@ -32,4 +32,5 @@ router.register(r'employee-phone-number', views.EmployeePhoneNumberView, 'Employ
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('auth/', include('authentication.urls'))
 ]
