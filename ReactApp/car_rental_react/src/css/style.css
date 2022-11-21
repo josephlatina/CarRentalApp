@@ -1,3 +1,4 @@
+
 .font-link {
     font-family: 'Poppins', sans-serif;
 }
@@ -16,7 +17,7 @@
     background-size: cover;
     background-position: center;
     height: 150px;
-    width: 100%;
+    width: 100vw;
     margin-bottom: 40px;
 }
 
@@ -73,7 +74,7 @@
 }
 
 #filter-box {
-    background-color: #242424;
+    background-color:;
     border-radius: 10px;
     margin: 40px;
     display: flex;
@@ -110,4 +111,73 @@
     color: black;
     margin: auto;
     height: 65px;
+}
+
+.header-text {
+    color: white;
+}
+
+.sub-text {
+    color: #808080;
+}
+
+.rental-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.rental-details {
+    background-color:  #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 40vh;
+    width: 70vw;
+}
+
+.member-box {
+    background-color:  #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 25vh;
+    width: 70vw;
+    margin: 20px;
+}
+
+.wide-car-btn {
+    background-color: #C8E745;
+    color: black;
+    height: 5vh;
+    width: 10vw;
+    margin-top: 3px;
+}
+
+.rental-input {
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color:  #242424;
+    color: #808080;
+    height: 3vw;
+    width: 30vw;
+    margin: 3px;
+    text-align: center;
+}
+.personal-details {
+    background-color:  #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 90vh;
+    width: 70vw; 
+    margin-bottom: 20px;
 }
