@@ -19,12 +19,12 @@ export default function Root() {
         </NavItem>
         <NavItem>
           <NavLink>
-            <Link to="/auth">Auth,</Link>
+            <Link to="/rent">Rent,</Link>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink>
-            <Link to="/rent">Rent,</Link>
+            <Link to="/auth">Auth,</Link>
           </NavLink>
         </NavItem>
       </Nav>
