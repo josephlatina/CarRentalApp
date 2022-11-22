@@ -37,6 +37,10 @@
     color: #0FB877;
 }
 
+#selected.bottom-line {
+    border-bottom: 10px solid #0FB877;
+}
+
 .box {
     background-color: #242424;
     border-radius: 10px;
@@ -66,7 +70,7 @@
 }
 
 #car-selection {
-    height: 800px;
+    /* height: 800px; */
     display: grid;
     gap: 10px;
     grid-template-columns: 1fr 3fr;
@@ -74,6 +78,7 @@
 
 #filter-box {
     background-color: #242424;
+    height: 800px;
     border-radius: 10px;
     margin: 40px;
     display: flex;
@@ -83,7 +88,7 @@
 }
 
 #car-box {
-    height: 300px;
+    height: 250px;
     width: 100%;
     padding: 20px;
     display: flex;
