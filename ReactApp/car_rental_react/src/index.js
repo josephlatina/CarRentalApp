@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CarSelection from "./routes/CarSelection";
+import CarReserve from "./routes/CarReserve";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
 import AuthPage from "./routes/AuthPage";
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
         path: "/",
         element: <Root />,
         children: [{ path: "/auth", element: <AuthPage /> }],
+    },
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        { path: "/car", element: <CarSelection /> },
+        { path: "/rent", element: <CarReserve /> },
+      ],
     },
 ]);
 
