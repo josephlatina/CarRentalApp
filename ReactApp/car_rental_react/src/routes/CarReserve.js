@@ -1,6 +1,56 @@
 import { Button } from "reactstrap";
+import axios from "axios";
 
 const CarReserve = () => {
+  function signIn() {
+    alert("Feature not yet implemented!");
+  }
+
+  function submitRental() {
+    // first create a customer from the details inputted
+    const customer_fields = document.getElementsByClassName("rental-input");
+    var customer_input = [];
+    for (let index = 0; index < customer_fields.length; index++) {
+      customer_input.push(customer_fields[index].value);
+    }
+
+    const customer_details = {
+      first_name: customer_input[0],
+      last_name: customer_input[1],
+      drivers_license: customer_input[10],
+      email: customer_input[2],
+      DOB: customer_input[4],
+      gold_member: false,
+      province: customer_input[7],
+      city: customer_input[9],
+      postal_code: customer_input[8],
+      street_number: customer_input[5],
+      street_name: "ST",
+      unit_number: customer_input[6],
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/customers/", customer_details)
+      .then((response) => {
+        console.log("Response", response.data.id);
+        // get actual rental details here
+        const rental_details = {
+          date_from: "2022-11-01",
+          date_to: "2022-11-01",
+          date_returned: "2022-11-02",
+          total_cost: "30",
+          car: 1,
+          customer: response.data.id,
+          branch_came_from: 1,
+          branch_goes_to: 1,
+          employee_given_by: 1,
+          equested_car_type: 1,
+        };
+        axios
+          .post("http://127.0.0.1:8000/api/rentals/", rental_details)
+          .then((response) => console.log(response));
+      });
+  }
+
   return (
     <>
       {/* Section 2: Progress */}
@@ -38,7 +88,9 @@ const CarReserve = () => {
           <h5 className="sub-text">
             Gold member? You could be eligible for discounted pricing.
           </h5>
-          <Button className="wide-car-btn">Sign In</Button>
+          <Button className="wide-car-btn" onClick={signIn}>
+            Sign In
+          </Button>
         </div>
         <div className="personal-details">
           <h3 className="header-text">Personal Details</h3>
@@ -96,7 +148,9 @@ const CarReserve = () => {
             placeholder="Drivers License Number"
             id="driversno"
           ></input>
-          <Button className="wide-car-btn">Reserve</Button>
+          <Button className="wide-car-btn" onClick={submitRental}>
+            Reserve
+          </Button>
         </div>
       </section>
     </>
