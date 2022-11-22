@@ -10,25 +10,16 @@ const CarSelection = () => {
     const location = useLocation();
     const pickupdate = "2022-10-25";
     const returndate= "2022-10-28";
-    const [cars, setCars] = useState([{
-        car_id: 6,
-        car_type: 3,
-        manufacturer: "Dodge",
-        model: "Caravan",
-        fuel_type: "Gasoline"
-    }]);
+    const [cars, setCars] = useState([]);
     const [ manufacturers, setManufacturers ] = useState([]);
     const [ fueltype, setFuelType ] = useState([]);
     const [ cartype, setCarType ] = useState([]);
     const [ filters, setFilters ] = useState({
         cards: [],
-        manufacturers: new Set(),
-        fueltype: new Set(),
-        cartype: new Set(),
+        filteredmanufacturers: new Set(),
+        filteredfueltype: new Set(),
+        filteredcartype: new Set(),
     })
-    // const manufacturers = ["Nissan", "Toyota", "Honda", "Lexus", "Dodge"];
-    // const fueltype = ["Gasoline", "Electric", "Hybrid"];
-    // const cartype = ["Economy", "Compact", "SUV", "Van"];
 
     // handle retrieval of cars from query here
     const queryCars = async () => {
@@ -39,22 +30,12 @@ const CarSelection = () => {
             axios
                 .get("/api/cars")
                 .then((res) => {
-                    setFilters({...filters, cards: res.data});
-                    setCars(res.data)})
+                    setCars(res.data);
+                })
                 .catch((err) => console.log(err));
         } catch (error) {
             throw new Error(error);
         }
-
-        let car_manufacturers = [];
-        let car_fueltype = [];
-
-        for (let car of cars) {
-            car_manufacturers.push(car.manufacturer);
-            car_fueltype.push(car.fuel_type);
-        }
-        setManufacturers(Array.from(new Set(car_manufacturers)));
-        setFuelType(Array.from(new Set(car_fueltype)));
     };
 
     // handle retrieval of car types from query here
@@ -70,124 +51,7 @@ const CarSelection = () => {
         }
     };
 
-    const handleManufacturerFilterChange = useCallback(event => {
-        setFilters(prevFilter => {
-            let manufacturers = new Set(prevFilter.manufacturers)
-            let fueltype = new Set(prevFilter.fueltype)
-            let cartype = new Set(prevFilter.cartype)
-            let cards = cars
-
-            if (event.target.checked) {
-                manufacturers.add(event.target.value)
-            } else {
-                manufacturers.delete(event.target.value)
-            }
-
-            if (manufacturers.size) {
-                cards = cards.filter(card => {
-                    return manufacturers.has(card.manufacturer)
-                })
-            }
-            if (fueltype.size) {
-                cards = cards.filter(card => {
-                    return fueltype.has(card.fuel_type)
-                })
-            }
-            if (cartype.size) {
-                cards = cards.filter(card => {
-                    return cartype.has(card.car_type.toString())
-                })
-            }
-
-            return {
-                manufacturers,
-                fueltype,
-                cartype,
-                cards
-            }
-        })
-    }, [setFilters])
-
-    const handleFuelTypeFilterChange = useCallback(event => {
-        setFilters(prevFilter => {
-            let manufacturers = new Set(prevFilter.manufacturers)
-            let fueltype = new Set(prevFilter.fueltype)
-            let cartype = new Set(prevFilter.cartype)
-            let cards = cars
-
-            if (event.target.checked) {
-                fueltype.add(event.target.value)
-            } else {
-                fueltype.delete(event.target.value)
-            }
-
-            if (fueltype.size) {
-                cards = cards.filter(card => {
-                    return fueltype.has(card.fuel_type)
-                })
-            }
-            if (cartype.size) {
-                cards = cards.filter(card => {
-                    return cartype.has(card.car_type.toString())
-                })
-            }
-            if (manufacturers.size) {
-                cards = cards.filter(card => {
-                    return manufacturers.has(card.manufacturer)
-                })
-            }
-
-            return {
-                manufacturers,
-                fueltype,
-                cartype,
-                cards
-            }
-        })
-    }, [setFilters])
-
-    const handleCarTypeFilterChange = useCallback(event => {
-        setFilters(prevFilter => {
-            let manufacturers = new Set(prevFilter.manufacturers)
-            let fueltype = new Set(prevFilter.fueltype)
-            let cartype = new Set(prevFilter.cartype)
-            let cards = cars
-
-            if (event.target.checked) {
-                cartype.add(event.target.value)
-            } else {
-                cartype.delete(event.target.value)
-            }
-
-            if (cartype.size) {
-                cards = cards.filter(card => {
-                    return cartype.has(card.car_type.toString())
-                })
-            }
-            if (manufacturers.size) {
-                cards = cards.filter(card => {
-                    return manufacturers.has(card.manufacturer)
-                })
-            }
-            if (fueltype.size) {
-                cards = cards.filter(card => {
-                    return fueltype.has(card.fuel_type)
-                })
-            }
-
-            return {
-                manufacturers,
-                fueltype,
-                cartype,
-                cards
-            }
-        })
-    }, [setFilters])
-
     useEffect(() => {
-        // call on this method to retrieve cars
-        // queryCars();
-        // queryCarTypes();
         (async () => {
             await queryCars();
         })();
@@ -195,6 +59,136 @@ const CarSelection = () => {
             await queryCarTypes();
         })();
     }, []);
+
+    useEffect(() => {
+
+        let car_manufacturers = [];
+        let car_fueltype = [];
+
+        for (let car of cars) {
+            car_manufacturers.push(car.manufacturer);
+            car_fueltype.push(car.fuel_type);
+        }
+        setManufacturers(Array.from(new Set(car_manufacturers)));
+        setFuelType(Array.from(new Set(car_fueltype)));
+        setFilters({...filters, 
+            cards: cars
+        })
+    }, [cars, cartype]);
+
+    const handleManufacturerFilterChange = useCallback(event => {
+        setFilters(prevFilter => {
+            let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
+            let filteredfueltype = new Set(prevFilter.filteredfueltype);
+            let filteredcartype = new Set(prevFilter.filteredcartype);
+            let cards = cars;
+
+            if (event.target.checked) {
+                filteredmanufacturers.add(event.target.value);
+            } else {
+                filteredmanufacturers.delete(event.target.value);
+            }
+
+            if (filteredmanufacturers.size > 0) {
+                cards = cards.filter(card => {
+                    return filteredmanufacturers.has(card.manufacturer)
+                })
+            }
+            if (filteredfueltype.size) {
+                cards = cards.filter(card => {
+                    return filteredfueltype.has(card.fuel_type)
+                })
+            }
+            if (filteredcartype.size) {
+                cards = cards.filter(card => {
+                    return filteredcartype.has(card.car_type.toString())
+                })
+            }
+
+            return {
+                filteredmanufacturers,
+                filteredfueltype,
+                filteredcartype,
+                cards
+            }
+        })
+    }, [setFilters, cars])
+
+    const handleFuelTypeFilterChange = useCallback(event => {
+        setFilters(prevFilter => {
+            let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
+            let filteredfueltype = new Set(prevFilter.filteredfueltype);
+            let filteredcartype = new Set(prevFilter.filteredcartype);
+            let cards = cars;
+
+            if (event.target.checked) {
+                filteredfueltype.add(event.target.value)
+            } else {
+                filteredfueltype.delete(event.target.value)
+            }
+
+            if (filteredmanufacturers.size) {
+                cards = cards.filter(card => {
+                    return filteredmanufacturers.has(card.manufacturer)
+                })
+            }
+            if (filteredfueltype.size) {
+                cards = cards.filter(card => {
+                    return filteredfueltype.has(card.fuel_type)
+                })
+            }
+            if (filteredcartype.size) {
+                cards = cards.filter(card => {
+                    return filteredcartype.has(card.car_type.toString())
+                })
+            }
+
+            return {
+                filteredmanufacturers,
+                filteredfueltype,
+                filteredcartype,
+                cards
+            }
+        })
+    }, [setFilters, cars])
+
+    const handleCarTypeFilterChange = useCallback(event => {
+        setFilters(prevFilter => {
+            let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
+            let filteredfueltype = new Set(prevFilter.filteredfueltype);
+            let filteredcartype = new Set(prevFilter.filteredcartype);
+            let cards = cars;
+
+            if (event.target.checked) {
+                filteredcartype.add(event.target.value)
+            } else {
+                filteredcartype.delete(event.target.value)
+            }
+
+            if (filteredmanufacturers.size) {
+                cards = cards.filter(card => {
+                    return filteredmanufacturers.has(card.manufacturer)
+                })
+            }
+            if (filteredfueltype.size) {
+                cards = cards.filter(card => {
+                    return filteredfueltype.has(card.fuel_type)
+                })
+            }
+            if (filteredcartype.size) {
+                cards = cards.filter(card => {
+                    return filteredcartype.has(card.car_type.toString())
+                })
+            }
+
+            return {
+                filteredmanufacturers,
+                filteredfueltype,
+                filteredcartype,
+                cards
+            }
+        })
+    }, [setFilters, cars])
 
     return (
         <>
@@ -266,7 +260,7 @@ const CarSelection = () => {
                 </div>
                 {/* Car Cards #393939*/}
                 <div>
-                    {filters.cards.map((item, index) => {
+                    {filters?.cards.map((item, index) => {
                     return <div className="box">
                         <CarCard
                             key={index}
@@ -274,7 +268,7 @@ const CarSelection = () => {
                             model={item.model}
                             fueltype={item.fuel_type}
                             cartypeitem={cartype?.filter((cartype) => {
-                                return cartype?.car_type_id == item.car_type;
+                                return cartype?.car_type_id === item.car_type;
                             })}
                             pickup={pickupdate}
                             return={returndate}
