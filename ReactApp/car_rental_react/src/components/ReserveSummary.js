@@ -4,7 +4,7 @@ import '../css/style.css'
 const ReserveSummary = (props) => {
 
     return (
-        <div className="row box" style={{height: 300 + "px"}}>
+        <div className="row box">
             <div className="row innerbox">
                 <div className="col-6 field">
                     <h5 id="selected">Pick-up Location</h5>

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ReserveSummary from "../components/ReserveSummary";
 import CarCard from "../components/CarCard";
 import axios from "axios";
 import "../css/style.css";
-import { CardSubtitle, DropdownToggle } from "reactstrap";
+import CarFilter from "../components/CarFilter";
 
 const CarSelection = () => {
     const location = useLocation();
@@ -20,6 +21,7 @@ const CarSelection = () => {
         filteredfueltype: new Set(),
         filteredcartype: new Set(),
     })
+    const [ filterby, setFilterby ] = useState(false);
 
     // handle retrieval of cars from query here
     const queryCars = async () => {
@@ -190,22 +192,36 @@ const CarSelection = () => {
         })
     }, [setFilters, cars])
 
+    const toggle = () => {
+        setFilterby(!filterby);
+    }
+
+    const clearFilter = () => {
+        toggle();
+        setFilters({...filters, 
+            filteredmanufacturers: new Set(),
+            filteredfueltype: new Set(),
+            filteredcartype: new Set(),
+            cards: cars
+        }, [setFilters, cars])
+    }
+
     return (
         <>
             {/* Section 2: Progress */}
             <section className="container">
                 {/* Progress Bar */}
                 <div className="row" id="progress-bar">
-                    <div className="col-4 bottom-line">
+                    <div className="col-sm-12 col-lg-4 bottom-line">
                         <h5>1. Rental Details</h5>
                     </div>
                     <div
-                        className="col-4 bottom-line"
+                        className="col-sm-12 col-lg-4 bottom-line"
                         id="selected"
                     >
                         <h5>2. Select Car</h5>
                     </div>
-                    <div className="col-4 bottom-line">
+                    <div className="col-sm-12 col-lg-4 bottom-line">
                         <h5>3. Reserve</h5>
                     </div>
                 </div>
@@ -220,45 +236,38 @@ const CarSelection = () => {
                 />
             </section>
             {/* Section 4: Filter and Car Cards */}
+            <div id="filter-button">
+                <Button className="col-10 car-btn" size="lg" onClick={clearFilter}>Filter By</Button>
+            </div>
+            {filterby && <Modal isOpen={filterby} toggle={toggle} contentClassName="modal">
+                    <ModalHeader toggle={toggle}></ModalHeader>
+                    <ModalBody>
+                        <CarFilter 
+                            manufacturerfilter={manufacturers}
+                            fueltypefilter={fueltype}
+                            cartypefilter={cartype}
+                            manufacturerfilterchange={handleManufacturerFilterChange}
+                            fueltypefilterchange={handleFuelTypeFilterChange}
+                            cartypefilterchange={handleCarTypeFilterChange}
+                        />
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button className="col-10 car-btn" size="lg" onClick={toggle}>Save</Button>
+                    </ModalFooter>
+                </Modal>}
             <section id="car-selection">
                 {/* Filter */}
                 <div id="filter-box">
-                    <div>
-                        <h4>Filter By</h4>
-                        <br/>
-                        <h5 id="selected">Manufacturer</h5>
-                        {manufacturers?.map((item, index) => {
-                            return <div key={index}>
-                                <label>
-                                    <input key={index} type="checkbox" value={item} onChange={handleManufacturerFilterChange}></input>
-                                    &nbsp;&nbsp;{item}
-                                </label>
-                            </div>;
-                            // return <p key={index}>{item}</p>;
-                        })}
-                        <br/>
-                        <h5 id="selected">Fuel Type</h5>
-                        {fueltype?.map((item, index) => {
-                            return <div key={index}>
-                                <label>
-                                    <input key={index} type="checkbox" value={item} onChange={handleFuelTypeFilterChange}></input>
-                                    &nbsp;&nbsp;{item}
-                                </label>
-                            </div>;
-                        })}
-                        <br/>
-                        <h5 id="selected">Car Type</h5>
-                        {cartype?.map((item, index) => {
-                            return <div key={index}>
-                                <label>
-                                    <input key={index} type="checkbox" value={item.car_type_id} onChange={handleCarTypeFilterChange}></input>
-                                    &nbsp;&nbsp;{item.description}
-                                </label>
-                            </div>;
-                            })}
-                    </div>
+                    <CarFilter 
+                        manufacturerfilter={manufacturers}
+                        fueltypefilter={fueltype}
+                        cartypefilter={cartype}
+                        manufacturerfilterchange={handleManufacturerFilterChange}
+                        fueltypefilterchange={handleFuelTypeFilterChange}
+                        cartypefilterchange={handleCarTypeFilterChange}
+                    />
                 </div>
-                {/* Car Cards #393939*/}
+                {/* Car Cards */}
                 <div>
                     {filters?.cards.map((item, index) => {
                     return <div className="box">

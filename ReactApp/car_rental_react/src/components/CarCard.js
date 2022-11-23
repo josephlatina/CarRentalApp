@@ -10,24 +10,6 @@ const CarCard = (props) => {
 
     const navigate = useNavigate();
 
-    // handle retrieval of car types from query here
-    // const queryCarTypes = async () => {
-    //     // handle query here
-    //     // try {
-    //     //     axios
-    //     //         .get("/api/cartypes")
-    //     //         .then((res) => setCarType(res.data.filter((cartype) => {
-    //     //             return cartype.car_type_id == props.cartypeid;
-    //     //         })))
-    //     //         .catch((err) => console.log(err));
-    //     // } catch (error) {
-    //     //     throw new Error(error);
-    //     // }
-    //     setCarType(props.cartypes.filter((carType) => {
-    //         return cartype.car_type_id == props.cartypeid;
-    //     }))
-    // };
-
     const handleCalculation = () => {
         const returnDate = new Date(props.return);
         const pickupDate = new Date(props.pickup);
@@ -67,36 +49,23 @@ const CarCard = (props) => {
     }
 
     useEffect(() => {
-        // call on this method to retrieve car types
-        // (async () => {
-        //     await queryCarTypes();
-        // })();
-
-        // console.log("hello");
-        // console.log(props.cartype2);
-        // setCarType(props.cartype2);
-        // console.log(props.cartype2);
-
-        // handleCalculation(props.cartype2.filter((cartype) => {
-        //     return cartype.car_type_id == props.cartypeid;
-        // }));
         handleCalculation();
-    }, []);
+    }, [props.cartypeitem]);
 
     return (
         <div className="row box" id="car-box">
             {/* Car Image */}
-            <div className="col-4 car-info">
+            <div className="col-sm-12 col-lg-4 car-info">
                 <p>Image here</p>
             </div>
             {/* Car Info */}
-            <div className="col-4 car-info">
+            <div className="col-sm-12 col-lg-4 car-info">
                 <h3>{props.manufacturer} {props.model}</h3>
                 <p>{props.cartypeitem[0]?.description}</p>
                 <p>{props.fueltype}</p>
             </div>
             {/* Car Price */}
-            <div className="col-4 car-info">
+            <div className="col-sm-12 col-lg-4 car-info">
                 <div className="car-price">
                     <p>CAD</p>
                     <h3>{total.toFixed(2)}</h3>

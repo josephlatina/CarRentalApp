@@ -1,3 +1,85 @@
+/*+++++++++++++++++++*/
+
+@-ms-viewport {
+	width: device-width;
+}
+@viewport {
+	width: device-width;
+}
+
+/*+++++++++++++++++++ MEDIA QUERY FOR SMALL +++++++++++++++++++ */
+@media only screen and (min-width: 1px) and (max-width: 991px) {
+    #progress-bar {
+        flex-wrap: wrap;
+        padding: 0px 100px 0px 100px;
+    }
+
+    #progress-bar div {
+        margin: 10px;
+    }
+
+    .innerbox {
+        flex-wrap: wrap;
+    }
+
+    .box {
+        height: 550px;
+    }
+
+    #filter-box {
+        display: none;
+    }
+
+    #filter-button {
+        display: flex;
+        justify-content: center;
+        padding: 0px 150px 0px 150px;
+    }
+    #filter-button .car-btn {
+        background-color: #242424;
+        color: #0FB877;
+    }
+}
+
+/*+++++++++++++++++++ MEDIA QUERY FOR LARGE +++++++++++++++++++ */
+@media only screen and (min-width: 992px){
+    #progress-bar {
+        flex-wrap: nowrap;
+    }
+
+    .innerbox {
+        flex-wrap: nowrap;
+    }
+
+    .box {
+        height: 300px;
+    }
+
+    #car-selection {
+        /* height: 800px; */
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr 3fr;
+    }
+
+    #filter-box {
+        background-color: #242424;
+        height: 800px;
+        border-radius: 10px;
+        margin: 40px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px 20px 40px;
+        color: white;
+    }
+
+    #filter-button .car-btn {
+        display: none;
+    }
+
+}
+
+/*+++++++++++++++++++ GLOBAL STYLES +++++++++++++++++++ */
 .font-link {
     font-family: 'Poppins', sans-serif;
 }
@@ -23,7 +105,6 @@
 #progress-bar {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
 }
 
 .bottom-line {
@@ -52,10 +133,7 @@
 .innerbox {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    /* display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(2, 1fr); */
+    /* flex-wrap: nowrap; */
     margin: 5px 10px 5px 10px;
 }
 
@@ -67,24 +145,6 @@
     padding: 20px 0px 0px 40px;
     height: 100px;
     color: #BFBFBF;
-}
-
-#car-selection {
-    /* height: 800px; */
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 3fr;
-}
-
-#filter-box {
-    background-color: #242424;
-    height: 800px;
-    border-radius: 10px;
-    margin: 40px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px 20px 40px;
-    color: white;
 }
 
 #car-box {
@@ -102,6 +162,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
 }
 
 .car-price {
@@ -115,4 +177,9 @@
     color: black;
     margin: auto;
     height: 65px;
+}
+
+.modal {
+    background-color: #393939;
+    color: white;
 }
