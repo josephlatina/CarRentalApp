@@ -9,9 +9,12 @@ import CarFilter from "../components/CarFilter";
 
 const CarSelection = () => {
     const location = useLocation();
-    const pickupdate = "2022-10-25";
-    const returndate= "2022-10-28";
-    const [cars, setCars] = useState([]);
+    const pickuplocation = "1";
+    const pickupdate = new Date("2022-10-27");
+    const returndate= new Date("2022-10-30");
+    const [ cars, setCars ] = useState([]);
+    const [ filteredcars, setFilteredCars ] = useState([]);
+    const [ rentals, setRentals ] = useState([]);
     const [ manufacturers, setManufacturers ] = useState([]);
     const [ fueltype, setFuelType ] = useState([]);
     const [ cartype, setCarType ] = useState([]);
@@ -27,12 +30,14 @@ const CarSelection = () => {
     const queryCars = async () => {
         // parameters here
 
-        // handle query here
+        // retrieve cars and filter by branch selected
         try {
             axios
                 .get("/api/cars")
                 .then((res) => {
-                    setCars(res.data);
+                    setCars(res.data.filter((car) => {
+                        return car.branch === parseInt(pickuplocation);
+                    }));
                 })
                 .catch((err) => console.log(err));
         } catch (error) {
@@ -53,7 +58,22 @@ const CarSelection = () => {
         }
     };
 
+    const queryRentals = async () => {
+        try {
+            axios
+                .get("/api/rentals")
+                .then((res) => setRentals(res.data))
+                .catch((err) => console.log(err));
+        } catch (error) {
+            throw new Error(error);
+        }
+    };
+
+    // handle fetching of data here
     useEffect(() => {
+        (async () => {
+            await queryRentals();
+        })();
         (async () => {
             await queryCars();
         })();
@@ -62,28 +82,60 @@ const CarSelection = () => {
         })();
     }, []);
 
+    // handle the filtering of cars based on parameters chosen by user
     useEffect(() => {
+        let rentedCars = new Set();
 
+        // cars must not overlap with cars currently being rented within date range
+        rentals.filter((rental) => {
+            return (pickupdate.getTime() < ((new Date(rental.date_from)).getTime()) && ((new Date(rental.date_from)).getTime()) < returndate.getTime());
+        }).map((filteredrental) => {
+            return (rentedCars.add(filteredrental.car));
+        });
+        rentals.filter((rental) => {
+            return (pickupdate.getTime() < ((new Date(rental.date_to)).getTime()) && ((new Date(rental.date_to)).getTime()) < returndate.getTime());
+        }).map((filteredrental) => {
+            return (rentedCars.add(filteredrental.car));
+        });
+
+        if (rentedCars.size == 0) {
+            setFilteredCars(cars);
+        } else {
+            const finalcars = cars.filter(car => {
+                return !(rentedCars.has(car.car_id));
+            });
+            setFilteredCars(finalcars);
+        }
+    }, [rentals, cars]);
+
+    // set the list of manufacturers and fueltypes here for the filter box
+    useEffect(() => {
         let car_manufacturers = [];
         let car_fueltype = [];
 
-        for (let car of cars) {
-            car_manufacturers.push(car.manufacturer);
-            car_fueltype.push(car.fuel_type);
-        }
-        setManufacturers(Array.from(new Set(car_manufacturers)));
-        setFuelType(Array.from(new Set(car_fueltype)));
-        setFilters({...filters, 
-            cards: cars
-        })
-    }, [cars, cartype]);
+        console.log("final test");
+        console.log(filteredcars);
 
+        if (filteredcars) {
+            for (let car of filteredcars) {
+                car_manufacturers.push(car.manufacturer);
+                car_fueltype.push(car.fuel_type);
+            }
+            setManufacturers(Array.from(new Set(car_manufacturers)));
+            setFuelType(Array.from(new Set(car_fueltype)));
+            setFilters({...filters, 
+                cards: filteredcars
+            })
+        }
+    }, [filteredcars, cartype, rentals]);
+
+    // handles the manufacturer filters in filter box
     const handleManufacturerFilterChange = useCallback(event => {
         setFilters(prevFilter => {
             let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
             let filteredfueltype = new Set(prevFilter.filteredfueltype);
             let filteredcartype = new Set(prevFilter.filteredcartype);
-            let cards = cars;
+            let cards = filteredcars;
 
             if (event.target.checked) {
                 filteredmanufacturers.add(event.target.value);
@@ -114,14 +166,15 @@ const CarSelection = () => {
                 cards
             }
         })
-    }, [setFilters, cars])
+    }, [setFilters, filteredcars])
 
+    // handles the fuel type filters in the filter box
     const handleFuelTypeFilterChange = useCallback(event => {
         setFilters(prevFilter => {
             let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
             let filteredfueltype = new Set(prevFilter.filteredfueltype);
             let filteredcartype = new Set(prevFilter.filteredcartype);
-            let cards = cars;
+            let cards = filteredcars;
 
             if (event.target.checked) {
                 filteredfueltype.add(event.target.value)
@@ -152,14 +205,15 @@ const CarSelection = () => {
                 cards
             }
         })
-    }, [setFilters, cars])
+    }, [setFilters, filteredcars])
 
+    // handles the car type filters in filter box
     const handleCarTypeFilterChange = useCallback(event => {
         setFilters(prevFilter => {
             let filteredmanufacturers = new Set(prevFilter.filteredmanufacturers);
             let filteredfueltype = new Set(prevFilter.filteredfueltype);
             let filteredcartype = new Set(prevFilter.filteredcartype);
-            let cards = cars;
+            let cards = filteredcars;
 
             if (event.target.checked) {
                 filteredcartype.add(event.target.value)
@@ -190,20 +244,22 @@ const CarSelection = () => {
                 cards
             }
         })
-    }, [setFilters, cars])
+    }, [setFilters, filteredcars])
 
+    // toggle function for the modal component
     const toggle = () => {
         setFilterby(!filterby);
     }
 
+    // clears past filters when entering the modal
     const clearFilter = () => {
         toggle();
         setFilters({...filters, 
             filteredmanufacturers: new Set(),
             filteredfueltype: new Set(),
             filteredcartype: new Set(),
-            cards: cars
-        }, [setFilters, cars])
+            cards: filteredcars
+        }, [setFilters, filteredcars])
     }
 
     return (

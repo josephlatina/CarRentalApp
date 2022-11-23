@@ -11,8 +11,8 @@ const CarCard = (props) => {
     const navigate = useNavigate();
 
     const handleCalculation = () => {
-        const returnDate = new Date(props.return);
-        const pickupDate = new Date(props.pickup);
+        const returnDate = props.return;
+        const pickupDate = props.pickup;
         let estimatedCost = 0;
 
         if (returnDate >= pickupDate) {
