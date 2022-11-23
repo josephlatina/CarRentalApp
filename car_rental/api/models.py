@@ -1,7 +1,6 @@
-from tkinter import CASCADE
-from unittest.mock import DEFAULT
-from unittest.util import _MAX_LENGTH
 from django.db import models
+
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 # Create your models here.
 
@@ -16,7 +15,7 @@ class Branch(models.Model):
     unit_number = models.CharField(max_length=5, blank=True)
 
     def __str__(self):
-         return self.street_number + " " + self.street_name + " " + self.city 
+        return self.street_number + " " + self.street_name + " " + self.city
 
 
 class BranchPhoneNumber(models.Model):
@@ -40,7 +39,7 @@ class CarType(models.Model):
 
 class Car(models.Model):
     # choices for status
-    STATUS_CHOICES = (('Available', 'Available'),('Not Available', 'Not Available'))
+    STATUS_CHOICES = (('Available', 'Available'), ('Not Available', 'Not Available'))
 
     car_id = models.AutoField(primary_key=True)
     car_type = models.ForeignKey(CarType, related_name='car_type', on_delete=models.CASCADE)
@@ -57,29 +56,71 @@ class Car(models.Model):
         return self.license_plate
 
 
+class UserManager(BaseUserManager):
+
+    def create_user(self, email, password=None, **kwargs):
+        """Create and return a `User` with an email, phone number, username and password."""
+        if email is None:
+            raise TypeError('Users must have an email.')
+
+        user = self.model(email=self.normalize_email(email))
+        user.set_password(password)
+        user.save(using=self._db)
+
+        return user
+
+    def create_superuser(self, email, password):
+        """
+        Create and return a `User` with superuser (admin) permissions.
+        """
+        if password is None:
+            raise TypeError('Superusers must have a password.')
+        if email is None:
+            raise TypeError('Superusers must have an email.')
+
+        user = self.create_user(email, password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+
+        return user
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(db_index=True, unique=True, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+
+    objects = UserManager()
+
+    def __str__(self):
+        return f"{self.email}"
+
+
 class Employee(models.Model):
     id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
+    email = models.EmailField(db_index=True, unique=True, null=True, blank=True)
     # Password and number will now temporarily be chars. Might need to hash them later
-    password = models.CharField(max_length=255)
-    salt = models.CharField(max_length=255)
-    salary = models.IntegerField()
-    rank = models.CharField(max_length=30)
-    DOB = models.DateField()
-    province = models.CharField(max_length=30)
-    city = models.CharField(max_length=30)
-    postal_code = models.CharField(max_length=6)
-    street_number = models.CharField(max_length=10)
-    street_name = models.CharField(max_length=30)
-    unit_number = models.CharField(max_length=5, blank=True)
+    password = models.CharField(max_length=255, null=True)
+    salt = models.CharField(max_length=255, null=True)
+    salary = models.IntegerField(null=True)
+    rank = models.CharField(max_length=30, null=True)
+    DOB = models.DateField(null=True)
+    province = models.CharField(max_length=30, null=True)
+    city = models.CharField(max_length=30, null=True)
+    postal_code = models.CharField(max_length=6, null=True)
+    street_number = models.CharField(max_length=10, null=True)
+    street_name = models.CharField(max_length=30, null=True)
+    unit_number = models.CharField(max_length=5, blank=True, null=True)
     works_at = models.ForeignKey(Branch, models.SET_NULL, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="employee")
 
     def __str__(self):
         return str(self.id) + " " + self.first_name + " " + self.last_name
-
-    
 
 
 class EmployeePhoneNumber(models.Model):
@@ -90,18 +131,19 @@ class EmployeePhoneNumber(models.Model):
 
 class Customer(models.Model):
     id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    drivers_license = models.CharField(max_length=30)
-    email = models.EmailField(max_length=200)
-    DOB = models.DateField()
-    gold_member = models.BooleanField()
-    province = models.CharField(max_length=30)
-    city = models.CharField(max_length=30)
-    postal_code = models.CharField(max_length=6)
-    street_number = models.CharField(max_length=10)
-    street_name = models.CharField(max_length=30)
-    unit_number = models.CharField(max_length=5, blank=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
+    drivers_license = models.CharField(max_length=30, null=True)
+    email = models.EmailField(max_length=200, null=True)
+    DOB = models.DateField(null=True)
+    gold_member = models.BooleanField(null=True)
+    province = models.CharField(max_length=30, null=True)
+    city = models.CharField(max_length=30, null=True)
+    postal_code = models.CharField(max_length=6, null=True)
+    street_number = models.CharField(max_length=10, null=True)
+    street_name = models.CharField(max_length=30, null=True)
+    unit_number = models.CharField(max_length=5, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="customer")
 
     def __str__(self):
         return str(self.id) + " " + self.first_name + " " + self.last_name

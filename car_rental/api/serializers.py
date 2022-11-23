@@ -1,7 +1,5 @@
-from dataclasses import field
-from pyexpat import model
 from rest_framework import serializers
-from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Employee, EmployeePhoneNumber, Car, CarType, Rental
+from .models import Branch, BranchPhoneNumber, Customer, CustomerPhoneNumber, Employee, EmployeePhoneNumber, Car, CarType, Rental, User
 
 
 class RentalSerializer(serializers.ModelSerializer):
@@ -59,3 +57,11 @@ class CustomerPhoneNumberSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerPhoneNumber
         fields = ('id', 'customer_id', 'phone_number')
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'is_active', 'created', 'updated']
+        read_only_field = ['is_active', 'created', 'updated']
