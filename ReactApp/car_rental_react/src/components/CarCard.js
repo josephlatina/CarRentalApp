@@ -5,7 +5,6 @@ import axios from "axios";
 import '../css/style.css';
 
 const CarCard = (props) => {
-    const [ carType, setCarType ] = useState([]);
     const [ total, setTotal ] = useState(0);
 
     const navigate = useNavigate();
