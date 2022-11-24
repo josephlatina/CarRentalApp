@@ -10,6 +10,7 @@ import CarFilter from "../components/CarFilter";
 const CarSelection = () => {
     const location = useLocation();
     const pickuplocation = "1";
+    const returnlocation = "1";
     const pickupdate = new Date("2022-10-27");
     const returndate= new Date("2022-10-30");
     const [ cars, setCars ] = useState([]);
@@ -112,9 +113,6 @@ const CarSelection = () => {
     useEffect(() => {
         let car_manufacturers = [];
         let car_fueltype = [];
-
-        console.log("final test");
-        console.log(filteredcars);
 
         if (filteredcars) {
             for (let car of filteredcars) {
@@ -335,8 +333,11 @@ const CarSelection = () => {
                             cartypeitem={cartype?.filter((cartype) => {
                                 return cartype?.car_type_id === item.car_type;
                             })}
-                            pickup={pickupdate}
-                            return={returndate}
+                            pickupdate={pickupdate}
+                            returndate={returndate}
+                            car={item.car_id}
+                            branchfrom={pickuplocation}
+                            branchto={returnlocation}
                         />
                     </div>;
                     })}
