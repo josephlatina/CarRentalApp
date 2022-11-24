@@ -5,20 +5,22 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CarSelection from "./routes/CarSelection";
 import CarReserve from "./routes/CarReserve";
-import AuthPage from "./routes/AuthPage";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      { path: "/car", element: <CarSelection /> },
-      { path: "/rent", element: <CarReserve /> },
-      { path: "/auth", element: <AuthPage /> },
-    ],
-  },
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            { path: "/car", element: <CarSelection /> },
+            { path: "/rent", element: <CarReserve /> },
+            { path: "/login", element: <Login /> },
+            { path: "/signup", element: <Signup /> },
+        ],
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
