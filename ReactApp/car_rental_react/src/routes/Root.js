@@ -1,5 +1,5 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
-import { Button, Nav, NavItem } from "reactstrap";
+import { Link, Outlet } from "react-router-dom";
+import { Button, Nav, Navbar, NavbarText, NavItem, NavLink } from "reactstrap";
 import { useAuth } from "../provider/authContext";
 
 export default function Root() {
@@ -7,38 +7,44 @@ export default function Root() {
 
     return (
         <div className="root-style font-link">
+            <Navbar color="">
+                <Nav>
+                    <NavItem>
+                        <NavLink tag={Link} to="/">
+                            Home
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/car">
+                            Car
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink to="/rent" tag={Link}>
+                            Rent
+                        </NavLink>
+                    </NavItem>
+                </Nav>
+                <NavbarText>
+                    {isSignedIn ? (
+                        <div>
+                            <span
+                                style={{ color: "white", marginRight: "1rem" }}
+                            >
+                                Hello {user.email}
+                            </span>
+                            <Button onClick={logOut}>Sign out</Button>
+                        </div>
+                    ) : (
+                        <Button to="/login" tag={Link}>
+                            Login
+                        </Button>
+                    )}
+                </NavbarText>
+            </Navbar>
             <section className="container-fluid jumbotron"></section>
             {/* This is just a temp navigation bar */}
-            <Nav>
-                <NavItem>
-                    <NavLink>
-                        <Link to="/">index,</Link>
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink>
-                        <Link to="/car">Car,</Link>
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink>
-                        <Link to="/rent">Rent,</Link>
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink>
-                        <Link to="/login">Login,</Link>
-                    </NavLink>
-                </NavItem>
-                {isSignedIn && (
-                    <>
-                        <NavItem> Hello {user.email}</NavItem>{" "}
-                        <NavItem>
-                            <Button onClick={logOut}>Sign out</Button>
-                        </NavItem>
-                    </>
-                )}
-            </Nav>
+
             {/* Section 1: Jumbotron */}
             <div>
                 <Outlet />
