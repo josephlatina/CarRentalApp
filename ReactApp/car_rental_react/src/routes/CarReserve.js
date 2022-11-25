@@ -10,7 +10,7 @@ const CarReserve = () => {
   //get car information
   var car_model;
   var car_type;
-  var license_plate;
+  var car_id;
   axios
     .get("/api/cars/" + location.state.requestedcartype + "/")
     .then((res) => {
@@ -18,7 +18,7 @@ const CarReserve = () => {
       let element = document.getElementById("cartype");
       element.innerHTML = "Car Type: " + car_model;
       car_type = res.data.car_type;
-      license_plate = res.data.license_plate;
+      car_id = res.data.car_id;
     })
     .catch((err) => console.log(err));
 
@@ -74,42 +74,30 @@ const CarReserve = () => {
       unit_number: customer_input[6],
     };
 
-    var token;
-    //get token
-    var login = { email: "michael2@yahoo.ca", password: "password333" };
-    axios.post("http://127.0.0.1:8000/auth/token/", login).then((response) => {
-      token = response.data.access;
-      const AuthStr = "Bearer " + token;
+    axios
+      .post("http://127.0.0.1:8000/api/customers/", customer_details)
+      .then((response) => {
+        // get actual rental details here
+        const rental_details = {
+          date_from: "2022-08-18",
+          date_to: "2022-08-23",
+          date_returned: null,
+          total_cost: null,
+          car: car_id,
+          customer: response.data.id,
+          branch_came_from: parseInt(location.state.branchcamefrom),
+          branch_goes_to: parseInt(location.state.branchgoesto),
+          employee_given_by: null,
+          requested_car_type: car_type,
+        };
 
-      axios
-        .post("http://127.0.0.1:8000/api/customers/", customer_details, {
-          headers: {
-            Authorization: AuthStr,
-          },
-        })
-        .then((response) => {
-          console.log(AuthStr);
-          console.log("Response", response.data.id);
-          // get actual rental details here
-          const rental_details = {
-            date_from: location.state.datefrom,
-            date_to: location.state.dateto,
-            date_returned: null,
-            total_cost: null,
-            car: license_plate,
-            customer: response.data.id,
-            branch_came_from: branch_from,
-            branch_goes_to: branch_to,
-            employee_given_by: null,
-            equested_car_type: car_type,
-          };
-
-          axios
-            .post("http://127.0.0.1:8000/api/rentals/", rental_details)
-            .then((response) => console.log(response));
-        })
-        .catch((err) => console.log(AuthStr));
-    });
+        axios
+          .post("http://127.0.0.1:8000/api/rentals/", rental_details)
+          .then((response) => console.log(response))
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+    alert("Done!");
   }
 
   return (
@@ -121,18 +109,16 @@ const CarReserve = () => {
           <div class="col-3 bottom-line">
             <h5>1. Rental Details</h5>
           </div>
+
           <div class="col-3 bottom-line">
-            <h5>2. Select Branch</h5>
-          </div>
-          <div class="col-3 bottom-line">
-            <h5>3. Select Car</h5>
+            <h5>2. Select Car</h5>
           </div>
           <div
             class="col-3 bottom-line"
             id="selected"
             style={{ "border-bottom": "10px solid #0FB877" }}
           >
-            <h5>4. Reserve</h5>
+            <h5>3. Reserve</h5>
           </div>
         </div>
       </section>
