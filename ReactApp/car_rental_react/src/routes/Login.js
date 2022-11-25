@@ -1,12 +1,13 @@
 import "../css/auth.css";
 
 import React, { useState } from "react";
-import { login } from "../services/auth";
+import { Link } from "react-router-dom";
+import { useAuth } from "../provider/authContext";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const { login, error, isSignedIn } = useAuth();
 
     const handleEmailInput = (e) => {
         setEmail(e.target.value);
@@ -19,16 +20,14 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const error = await login(email, password);
-        if (!!error) {
-            setError(error);
-            return;
-        }
+        await login(email, password);
 
-        setError("");
         setEmail("");
         setPassword("");
     };
+
+    if (isSignedIn)
+        return <div className="Auth-form-container">Already logged in</div>;
 
     return (
         <div className="Auth-form-container">
@@ -68,7 +67,9 @@ function Login() {
                     </div>
                     <div className="text-center">
                         Not registered yet?{" "}
-                        <span className="link-primary">Sign Up</span>
+                        <span className="link-primary">
+                            <Link to="/signup">Sign Up</Link>
+                        </span>
                     </div>
                     <p className="text-center mt-2">
                         Forgot <a href="#">password?</a>
