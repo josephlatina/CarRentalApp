@@ -5,9 +5,12 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CarSelection from "./routes/CarSelection";
 import CarReserve from "./routes/CarReserve";
-import AuthPage from "./routes/AuthPage";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
+import HomePage from "./components/HomePage/HomePage";
+import AuthPage from "./routes/AuthPage";
+
+
 
 const router = createBrowserRouter([
   {
@@ -16,7 +19,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/car", element: <CarSelection /> },
       { path: "/rent", element: <CarReserve /> },
+      { path: "/home", element: <HomePage /> },
       { path: "/auth", element: <AuthPage /> },
+      
     ],
   },
 ]);

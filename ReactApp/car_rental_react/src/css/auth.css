@@ -16,7 +16,7 @@
       width: 100vw;
       height: 100vh;
     }
- 
+
     .Auth-form {
       width: 800px;
       box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
@@ -25,12 +25,12 @@
       border-radius: 8px;
       background-color: #242424;
     }
- 
+
     .Auth-form-content {
       padding-left: 12%;
       padding-right: 12%;
     }
- 
+
     .Auth-form-title {
       text-align: center;
       margin-bottom: 1em;
@@ -38,7 +38,7 @@
       color: white;
       font-weight: 800;
     }
- 
+
     .authLabel {
       font-size: 14px;
       font-weight: 600;
@@ -47,7 +47,7 @@
     .text-center{
       color:#BFBFBF;
     }
- 
+
     .btn{
       background-color:#C8E745;
       width: 15vw;
@@ -58,7 +58,7 @@
       background-color: #BFBFBF;
       color: white;
     }
- 
+
     .d-grid{
       justify-content: center;
     }
