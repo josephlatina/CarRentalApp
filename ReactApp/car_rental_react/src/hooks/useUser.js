@@ -34,7 +34,7 @@ export default function useUser() {
             setIsSignedIn(true);
             setUser(jwtDecode(tokens.access));
         } catch (e) {
-            setError(e);
+            setError(e.response.data.detail);
         }
     };
 
