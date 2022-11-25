@@ -6,12 +6,12 @@ import Header from "../Header";
 import Airport from "../Airport";
 import Business from "../Business";
 import Personal from "../Personal";
-import "./HomePage.css";
-import locationIcon from "../../assets/location-1-2@2x.png"
-import calenderIcon from "../../assets/calendar-icon-1-2@2x.png"
-import InstaIcon from "../../assets/pngegg-6--1-1@2x.png"
-import FacebookIcon from "../../assets/pngegg-7--1-1@2x.png"
-import JumbotronPic from "../../assets/car-banner.jpg"
+import styles from "./HomePage.module.css";
+import locationIcon from "../../assets/location-1-2@2x.png";
+import calenderIcon from "../../assets/calendar-icon-1-2@2x.png";
+import InstaIcon from "../../assets/pngegg-6--1-1@2x.png";
+import FacebookIcon from "../../assets/pngegg-7--1-1@2x.png";
+import JumbotronPic from "../../assets/car-banner.jpg";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -65,16 +65,17 @@ return (
         method="post"
       >
         {/* Jumbotron section */}
-        <div className="overlap-group6">
+        <div className={styles.overlap_group6}>
           <div
-            className="jumbotron"
+            className={styles.jumbotron}
             style={{ backgroundImage: JumbotronPic }}
           >
             <Jumbotron />
           </div>
-          <div className="group-14">
-            <div className="heading-div">
-              <div className="left-top poppins-normal-caribbean-green-17px">
+          {/* Locations section  */}
+          <div className={styles.group_14}>
+            <div className={styles.heading_div}>
+              <div className="poppins-normal-caribbean-green-17px" id={styles.left_top}>
                 <h4>{homepageData.pickUpLocation}</h4>
                 <div className="autocomplete-div">
                   <EnterLocation className="location-input"
@@ -83,14 +84,14 @@ return (
                     branches={branch}
                   />
                   <img
-                    className="icon-location_pin"
+                    className={styles.icon_location_pin_1}
                     src={locationIcon}
                     alt="icon-location_pin"
                   />
                 </div>
               </div>
 
-              <div className="right-top poppins-normal-caribbean-green-17px">
+              <div className="poppins-normal-caribbean-green-17px" id={styles.right_top}>
                 <h4 >{homepageData.returnLocation}</h4>
                 <div className="autocomplete-div">
                   <EnterLocation
@@ -101,18 +102,18 @@ return (
                   />
 
                   <img
-                    className="icon-location_pin-1"
+                    className={styles.icon_location_pin_1}
                     src={locationIcon}
-                    alt="icon-location_pin"
+                    alt="icon_location_pin"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bottom-div">
-              <div className="bottom-left">
-                <div className="date">
-                  <img className="calendar-size" src={calenderIcon} alt="icon-calendar" />
+            <div className={styles.bottom_div}>
+              <div className={styles.bottom_left}>
+                <div className={styles.date}>
+                  <img className={styles.calendar_size} src={calenderIcon} alt="icon-calendar" />
                   <h4>{homepageData.pickUpDate}</h4>
                   <input
                     name="enterdate"
@@ -121,7 +122,7 @@ return (
                     required
                   />
                 </div>
-                <div className="time">
+                <div className={styles.time}>
                   <h4>{homepageData.pickUpTime}</h4>
                   <input
                     name="12_00pm"
@@ -131,9 +132,9 @@ return (
                   />
                 </div>
               </div>
-              <div className="bottom-right">
-                <div className="date">
-                  <img className="calendar-size" src={calenderIcon} alt="icon-calendar" />
+              <div className={styles.bottom_right}>
+                <div className={styles.date}>
+                  <img className={styles.calendar_size} src={calenderIcon} alt="icon-calendar" />
                   <h4>{homepageData.pickUpDate}</h4>
                   <input
                     name="enterdate"
@@ -142,7 +143,7 @@ return (
                     required
                   />
                 </div>
-                <div className="time">
+                <div className={styles.time}>
                   <h4>{homepageData.pickUpTime}</h4>
                   <input
                     name="12_00pm"
@@ -157,35 +158,35 @@ return (
               <Button className="col-10 car-btn" size="lg">Search</Button>
             </Link>
           </div>
-          <div className="banner">
+          <div className={styles.banner}>
             <HeroBanner>
               <React.Fragment>Premium Service for<br />Personal Needs</React.Fragment>
             </HeroBanner>
-            <div className="experience-it-now">{homepageData.experience}</div>
+            <div className={styles.experience_it_now}>{homepageData.experience}</div>
           </div>
           <Header  />
         </div>
-        <div className="item-container">
+        <div className={styles.item_container}>
           <Airport />
           <Business />
           <Personal />
         </div>
-        <div className="footer">
-          <div className="overlap-group5 poppins-medium-white-25px">
-            <p className="follow-us-on-our-social-media">{homepageData.follow}</p>
-            <div className="icon-container">
+        <div className={styles.footer}>
+          <div className="poppins-medium-white-25px" id={styles.overlap_group5}>
+            <p className={styles.follow_us_on_our_social_media}>{homepageData.follow}</p>
+            <div className={styles.icon_container}>
               <img
-                className="icon-instagram"
+                className={styles.icon_instagram}
                 src={InstaIcon}
                 alt="icon-instagram"
               />
               <img
-                className="icon-facebook"
+                className={styles.icon_facebook}
                 src={FacebookIcon}
                 alt="icon-facebook"
               />
             </div>
-            <p className="copyright">{homepageData.copyright}</p>
+            <p className={styles.copyright}>{homepageData.copyright}</p>
           </div>
         </div>
       </form>
