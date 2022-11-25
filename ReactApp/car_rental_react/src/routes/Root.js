@@ -27,7 +27,7 @@ export default function Root() {
                 </NavItem>
                 <NavItem>
                     <NavLink>
-                        <Link to="/auth">Auth,</Link>
+                        <Link to="/login">Login,</Link>
                     </NavLink>
                 </NavItem>
                 {isSignedIn && (
