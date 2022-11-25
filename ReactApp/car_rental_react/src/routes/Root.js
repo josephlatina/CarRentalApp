@@ -4,7 +4,7 @@ import { Nav, NavItem } from "reactstrap";
 export default function Root() {
     return (
         <div className="root-style font-link">
-            {/* <section className="container-fluid jumbotron"></section> */}
+            <section className="container-fluid jumbotron"></section>
             {/* This is just a temp navigation bar */}
             <Nav>
                 <NavItem>
