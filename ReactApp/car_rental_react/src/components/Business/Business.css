@@ -1,0 +1,38 @@
+.business {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 249px;
+    width: 224px;
+  }
+  
+  .suitcase-1 {
+    height: 55px;
+    margin-right: 1.34px;
+    object-fit: cover;
+    width: 49px;
+  }
+  
+  .business-trips {
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 1.0px;
+    min-height: 42px;
+    text-align: center;
+    text-shadow: 0px 4px 4px #00000040;
+    width: 217px;
+  }
+  
+  .lorem-ipsum-dolor-si-1 {
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 7.34px;
+    min-height: 120px;
+    text-align: center;
+    text-shadow: 0px 4px 4px #00000040;
+    width: 217px;
+  }
+  
+  

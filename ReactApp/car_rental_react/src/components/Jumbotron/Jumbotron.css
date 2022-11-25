@@ -1,0 +1,9 @@
+.rectangle-jumbo {
+    background-color: var(--black-2);
+    border: 1px none;
+    height: 720px;
+    mix-blend-mode: hard-light;
+    width: 1440px;
+  }
+  
+  
