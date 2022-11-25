@@ -63,15 +63,9 @@ class EmployeePhoneNumberView(viewsets.ModelViewSet):
     queryset = EmployeePhoneNumber.objects.all()
 
 
-@permission_classes([IsAuthenticated])
 class CustomerView(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer(queryset, many=True)
-
-    def list(self, request):
-        if (request.user.is_staff):
-            return Response(self.serializer_class.data)
-        return Response({'error': "Not authorized, you are not a staff"}, status=status.HTTP_401_UNAUTHORIZED)
+    serializer_class = CustomerSerializer
 
 
 class CustomerPhoneNumberView(viewsets.ModelViewSet):

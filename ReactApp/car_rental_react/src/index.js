@@ -7,6 +7,8 @@ import CarSelection from "./routes/CarSelection";
 import CarReserve from "./routes/CarReserve";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
+import HomePage from "./components/HomePage/HomePage";
+
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
@@ -20,6 +22,7 @@ const router = createBrowserRouter([
             { path: "/rent", element: <CarReserve /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
+            { path: "/home", element: <HomePage /> },
         ],
     },
 ]);

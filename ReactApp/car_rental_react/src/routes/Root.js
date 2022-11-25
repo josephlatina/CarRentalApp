@@ -10,7 +10,7 @@ export default function Root() {
             <Navbar color="">
                 <Nav>
                     <NavItem>
-                        <NavLink tag={Link} to="/">
+                        <NavLink tag={Link} to="/home">
                             Home
                         </NavLink>
                     </NavItem>
