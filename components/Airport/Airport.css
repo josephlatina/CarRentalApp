@@ -1,0 +1,37 @@
+.airport {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 263px;
+    width: 221px;
+  }
+  
+  .icon-plane {
+    height: 65px;
+    margin-right: 3.34px;
+    object-fit: cover;
+    width: 70px;
+  }
+  
+  .to-and-from-airport {
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 4.0px;
+    min-height: 42px;
+    text-align: center;
+    text-shadow: 0px 4px 4px #00000040;
+    width: 217px;
+  }
+  
+  .airport-blurb {
+    letter-spacing: 0;
+    line-height: normal;
+    margin-right: 4.34px;
+    min-height: 120px;
+    text-align: center;
+    text-shadow: 0px 4px 4px #00000040;
+    width: 217px;
+  }
+  
+  
