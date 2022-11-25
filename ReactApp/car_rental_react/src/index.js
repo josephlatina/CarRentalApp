@@ -8,26 +8,31 @@ import CarReserve from "./routes/CarReserve";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
 import HomePage from "./components/HomePage/HomePage";
-import AuthPage from "./routes/AuthPage";
 
-
+import Login from "./routes/Login";
+import Signup from "./routes/Signup";
+import { ProvideAuth } from "./provider/authContext";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      { path: "/car", element: <CarSelection /> },
-      { path: "/rent", element: <CarReserve /> },
-      { path: "/home", element: <HomePage /> },
-      { path: "/auth", element: <AuthPage /> },
-      
-    ],
-  },
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            { path: "/car", element: <CarSelection /> },
+            { path: "/rent", element: <CarReserve /> },
+            { path: "/login", element: <Login /> },
+            { path: "/signup", element: <Signup /> },
+            { path: "/home", element: <HomePage /> },
+        ],
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+    <ProvideAuth>
+        <RouterProvider router={router} />
+    </ProvideAuth>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
