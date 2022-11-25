@@ -34,7 +34,7 @@ function Login() {
             <form className="Auth-form">
                 <div className="Auth-form-content">
                     <h3 className="Auth-form-title">Member Sign In</h3>
-                    <div className="text-center">{error}</div>
+                    <div className="text-center text-danger">{error}</div>
 
                     <div className="form-group mt-3">
                         <label className="authLabel">Email address</label>

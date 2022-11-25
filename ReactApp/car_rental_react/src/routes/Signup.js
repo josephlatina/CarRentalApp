@@ -13,9 +13,11 @@ export default function Signup() {
 
         await signup(email, password, password2);
 
-        setEmail("");
-        setPassword("");
-        setPassword2("");
+        if (!!!error) {
+            setEmail("");
+            setPassword("");
+            setPassword2("");
+        }
     };
 
     if (isSignedIn)
@@ -32,7 +34,7 @@ export default function Signup() {
                         <span className="link-primary">Sign In</span>
                     </div>
 
-                    <div className="text-center">{error}</div>
+                    <div className="text-center text-danger">{error}</div>
                     <div className="form-group mt-3">
                         <label className="authLabel">Email address</label>
                         <input

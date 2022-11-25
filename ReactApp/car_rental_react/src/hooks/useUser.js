@@ -47,7 +47,7 @@ export default function useUser() {
             });
             await login(email, password);
         } catch (e) {
-            const errorString = Object.values(error)
+            const errorString = Object.values(e.response.data)
                 .map((value) => value.join("\n"))
                 .join(" \n");
             setError(errorString);
