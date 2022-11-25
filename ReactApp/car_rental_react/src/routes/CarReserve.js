@@ -1,7 +1,52 @@
 import { Button } from "reactstrap";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const CarReserve = () => {
+  // get info from car selection
+  const location = useLocation();
+  console.log(location.state);
+
+  //get car information
+  var car_model;
+  var car_type;
+  var license_plate;
+  axios
+    .get("/api/cars/" + location.state.requestedcartype + "/")
+    .then((res) => {
+      car_model = res.data.manufacturer + " " + res.data.model;
+      let element = document.getElementById("cartype");
+      element.innerHTML = "Car Type: " + car_model;
+      car_type = res.data.car_type;
+      license_plate = res.data.license_plate;
+    })
+    .catch((err) => console.log(err));
+
+  //get branch information
+  var branch_to;
+  axios
+    .get("/api/branches/" + location.state.branchgoesto + "/")
+    .then((res) => {
+      branch_to = res.data.street_number + " " + res.data.street_name;
+      let element = document.getElementById("rbranch");
+      element.innerHTML = "Return Branch: " + branch_to;
+    })
+    .catch((err) => console.log(err));
+
+  function signIn() {
+    alert("Feature not yet implemented!");
+  }
+
+  var branch_from;
+  axios
+    .get("/api/branches/" + location.state.branchcamefrom + "/")
+    .then((res) => {
+      branch_from = res.data.street_number + " " + res.data.street_name;
+      let element = document.getElementById("pbranch");
+      element.innerHTML = "Pick-Up Branch: " + branch_to;
+    })
+    .catch((err) => console.log(err));
+
   function signIn() {
     alert("Feature not yet implemented!");
   }
@@ -28,27 +73,43 @@ const CarReserve = () => {
       street_name: "ST",
       unit_number: customer_input[6],
     };
-    axios
-      .post("http://127.0.0.1:8000/api/customers/", customer_details)
-      .then((response) => {
-        console.log("Response", response.data.id);
-        // get actual rental details here
-        const rental_details = {
-          date_from: "2022-11-01",
-          date_to: "2022-11-01",
-          date_returned: "2022-11-02",
-          total_cost: "30",
-          car: 1,
-          customer: response.data.id,
-          branch_came_from: 1,
-          branch_goes_to: 1,
-          employee_given_by: 1,
-          equested_car_type: 1,
-        };
-        axios
-          .post("http://127.0.0.1:8000/api/rentals/", rental_details)
-          .then((response) => console.log(response));
-      });
+
+    var token;
+    //get token
+    var login = { email: "michael2@yahoo.ca", password: "password333" };
+    axios.post("http://127.0.0.1:8000/auth/token/", login).then((response) => {
+      token = response.data.access;
+      const AuthStr = "Bearer " + token;
+
+      axios
+        .post("http://127.0.0.1:8000/api/customers/", customer_details, {
+          headers: {
+            Authorization: AuthStr,
+          },
+        })
+        .then((response) => {
+          console.log(AuthStr);
+          console.log("Response", response.data.id);
+          // get actual rental details here
+          const rental_details = {
+            date_from: location.state.datefrom,
+            date_to: location.state.dateto,
+            date_returned: null,
+            total_cost: null,
+            car: license_plate,
+            customer: response.data.id,
+            branch_came_from: branch_from,
+            branch_goes_to: branch_to,
+            employee_given_by: null,
+            equested_car_type: car_type,
+          };
+
+          axios
+            .post("http://127.0.0.1:8000/api/rentals/", rental_details)
+            .then((response) => console.log(response));
+        })
+        .catch((err) => console.log(AuthStr));
+    });
   }
 
   return (
@@ -78,7 +139,15 @@ const CarReserve = () => {
       <section class="rental-container">
         <div className="rental-details">
           <h3 className="header-text">Rental Details</h3>
-          <h2>Filler Info</h2>
+          <h5 className="sub-text" id="pbranch"></h5>
+          <h5 className="sub-text" id="rbranch"></h5>
+          <h5 className="sub-text">
+            Pickup Date: {location.state.datefrom.toString()}
+          </h5>
+          <h5 className="sub-text">
+            Return Date: {location.state.dateto.toString()}
+          </h5>
+          <h5 className="sub-text" id="cartype"></h5>
         </div>
         <div className="member-box">
           <h3 className="header-text">Member?</h3>
