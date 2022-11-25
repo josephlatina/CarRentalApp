@@ -143,10 +143,6 @@ class Customer(models.Model):
     street_number = models.CharField(max_length=10, null=True)
     street_name = models.CharField(max_length=30, null=True)
     unit_number = models.CharField(max_length=5, blank=True, null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="customer")
-
-    def __str__(self):
-        return str(self.id) + " " + self.first_name + " " + self.last_name
 
 
 class CustomerPhoneNumber(models.Model):
@@ -159,11 +155,11 @@ class Rental(models.Model):
     rental_id = models.AutoField(primary_key=True)
     date_from = models.DateField()
     date_to = models.DateField()
-    date_returned = models.DateField()
-    total_cost = models.FloatField(max_length=10)
+    date_returned = models.DateField(blank=True, null=True)
+    total_cost = models.FloatField(max_length=10, blank=True, null=True)
     car = models.ForeignKey(Car, models.SET_NULL, null=True, default="")
     customer = models.ForeignKey(Customer, models.SET_NULL, null=True, default="")
-    employee_given_by = models.ForeignKey(Employee, models.SET_NULL, null=True, default="")
+    employee_given_by = models.ForeignKey(Employee, models.SET_NULL, null=True, default="", blank=True)
     branch_came_from = models.ForeignKey(Branch, related_name='%(class)s_came_from', on_delete=models.SET_NULL, null=True, default="")
     branch_goes_to = models.ForeignKey(Branch, related_name='%(class)s_goes_to', on_delete=models.SET_NULL, null=True, default="")
     requested_car_type = models.ForeignKey(CarType, models.SET_NULL, null=True, default="")
