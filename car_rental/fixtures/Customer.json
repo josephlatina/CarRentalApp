@@ -1,0 +1,192 @@
+[
+    {
+        "model": "api.customer",
+        "pk": 1,
+        "fields": {
+            "first_name": "Charmaine",
+            "last_name": "Ginsie",
+            "drivers_license": "584052-465",
+            "email": "cginsie0@seesaa.net",
+            "DOB": "1998-07-31",
+            "gold_member": false,
+            "province": "Texas",
+            "city": "El Paso",
+            "postal_code": "88530",
+            "street_number": "5738",
+            "street_name": "Little Fleur",
+            "unit_number": null,
+            "user": 11
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 2,
+        "fields": {
+            "first_name": "Jennie",
+            "last_name": "Dovey",
+            "drivers_license": "746526-977",
+            "email": "jdovey1@blogspot.com",
+            "DOB": "1993-12-16",
+            "gold_member": false,
+            "province": "Tennessee",
+            "city": "Memphis",
+            "postal_code": "38161",
+            "street_number": "5019",
+            "street_name": "Sunfield",
+            "unit_number": 126,
+            "user": 12
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 3,
+        "fields": {
+            "first_name": "Jobina",
+            "last_name": "Matuskiewicz",
+            "drivers_license": "066899-754",
+            "email": "jmatuskiewicz2@irs.gov",
+            "DOB": "1991-07-11",
+            "gold_member": false,
+            "province": "Ohio",
+            "city": "Hamilton",
+            "postal_code": "45020",
+            "street_number": "38285",
+            "street_name": "Johnson",
+            "unit_number": null,
+            "user": 13
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 4,
+        "fields": {
+            "first_name": "Bat",
+            "last_name": "Botterell",
+            "drivers_license": "432171-981",
+            "email": "bbotterell3@diigo.com",
+            "DOB": "1993-03-24",
+            "gold_member": true,
+            "province": "Colorado",
+            "city": "Denver",
+            "postal_code": "80299",
+            "street_number": "6326",
+            "street_name": "Claremont",
+            "unit_number": null,
+            "user": 14
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 5,
+        "fields": {
+            "first_name": "Abey",
+            "last_name": "Eddisforth",
+            "drivers_license": "682352-804",
+            "email": "aeddisforth4@goodreads.com",
+            "DOB": "1996-03-19",
+            "gold_member": true,
+            "province": "New York",
+            "city": "Utica",
+            "postal_code": "13505",
+            "street_number": "0",
+            "street_name": "Walton",
+            "unit_number": null,
+            "user": 15
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 6,
+        "fields": {
+            "first_name": "Lena",
+            "last_name": "Touzey",
+            "drivers_license": "788497-380",
+            "email": "ltouzey5@bloomberg.com",
+            "DOB": "2000-06-23",
+            "gold_member": false,
+            "province": "Nebraska",
+            "city": "Lincoln",
+            "postal_code": "68505",
+            "street_number": "429",
+            "street_name": "Nancy",
+            "unit_number": null,
+            "user": 16
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 7,
+        "fields": {
+            "first_name": "Godard",
+            "last_name": "Cottis",
+            "drivers_license": "140507-925",
+            "email": "gcottis6@icio.us",
+            "DOB": "2000-01-19",
+            "gold_member": true,
+            "province": "Massachusetts",
+            "city": "Worcester",
+            "postal_code": "01605",
+            "street_number": "821",
+            "street_name": "Luster",
+            "unit_number": 171,
+            "user": 17
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 8,
+        "fields": {
+            "first_name": "Siward",
+            "last_name": "Akam",
+            "drivers_license": "006859-856",
+            "email": "sakam7@admin.ch",
+            "DOB": "2000-06-15",
+            "gold_member": true,
+            "province": "Arizona",
+            "city": "Mesa",
+            "postal_code": "85210",
+            "street_number": "54556",
+            "street_name": "Park Meadow",
+            "unit_number": 297,
+            "user": 18
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 9,
+        "fields": {
+            "first_name": "Murvyn",
+            "last_name": "Linkleter",
+            "drivers_license": "076333-017",
+            "email": "mlinkleter8@vkontakte.ru",
+            "DOB": "1996-12-31",
+            "gold_member": false,
+            "province": "Florida",
+            "city": "West Palm Beach",
+            "postal_code": "33411",
+            "street_number": "9",
+            "street_name": "Sunfield",
+            "unit_number": 121,
+            "user": 19
+        }
+    },
+    {
+        "model": "api.customer",
+        "pk": 10,
+        "fields": {
+            "first_name": "Clementia",
+            "last_name": "Wellstood",
+            "drivers_license": "476089-867",
+            "email": "cwellstood9@icq.com",
+            "DOB": "1991-02-02",
+            "gold_member": true,
+            "province": "Pennsylvania",
+            "city": "Erie",
+            "postal_code": "16505",
+            "street_number": "19",
+            "street_name": "Toban",
+            "unit_number": 107,
+            "user": 20
+        }
+    }
+]

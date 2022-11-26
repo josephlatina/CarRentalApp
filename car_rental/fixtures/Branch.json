@@ -1,0 +1,122 @@
+[
+    {
+        "model": "api.branch",
+        "pk": 1,
+        "fields": {
+            "province": "Ontario",
+            "city": "Smiths Falls",
+            "postal_code": "K7A",
+            "street_number": "60",
+            "street_name": "Longview",
+            "unit_number": 264
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 2,
+        "fields": {
+            "province": "Alberta",
+            "city": "Irricana",
+            "postal_code": "B3T",
+            "street_number": "915",
+            "street_name": "Waubesa",
+            "unit_number": 245
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 3,
+        "fields": {
+            "province": "Québec",
+            "city": "Roberval",
+            "postal_code": "G8H",
+            "street_number": "6750",
+            "street_name": "Bunker Hill",
+            "unit_number": 198
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 4,
+        "fields": {
+            "province": "Alberta",
+            "city": "Two Hills",
+            "postal_code": "J9H",
+            "street_number": "79572",
+            "street_name": "Boyd",
+            "unit_number": 201
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 5,
+        "fields": {
+            "province": "Alberta",
+            "city": "Lamont",
+            "postal_code": "N2E",
+            "street_number": "91096",
+            "street_name": "Becker",
+            "unit_number": 281
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 6,
+        "fields": {
+            "province": "Québec",
+            "city": "Baie-D'Urfé",
+            "postal_code": "H9X",
+            "street_number": "82402",
+            "street_name": "Shasta",
+            "unit_number": 276
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 7,
+        "fields": {
+            "province": "Québec",
+            "city": "Trois-Rivières",
+            "postal_code": "L8J",
+            "street_number": "44491",
+            "street_name": "Eliot",
+            "unit_number": 283
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 8,
+        "fields": {
+            "province": "British Columbia",
+            "city": "Sparwood",
+            "postal_code": "M2J",
+            "street_number": "96669",
+            "street_name": "Spenser",
+            "unit_number": 143
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 9,
+        "fields": {
+            "province": "Québec",
+            "city": "Bedford",
+            "postal_code": "J6W",
+            "street_number": "06482",
+            "street_name": "Melody",
+            "unit_number": 221
+        }
+    },
+    {
+        "model": "api.branch",
+        "pk": 10,
+        "fields": {
+            "province": "Québec",
+            "city": "Mont-Laurier",
+            "postal_code": "J9L",
+            "street_number": "30",
+            "street_name": "Linden",
+            "unit_number": 232
+        }
+    }
+]
