@@ -143,6 +143,7 @@ class Customer(models.Model):
     street_number = models.CharField(max_length=10, null=True)
     street_name = models.CharField(max_length=30, null=True)
     unit_number = models.CharField(max_length=5, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="customer")
 
 
 class CustomerPhoneNumber(models.Model):
