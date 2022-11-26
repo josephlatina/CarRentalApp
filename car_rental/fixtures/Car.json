@@ -1,0 +1,1502 @@
+[
+    {
+        "model": "api.car",
+        "pk": 1,
+        "fields": {
+            "car_type": 47,
+            "branch": 5,
+            "manufacturer": "Chrysler",
+            "model": "Sebring",
+            "fuel_type": "Gasoline",
+            "colour": "Crimson",
+            "license_plate": "MJP-7791",
+            "status": "Available",
+            "mileage": 50694.46
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 2,
+        "fields": {
+            "car_type": 9,
+            "branch": 8,
+            "manufacturer": "Ford",
+            "model": "C-MAX Hybrid",
+            "fuel_type": "Diesel",
+            "colour": "Mauv",
+            "license_plate": "XXQ-7753",
+            "status": "Not Available",
+            "mileage": 18234.35
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 3,
+        "fields": {
+            "car_type": 18,
+            "branch": 7,
+            "manufacturer": "Kia",
+            "model": "Forte",
+            "fuel_type": "Gasoline",
+            "colour": "Indigo",
+            "license_plate": "HFR-0970",
+            "status": "Available",
+            "mileage": 48865.06
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 4,
+        "fields": {
+            "car_type": 15,
+            "branch": 1,
+            "manufacturer": "Chevrolet",
+            "model": "Avalanche 1500",
+            "fuel_type": "Gasoline",
+            "colour": "Yellow",
+            "license_plate": "SOS-5647",
+            "status": "Available",
+            "mileage": 88883.61
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 5,
+        "fields": {
+            "car_type": 33,
+            "branch": 7,
+            "manufacturer": "Chevrolet",
+            "model": "Corvette",
+            "fuel_type": "Diesel",
+            "colour": "Blue",
+            "license_plate": "TUS-5867",
+            "status": "Not Available",
+            "mileage": 91362.06
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 6,
+        "fields": {
+            "car_type": 21,
+            "branch": 6,
+            "manufacturer": "Pontiac",
+            "model": "Montana",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "WFD-7207",
+            "status": "Available",
+            "mileage": 196363.24
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 7,
+        "fields": {
+            "car_type": 29,
+            "branch": 10,
+            "manufacturer": "Mitsubishi",
+            "model": "Galant",
+            "fuel_type": "Gasoline",
+            "colour": "Indigo",
+            "license_plate": "NPT-0039",
+            "status": "Available",
+            "mileage": 127329.14
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 8,
+        "fields": {
+            "car_type": 10,
+            "branch": 1,
+            "manufacturer": "Toyota",
+            "model": "T100",
+            "fuel_type": "Diesel",
+            "colour": "Mauv",
+            "license_plate": "CQO-1854",
+            "status": "Available",
+            "mileage": 92325.18
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 9,
+        "fields": {
+            "car_type": 31,
+            "branch": 5,
+            "manufacturer": "Suzuki",
+            "model": "Esteem",
+            "fuel_type": "Diesel",
+            "colour": "Indigo",
+            "license_plate": "IJK-7225",
+            "status": "Available",
+            "mileage": 139245.02
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 10,
+        "fields": {
+            "car_type": 19,
+            "branch": 10,
+            "manufacturer": "Subaru",
+            "model": "XT",
+            "fuel_type": "Diesel",
+            "colour": "Aquamarine",
+            "license_plate": "DPW-1588",
+            "status": "Available",
+            "mileage": 88500.61
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 11,
+        "fields": {
+            "car_type": 15,
+            "branch": 8,
+            "manufacturer": "Oldsmobile",
+            "model": "98",
+            "fuel_type": "Gasoline",
+            "colour": "Turquoise",
+            "license_plate": "RCF-1576",
+            "status": "Not Available",
+            "mileage": 61460.37
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 12,
+        "fields": {
+            "car_type": 5,
+            "branch": 3,
+            "manufacturer": "BMW",
+            "model": "750",
+            "fuel_type": "Diesel",
+            "colour": "Pink",
+            "license_plate": "QHR-4374",
+            "status": "Available",
+            "mileage": 158696.66
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 13,
+        "fields": {
+            "car_type": 12,
+            "branch": 8,
+            "manufacturer": "Hummer",
+            "model": "H3",
+            "fuel_type": "Diesel",
+            "colour": "Blue",
+            "license_plate": "JML-3530",
+            "status": "Not Available",
+            "mileage": 189424.0
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 14,
+        "fields": {
+            "car_type": 3,
+            "branch": 6,
+            "manufacturer": "Pontiac",
+            "model": "Vibe",
+            "fuel_type": "Gasoline",
+            "colour": "Purple",
+            "license_plate": "NGX-3682",
+            "status": "Available",
+            "mileage": 75693.74
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 15,
+        "fields": {
+            "car_type": 11,
+            "branch": 6,
+            "manufacturer": "Audi",
+            "model": "A4",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "OVJ-5657",
+            "status": "Available",
+            "mileage": 162624.04
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 16,
+        "fields": {
+            "car_type": 11,
+            "branch": 4,
+            "manufacturer": "Buick",
+            "model": "Park Avenue",
+            "fuel_type": "Gasoline",
+            "colour": "Crimson",
+            "license_plate": "SQU-0538",
+            "status": "Available",
+            "mileage": 55087.31
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 17,
+        "fields": {
+            "car_type": 43,
+            "branch": 9,
+            "manufacturer": "Dodge",
+            "model": "Durango",
+            "fuel_type": "Gasoline",
+            "colour": "Red",
+            "license_plate": "VCH-1149",
+            "status": "Available",
+            "mileage": 84302.23
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 18,
+        "fields": {
+            "car_type": 43,
+            "branch": 5,
+            "manufacturer": "Buick",
+            "model": "Riviera",
+            "fuel_type": "Gasoline",
+            "colour": "Fuscia",
+            "license_plate": "GDS-5801",
+            "status": "Available",
+            "mileage": 49603.34
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 19,
+        "fields": {
+            "car_type": 17,
+            "branch": 8,
+            "manufacturer": "Porsche",
+            "model": "911",
+            "fuel_type": "Gasoline",
+            "colour": "Mauv",
+            "license_plate": "DWL-5105",
+            "status": "Not Available",
+            "mileage": 179323.28
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 20,
+        "fields": {
+            "car_type": 48,
+            "branch": 9,
+            "manufacturer": "Toyota",
+            "model": "Prius",
+            "fuel_type": "Gasoline",
+            "colour": "Blue",
+            "license_plate": "JOL-7912",
+            "status": "Available",
+            "mileage": 102422.18
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 21,
+        "fields": {
+            "car_type": 48,
+            "branch": 1,
+            "manufacturer": "Buick",
+            "model": "Estate",
+            "fuel_type": "Diesel",
+            "colour": "Teal",
+            "license_plate": "VVC-7497",
+            "status": "Available",
+            "mileage": 11228.9
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 22,
+        "fields": {
+            "car_type": 9,
+            "branch": 10,
+            "manufacturer": "Lincoln",
+            "model": "Mark VII",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "VPJ-2283",
+            "status": "Not Available",
+            "mileage": 192534.62
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 23,
+        "fields": {
+            "car_type": 32,
+            "branch": 3,
+            "manufacturer": "Chevrolet",
+            "model": "Camaro",
+            "fuel_type": "Diesel",
+            "colour": "Crimson",
+            "license_plate": "AKT-2584",
+            "status": "Available",
+            "mileage": 54013.64
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 24,
+        "fields": {
+            "car_type": 50,
+            "branch": 3,
+            "manufacturer": "Mitsubishi",
+            "model": "Endeavor",
+            "fuel_type": "Gasoline",
+            "colour": "Goldenrod",
+            "license_plate": "SPH-7397",
+            "status": "Available",
+            "mileage": 31799.13
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 25,
+        "fields": {
+            "car_type": 35,
+            "branch": 6,
+            "manufacturer": "Lincoln",
+            "model": "Town Car",
+            "fuel_type": "Diesel",
+            "colour": "Aquamarine",
+            "license_plate": "JMU-0676",
+            "status": "Not Available",
+            "mileage": 128171.32
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 26,
+        "fields": {
+            "car_type": 36,
+            "branch": 4,
+            "manufacturer": "Land Rover",
+            "model": "Discovery Series II",
+            "fuel_type": "Gasoline",
+            "colour": "Violet",
+            "license_plate": "CFY-1013",
+            "status": "Not Available",
+            "mileage": 44247.14
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 27,
+        "fields": {
+            "car_type": 23,
+            "branch": 6,
+            "manufacturer": "Ford",
+            "model": "Econoline E350",
+            "fuel_type": "Gasoline",
+            "colour": "Purple",
+            "license_plate": "ZGY-1129",
+            "status": "Available",
+            "mileage": 47254.16
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 28,
+        "fields": {
+            "car_type": 11,
+            "branch": 2,
+            "manufacturer": "Lincoln",
+            "model": "Navigator",
+            "fuel_type": "Gasoline",
+            "colour": "Goldenrod",
+            "license_plate": "LGZ-4752",
+            "status": "Not Available",
+            "mileage": 12026.82
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 29,
+        "fields": {
+            "car_type": 31,
+            "branch": 2,
+            "manufacturer": "Infiniti",
+            "model": "G",
+            "fuel_type": "Diesel",
+            "colour": "Mauv",
+            "license_plate": "PWS-8430",
+            "status": "Not Available",
+            "mileage": 151568.43
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 30,
+        "fields": {
+            "car_type": 9,
+            "branch": 10,
+            "manufacturer": "Mazda",
+            "model": "Mazda3",
+            "fuel_type": "Diesel",
+            "colour": "Puce",
+            "license_plate": "JLY-7827",
+            "status": "Not Available",
+            "mileage": 141753.99
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 31,
+        "fields": {
+            "car_type": 34,
+            "branch": 8,
+            "manufacturer": "Chevrolet",
+            "model": "Lumina",
+            "fuel_type": "Gasoline",
+            "colour": "Goldenrod",
+            "license_plate": "MUA-7548",
+            "status": "Not Available",
+            "mileage": 57172.53
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 32,
+        "fields": {
+            "car_type": 45,
+            "branch": 4,
+            "manufacturer": "Ford",
+            "model": "Taurus",
+            "fuel_type": "Gasoline",
+            "colour": "Pink",
+            "license_plate": "KVS-4371",
+            "status": "Not Available",
+            "mileage": 81517.03
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 33,
+        "fields": {
+            "car_type": 1,
+            "branch": 8,
+            "manufacturer": "Cadillac",
+            "model": "DTS",
+            "fuel_type": "Gasoline",
+            "colour": "Mauv",
+            "license_plate": "ADQ-3462",
+            "status": "Available",
+            "mileage": 102124.05
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 34,
+        "fields": {
+            "car_type": 34,
+            "branch": 5,
+            "manufacturer": "GMC",
+            "model": "EV1",
+            "fuel_type": "Diesel",
+            "colour": "Pink",
+            "license_plate": "DHD-8000",
+            "status": "Available",
+            "mileage": 101184.14
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 35,
+        "fields": {
+            "car_type": 8,
+            "branch": 4,
+            "manufacturer": "Porsche",
+            "model": "Cayenne",
+            "fuel_type": "Diesel",
+            "colour": "Khaki",
+            "license_plate": "LRM-1394",
+            "status": "Not Available",
+            "mileage": 119019.91
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 36,
+        "fields": {
+            "car_type": 45,
+            "branch": 4,
+            "manufacturer": "Toyota",
+            "model": "Corolla",
+            "fuel_type": "Diesel",
+            "colour": "Mauv",
+            "license_plate": "FTB-7032",
+            "status": "Not Available",
+            "mileage": 73426.02
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 37,
+        "fields": {
+            "car_type": 37,
+            "branch": 3,
+            "manufacturer": "Mitsubishi",
+            "model": "Montero",
+            "fuel_type": "Gasoline",
+            "colour": "Violet",
+            "license_plate": "XIN-4896",
+            "status": "Available",
+            "mileage": 56679.7
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 38,
+        "fields": {
+            "car_type": 3,
+            "branch": 2,
+            "manufacturer": "Audi",
+            "model": "Coupe GT",
+            "fuel_type": "Diesel",
+            "colour": "Maroon",
+            "license_plate": "HRO-8362",
+            "status": "Available",
+            "mileage": 134603.96
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 39,
+        "fields": {
+            "car_type": 16,
+            "branch": 3,
+            "manufacturer": "GMC",
+            "model": "Savana 3500",
+            "fuel_type": "Diesel",
+            "colour": "Aquamarine",
+            "license_plate": "KXB-9180",
+            "status": "Available",
+            "mileage": 151050.8
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 40,
+        "fields": {
+            "car_type": 14,
+            "branch": 4,
+            "manufacturer": "Mazda",
+            "model": "323",
+            "fuel_type": "Gasoline",
+            "colour": "Turquoise",
+            "license_plate": "GLP-7155",
+            "status": "Available",
+            "mileage": 138028.54
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 41,
+        "fields": {
+            "car_type": 29,
+            "branch": 7,
+            "manufacturer": "Aston Martin",
+            "model": "DB9",
+            "fuel_type": "Diesel",
+            "colour": "Aquamarine",
+            "license_plate": "JGE-6478",
+            "status": "Not Available",
+            "mileage": 43616.82
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 42,
+        "fields": {
+            "car_type": 36,
+            "branch": 10,
+            "manufacturer": "Pontiac",
+            "model": "Daewoo Kalos",
+            "fuel_type": "Diesel",
+            "colour": "Indigo",
+            "license_plate": "VMA-4703",
+            "status": "Not Available",
+            "mileage": 140182.63
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 43,
+        "fields": {
+            "car_type": 38,
+            "branch": 7,
+            "manufacturer": "Lexus",
+            "model": "LS",
+            "fuel_type": "Diesel",
+            "colour": "Goldenrod",
+            "license_plate": "IOO-9422",
+            "status": "Not Available",
+            "mileage": 100932.88
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 44,
+        "fields": {
+            "car_type": 22,
+            "branch": 4,
+            "manufacturer": "Jaguar",
+            "model": "XJ",
+            "fuel_type": "Gasoline",
+            "colour": "Mauv",
+            "license_plate": "VYA-9711",
+            "status": "Not Available",
+            "mileage": 123810.01
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 45,
+        "fields": {
+            "car_type": 16,
+            "branch": 8,
+            "manufacturer": "Volkswagen",
+            "model": "Type 2",
+            "fuel_type": "Diesel",
+            "colour": "Indigo",
+            "license_plate": "GSM-7002",
+            "status": "Not Available",
+            "mileage": 66294.86
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 46,
+        "fields": {
+            "car_type": 29,
+            "branch": 10,
+            "manufacturer": "Mercedes-Benz",
+            "model": "CLK-Class",
+            "fuel_type": "Gasoline",
+            "colour": "Violet",
+            "license_plate": "NGP-5559",
+            "status": "Available",
+            "mileage": 182281.81
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 47,
+        "fields": {
+            "car_type": 6,
+            "branch": 7,
+            "manufacturer": "Mazda",
+            "model": "Protege",
+            "fuel_type": "Gasoline",
+            "colour": "Green",
+            "license_plate": "KVX-9987",
+            "status": "Not Available",
+            "mileage": 118759.98
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 48,
+        "fields": {
+            "car_type": 35,
+            "branch": 4,
+            "manufacturer": "Nissan",
+            "model": "Pathfinder",
+            "fuel_type": "Gasoline",
+            "colour": "Maroon",
+            "license_plate": "CIZ-1809",
+            "status": "Not Available",
+            "mileage": 15597.09
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 49,
+        "fields": {
+            "car_type": 26,
+            "branch": 10,
+            "manufacturer": "Jeep",
+            "model": "Liberty",
+            "fuel_type": "Gasoline",
+            "colour": "Mauv",
+            "license_plate": "UYG-9294",
+            "status": "Available",
+            "mileage": 146704.59
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 50,
+        "fields": {
+            "car_type": 11,
+            "branch": 5,
+            "manufacturer": "Chevrolet",
+            "model": "Blazer",
+            "fuel_type": "Diesel",
+            "colour": "Turquoise",
+            "license_plate": "VNR-1168",
+            "status": "Available",
+            "mileage": 20972.1
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 51,
+        "fields": {
+            "car_type": 38,
+            "branch": 1,
+            "manufacturer": "Hyundai",
+            "model": "Accent",
+            "fuel_type": "Gasoline",
+            "colour": "Puce",
+            "license_plate": "XYM-2287",
+            "status": "Not Available",
+            "mileage": 117490.0
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 52,
+        "fields": {
+            "car_type": 23,
+            "branch": 2,
+            "manufacturer": "Geo",
+            "model": "Metro",
+            "fuel_type": "Diesel",
+            "colour": "Indigo",
+            "license_plate": "PIB-6109",
+            "status": "Available",
+            "mileage": 112707.22
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 53,
+        "fields": {
+            "car_type": 20,
+            "branch": 6,
+            "manufacturer": "Lexus",
+            "model": "ES",
+            "fuel_type": "Gasoline",
+            "colour": "Crimson",
+            "license_plate": "SKS-9405",
+            "status": "Available",
+            "mileage": 157160.28
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 54,
+        "fields": {
+            "car_type": 22,
+            "branch": 5,
+            "manufacturer": "Chevrolet",
+            "model": "Tahoe",
+            "fuel_type": "Diesel",
+            "colour": "Khaki",
+            "license_plate": "FRV-0883",
+            "status": "Available",
+            "mileage": 90370.63
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 55,
+        "fields": {
+            "car_type": 21,
+            "branch": 5,
+            "manufacturer": "Hyundai",
+            "model": "Equus",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "JCW-9374",
+            "status": "Available",
+            "mileage": 78318.45
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 56,
+        "fields": {
+            "car_type": 13,
+            "branch": 7,
+            "manufacturer": "Chevrolet",
+            "model": "Malibu",
+            "fuel_type": "Gasoline",
+            "colour": "Fuscia",
+            "license_plate": "SHC-3789",
+            "status": "Available",
+            "mileage": 183356.14
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 57,
+        "fields": {
+            "car_type": 44,
+            "branch": 10,
+            "manufacturer": "Infiniti",
+            "model": "Q",
+            "fuel_type": "Gasoline",
+            "colour": "Maroon",
+            "license_plate": "KAX-5579",
+            "status": "Available",
+            "mileage": 36668.09
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 58,
+        "fields": {
+            "car_type": 37,
+            "branch": 6,
+            "manufacturer": "Volkswagen",
+            "model": "Golf",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "XRM-0954",
+            "status": "Not Available",
+            "mileage": 190011.9
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 59,
+        "fields": {
+            "car_type": 15,
+            "branch": 9,
+            "manufacturer": "Volkswagen",
+            "model": "Eurovan",
+            "fuel_type": "Gasoline",
+            "colour": "Blue",
+            "license_plate": "MLS-8752",
+            "status": "Available",
+            "mileage": 182707.1
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 60,
+        "fields": {
+            "car_type": 42,
+            "branch": 4,
+            "manufacturer": "Infiniti",
+            "model": "IPL G",
+            "fuel_type": "Diesel",
+            "colour": "Puce",
+            "license_plate": "LYT-6739",
+            "status": "Not Available",
+            "mileage": 113310.11
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 61,
+        "fields": {
+            "car_type": 50,
+            "branch": 5,
+            "manufacturer": "Chevrolet",
+            "model": "Corvette",
+            "fuel_type": "Diesel",
+            "colour": "Green",
+            "license_plate": "OKL-9832",
+            "status": "Available",
+            "mileage": 178592.06
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 62,
+        "fields": {
+            "car_type": 31,
+            "branch": 8,
+            "manufacturer": "Mercedes-Benz",
+            "model": "S-Class",
+            "fuel_type": "Gasoline",
+            "colour": "Green",
+            "license_plate": "III-4278",
+            "status": "Available",
+            "mileage": 97174.53
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 63,
+        "fields": {
+            "car_type": 14,
+            "branch": 7,
+            "manufacturer": "Dodge",
+            "model": "Durango",
+            "fuel_type": "Diesel",
+            "colour": "Violet",
+            "license_plate": "JSS-6300",
+            "status": "Available",
+            "mileage": 128706.37
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 64,
+        "fields": {
+            "car_type": 18,
+            "branch": 8,
+            "manufacturer": "Mercury",
+            "model": "Sable",
+            "fuel_type": "Diesel",
+            "colour": "Puce",
+            "license_plate": "IQL-8119",
+            "status": "Available",
+            "mileage": 198461.39
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 65,
+        "fields": {
+            "car_type": 50,
+            "branch": 9,
+            "manufacturer": "BMW",
+            "model": "M3",
+            "fuel_type": "Diesel",
+            "colour": "Fuscia",
+            "license_plate": "QZO-2239",
+            "status": "Available",
+            "mileage": 64763.31
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 66,
+        "fields": {
+            "car_type": 40,
+            "branch": 7,
+            "manufacturer": "Nissan",
+            "model": "Armada",
+            "fuel_type": "Gasoline",
+            "colour": "Aquamarine",
+            "license_plate": "BRO-7997",
+            "status": "Available",
+            "mileage": 107718.15
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 67,
+        "fields": {
+            "car_type": 32,
+            "branch": 2,
+            "manufacturer": "Honda",
+            "model": "del Sol",
+            "fuel_type": "Gasoline",
+            "colour": "Green",
+            "license_plate": "ING-1313",
+            "status": "Not Available",
+            "mileage": 113791.72
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 68,
+        "fields": {
+            "car_type": 46,
+            "branch": 6,
+            "manufacturer": "Ford",
+            "model": "Econoline E350",
+            "fuel_type": "Gasoline",
+            "colour": "Orange",
+            "license_plate": "JKL-8360",
+            "status": "Not Available",
+            "mileage": 75182.54
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 69,
+        "fields": {
+            "car_type": 21,
+            "branch": 10,
+            "manufacturer": "Chevrolet",
+            "model": "Camaro",
+            "fuel_type": "Gasoline",
+            "colour": "Purple",
+            "license_plate": "HSH-8650",
+            "status": "Not Available",
+            "mileage": 140396.85
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 70,
+        "fields": {
+            "car_type": 9,
+            "branch": 9,
+            "manufacturer": "Pontiac",
+            "model": "Firebird",
+            "fuel_type": "Gasoline",
+            "colour": "Mauv",
+            "license_plate": "IJE-2700",
+            "status": "Not Available",
+            "mileage": 134876.38
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 71,
+        "fields": {
+            "car_type": 26,
+            "branch": 1,
+            "manufacturer": "Ford",
+            "model": "F150",
+            "fuel_type": "Gasoline",
+            "colour": "Purple",
+            "license_plate": "JXL-4596",
+            "status": "Not Available",
+            "mileage": 153355.5
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 72,
+        "fields": {
+            "car_type": 13,
+            "branch": 5,
+            "manufacturer": "Pontiac",
+            "model": "Bonneville",
+            "fuel_type": "Diesel",
+            "colour": "Khaki",
+            "license_plate": "CAM-3043",
+            "status": "Not Available",
+            "mileage": 172918.0
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 73,
+        "fields": {
+            "car_type": 17,
+            "branch": 5,
+            "manufacturer": "Audi",
+            "model": "100",
+            "fuel_type": "Diesel",
+            "colour": "Khaki",
+            "license_plate": "QLS-5028",
+            "status": "Not Available",
+            "mileage": 180397.34
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 74,
+        "fields": {
+            "car_type": 23,
+            "branch": 7,
+            "manufacturer": "Maserati",
+            "model": "Gran Sport",
+            "fuel_type": "Gasoline",
+            "colour": "Indigo",
+            "license_plate": "ABV-4555",
+            "status": "Available",
+            "mileage": 162713.68
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 75,
+        "fields": {
+            "car_type": 1,
+            "branch": 8,
+            "manufacturer": "Chevrolet",
+            "model": "Malibu",
+            "fuel_type": "Diesel",
+            "colour": "Purple",
+            "license_plate": "DGS-4501",
+            "status": "Not Available",
+            "mileage": 103078.19
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 76,
+        "fields": {
+            "car_type": 17,
+            "branch": 5,
+            "manufacturer": "Ford",
+            "model": "Mustang",
+            "fuel_type": "Diesel",
+            "colour": "Goldenrod",
+            "license_plate": "TBZ-2796",
+            "status": "Not Available",
+            "mileage": 37951.95
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 77,
+        "fields": {
+            "car_type": 28,
+            "branch": 8,
+            "manufacturer": "Buick",
+            "model": "Century",
+            "fuel_type": "Diesel",
+            "colour": "Fuscia",
+            "license_plate": "CDI-6827",
+            "status": "Not Available",
+            "mileage": 103597.37
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 78,
+        "fields": {
+            "car_type": 27,
+            "branch": 2,
+            "manufacturer": "Lincoln",
+            "model": "LS",
+            "fuel_type": "Diesel",
+            "colour": "Mauv",
+            "license_plate": "BQG-0279",
+            "status": "Not Available",
+            "mileage": 10178.68
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 79,
+        "fields": {
+            "car_type": 11,
+            "branch": 8,
+            "manufacturer": "Hyundai",
+            "model": "Entourage",
+            "fuel_type": "Diesel",
+            "colour": "Orange",
+            "license_plate": "DGV-6622",
+            "status": "Not Available",
+            "mileage": 76445.31
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 80,
+        "fields": {
+            "car_type": 24,
+            "branch": 7,
+            "manufacturer": "Subaru",
+            "model": "Leone",
+            "fuel_type": "Gasoline",
+            "colour": "Goldenrod",
+            "license_plate": "JJN-5826",
+            "status": "Available",
+            "mileage": 154181.07
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 81,
+        "fields": {
+            "car_type": 10,
+            "branch": 9,
+            "manufacturer": "Toyota",
+            "model": "Land Cruiser",
+            "fuel_type": "Diesel",
+            "colour": "Goldenrod",
+            "license_plate": "HTI-8239",
+            "status": "Not Available",
+            "mileage": 130700.9
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 82,
+        "fields": {
+            "car_type": 32,
+            "branch": 7,
+            "manufacturer": "Audi",
+            "model": "A3",
+            "fuel_type": "Gasoline",
+            "colour": "Purple",
+            "license_plate": "QVN-3289",
+            "status": "Available",
+            "mileage": 38002.22
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 83,
+        "fields": {
+            "car_type": 28,
+            "branch": 4,
+            "manufacturer": "Toyota",
+            "model": "Tacoma",
+            "fuel_type": "Diesel",
+            "colour": "Pink",
+            "license_plate": "XDX-0898",
+            "status": "Available",
+            "mileage": 98713.95
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 84,
+        "fields": {
+            "car_type": 1,
+            "branch": 1,
+            "manufacturer": "Nissan",
+            "model": "300ZX",
+            "fuel_type": "Gasoline",
+            "colour": "Crimson",
+            "license_plate": "XXP-1543",
+            "status": "Available",
+            "mileage": 137365.87
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 85,
+        "fields": {
+            "car_type": 34,
+            "branch": 4,
+            "manufacturer": "Volkswagen",
+            "model": "rio",
+            "fuel_type": "Gasoline",
+            "colour": "Blue",
+            "license_plate": "LBF-2190",
+            "status": "Available",
+            "mileage": 108252.58
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 86,
+        "fields": {
+            "car_type": 44,
+            "branch": 5,
+            "manufacturer": "Toyota",
+            "model": "Solara",
+            "fuel_type": "Gasoline",
+            "colour": "Khaki",
+            "license_plate": "UMJ-2584",
+            "status": "Available",
+            "mileage": 61527.14
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 87,
+        "fields": {
+            "car_type": 26,
+            "branch": 3,
+            "manufacturer": "Acura",
+            "model": "RL",
+            "fuel_type": "Gasoline",
+            "colour": "Aquamarine",
+            "license_plate": "CXB-2609",
+            "status": "Available",
+            "mileage": 193531.44
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 88,
+        "fields": {
+            "car_type": 28,
+            "branch": 1,
+            "manufacturer": "Toyota",
+            "model": "Camry Solara",
+            "fuel_type": "Gasoline",
+            "colour": "Khaki",
+            "license_plate": "DCF-5159",
+            "status": "Available",
+            "mileage": 23174.22
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 89,
+        "fields": {
+            "car_type": 41,
+            "branch": 4,
+            "manufacturer": "Pontiac",
+            "model": "6000",
+            "fuel_type": "Gasoline",
+            "colour": "Violet",
+            "license_plate": "EWN-8058",
+            "status": "Not Available",
+            "mileage": 179075.39
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 90,
+        "fields": {
+            "car_type": 13,
+            "branch": 8,
+            "manufacturer": "Chevrolet",
+            "model": "Silverado",
+            "fuel_type": "Diesel",
+            "colour": "Puce",
+            "license_plate": "MXN-3674",
+            "status": "Available",
+            "mileage": 68808.23
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 91,
+        "fields": {
+            "car_type": 21,
+            "branch": 9,
+            "manufacturer": "Volkswagen",
+            "model": "GTI",
+            "fuel_type": "Gasoline",
+            "colour": "Crimson",
+            "license_plate": "QZD-5980",
+            "status": "Not Available",
+            "mileage": 198530.01
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 92,
+        "fields": {
+            "car_type": 10,
+            "branch": 8,
+            "manufacturer": "Dodge",
+            "model": "Ram Van 2500",
+            "fuel_type": "Gasoline",
+            "colour": "Red",
+            "license_plate": "QTX-2758",
+            "status": "Not Available",
+            "mileage": 131218.88
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 93,
+        "fields": {
+            "car_type": 29,
+            "branch": 2,
+            "manufacturer": "Subaru",
+            "model": "Legacy",
+            "fuel_type": "Diesel",
+            "colour": "Yellow",
+            "license_plate": "QOL-5359",
+            "status": "Available",
+            "mileage": 151139.79
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 94,
+        "fields": {
+            "car_type": 7,
+            "branch": 7,
+            "manufacturer": "Ford",
+            "model": "Mustang",
+            "fuel_type": "Diesel",
+            "colour": "Pink",
+            "license_plate": "UBQ-9546",
+            "status": "Not Available",
+            "mileage": 120076.42
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 95,
+        "fields": {
+            "car_type": 36,
+            "branch": 10,
+            "manufacturer": "Buick",
+            "model": "Verano",
+            "fuel_type": "Diesel",
+            "colour": "Goldenrod",
+            "license_plate": "AGO-8246",
+            "status": "Available",
+            "mileage": 168114.69
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 96,
+        "fields": {
+            "car_type": 27,
+            "branch": 3,
+            "manufacturer": "Lincoln",
+            "model": "Navigator",
+            "fuel_type": "Gasoline",
+            "colour": "Pink",
+            "license_plate": "GMQ-3953",
+            "status": "Not Available",
+            "mileage": 48280.07
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 97,
+        "fields": {
+            "car_type": 15,
+            "branch": 6,
+            "manufacturer": "Dodge",
+            "model": "Ram",
+            "fuel_type": "Gasoline",
+            "colour": "Aquamarine",
+            "license_plate": "BWM-4590",
+            "status": "Available",
+            "mileage": 52626.97
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 98,
+        "fields": {
+            "car_type": 35,
+            "branch": 6,
+            "manufacturer": "Ford",
+            "model": "Laser",
+            "fuel_type": "Gasoline",
+            "colour": "Puce",
+            "license_plate": "DTF-6953",
+            "status": "Available",
+            "mileage": 54547.63
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 99,
+        "fields": {
+            "car_type": 38,
+            "branch": 9,
+            "manufacturer": "Honda",
+            "model": "CR-V",
+            "fuel_type": "Gasoline",
+            "colour": "Indigo",
+            "license_plate": "DEU-1287",
+            "status": "Not Available",
+            "mileage": 16768.21
+        }
+    },
+    {
+        "model": "api.car",
+        "pk": 100,
+        "fields": {
+            "car_type": 50,
+            "branch": 5,
+            "manufacturer": "Ford",
+            "model": "Explorer",
+            "fuel_type": "Diesel",
+            "colour": "Red",
+            "license_plate": "RJS-4215",
+            "status": "Not Available",
+            "mileage": 47749.58
+        }
+    }
+]
