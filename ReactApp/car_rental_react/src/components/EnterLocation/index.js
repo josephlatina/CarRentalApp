@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./EnterLocation.css";
 
 function EnterLocation(props) {
-  const { inputType, inputPlaceholder, className, branches } = props;
+  const { inputType, inputPlaceholder, className, branches,onChange } = props;
   const [arrBranch,setArrBranch] = useState([]);
   const [showList,setShowList] = useState(false);
   const [textInput,setTextInput] = useState("");
   const itemConRef = useRef();
+
 
   useEffect(() => {
     console.log(branches);
@@ -51,7 +52,9 @@ function EnterLocation(props) {
   }
 
   const itemClickHandler = (branch,event) => {
-    setTextInput(`${branch.street_name} ${branch.city}`);
+    const result = `${branch.street_number} ${branch.street_name}, ${branch.city}`
+    onChange?.(branch);
+    setTextInput(result);
     setShowList(false);
     event.preventDefault();
     event.stopPropagation();
@@ -71,7 +74,8 @@ function EnterLocation(props) {
       />
       {arrBranch && arrBranch.length && showList && <div ref={itemConRef} className="autoCompleteItems">
           {arrBranch.map((branch,index) => {
-              return <div className="item" key={index + "-" + branch.id} value={branch.id} onClick={(event) => itemClickHandler(branch,event)}>{branch.street_name} {branch.city}</div>
+              return <div className="item" key={index + "-" + branch.id} value={branch.id} 
+              onClick={(event) => itemClickHandler(branch,event)}>{branch.street_number} {branch.street_name}, {branch.city}</div>
           })}
       </div>} 
     </div>

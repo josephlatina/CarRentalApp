@@ -1,6 +1,13 @@
 .enter-location::placeholder {
     color: #ffffff4c;
   }
+  .autoCompleteItems{
+    position: absolute;
+    z-index: 100;
+    width: 78%;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
 
   .autoCompleteItems .item {
     padding: 10px;
