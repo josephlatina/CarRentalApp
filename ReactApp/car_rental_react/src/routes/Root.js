@@ -46,7 +46,7 @@ export default function Root() {
             {/* This is just a temp navigation bar */}
 
             {/* Section 1: Jumbotron */}
-            <div>
+            <div style={{ minHeight: "75vh" }}>
                 <Outlet />
             </div>
         </div>

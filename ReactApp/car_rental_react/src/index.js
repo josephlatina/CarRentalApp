@@ -12,6 +12,7 @@ import HomePage from "./components/HomePage/HomePage";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
+import AdminHomePage from "./routes/AdminHomePage";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
             { path: "/home", element: <HomePage /> },
+            { path: "/admin", element: <AdminHomePage /> },
         ],
     },
 ]);
