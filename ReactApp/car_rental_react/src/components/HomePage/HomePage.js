@@ -5,11 +5,9 @@ import caseIcon from "../../assets/suitcase-1-1@2x.png";
 import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./HomePage.module.css";
-import EnterLocation from "../EnterLocation";
+import LocationInput from "../LocationInput/LocationInput";
 import locationIcon from "../../assets/location-1-2@2x.png";
 import calenderIcon from "../../assets/calendar-icon-1-2@2x.png";
-import InstaIcon from "../../assets/pngegg-6--1-1@2x.png";
-import FacebookIcon from "../../assets/pngegg-7--1-1@2x.png";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
@@ -45,11 +43,9 @@ const Home = () => {
 
   const handleSearch = () => {
     let dateNow = new Date();
-    console.log(dateNow.getTime())
-    if (pickUpLocation == "" || dropOffLocation == "" || pickUpDate == "" || dropOffDate == "") {
+    if (pickUpLocation === "" || dropOffLocation === "" || pickUpDate === "" || dropOffDate === "") {
       alert("Please fill out all fields");
     } else if (pickUpDate.getTime() < dateNow.getTime() || dropOffDate < pickUpDate ){
-      console.log(pickUpDate, dateNow);
       alert(`Please enter valid dates. Pick up date cannot be before ${dateNow}` )
     }
     else {
@@ -101,7 +97,7 @@ const Home = () => {
               </h4>
 
               <div className= {styles.autocomplete_div}>
-                <EnterLocation
+                <LocationInput
                     className="location-input"
                     inputType="text"
                     inputPlaceholder={homepageData.enterLocation1}
@@ -129,7 +125,7 @@ const Home = () => {
               </div>
               <div className=
               {styles.autocomplete_div}>
-                  <EnterLocation
+                  <LocationInput
                     id="right"
                     inputType="text"
                     inputPlaceholder={homepageData.enterLocation1}
