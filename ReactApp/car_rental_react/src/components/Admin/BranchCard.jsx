@@ -4,7 +4,7 @@ export default function BranchCard({ branch }) {
     return (
         <Container
             className="text-center shadow p-5 mb-5 w-75"
-            style={{ backgroundColor: "#1c1c1c", borderRadius: "75px" }}
+            style={{ backgroundColor: "#1c1c1c", borderRadius: "50px" }}
         >
             <h2 style={{ color: "#e3e3e3" }}>Branch ID No. {branch.id}</h2>
             <div>{branch.street_number + " " + branch.street_name}</div>

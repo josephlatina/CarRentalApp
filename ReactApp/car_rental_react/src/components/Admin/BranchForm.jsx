@@ -72,7 +72,9 @@ export default function BranchForm() {
                 </div>
             </Row>
             <div className="text-center">
-                <Button type="submit">Create</Button>
+                <Button type="submit" className="w-25 p-2">
+                    Create
+                </Button>
             </div>
         </Form>
     );
