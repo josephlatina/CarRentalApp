@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button, Container } from "reactstrap";
 
 export default function BranchCard({ branch }) {
@@ -16,7 +17,13 @@ export default function BranchCard({ branch }) {
                     branch.postal_code}
             </div>
             <hr />
-            <Button className="w-50">Select</Button>
+            <Button
+                className="w-50"
+                tag={Link}
+                to={`/admin/branches/${branch.id}`}
+            >
+                Select
+            </Button>
         </Container>
     );
 }

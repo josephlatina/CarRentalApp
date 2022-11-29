@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 import BranchCard from "../components/Admin/BranchCard";
 import BranchForm from "../components/Admin/BranchForm";
@@ -37,7 +38,9 @@ export default function AdminHomePage() {
                     <h2 style={{ textAlign: "center", color: "white" }}>
                         Customer List
                     </h2>
-                    <Button>View</Button>
+                    <Button tag={Link} to="/admin/customers">
+                        View
+                    </Button>
                 </Container>
             </Row>
             <Row
