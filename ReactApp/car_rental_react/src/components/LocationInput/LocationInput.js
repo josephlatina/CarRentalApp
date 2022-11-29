@@ -8,7 +8,6 @@ function LocationInput(props) {
   const [textInput,setTextInput] = useState("");
   const itemConRef = useRef();
 
-
   useEffect(() => {
     if(branches && branches.length) {
       setArrBranch([...branches]);
