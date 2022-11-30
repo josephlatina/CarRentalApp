@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from "react";
-import Jumbotron from "../Jumbotron";
-import EnterLocation from "../EnterLocation";
-import HeroBanner from "../HeroBanner";
-import Header from "../Header";
-import Airport from "../Airport";
-import Business from "../Business";
-import Personal from "../Personal";
+import planeIcon from "../../assets/airplane-1-1@2x.png";
+import personIcon from "../../assets/person-1-1@2x.png";
+import caseIcon from "../../assets/suitcase-1-1@2x.png";
+import TimePicker from "react-time-picker";
+import "react-datepicker/dist/react-datepicker.css";
 import styles from "./HomePage.module.css";
+import LocationInput from "../LocationInput/LocationInput";
 import locationIcon from "../../assets/location-1-2@2x.png";
 import calenderIcon from "../../assets/calendar-icon-1-2@2x.png";
-import InstaIcon from "../../assets/pngegg-6--1-1@2x.png";
-import FacebookIcon from "../../assets/pngegg-7--1-1@2x.png";
-import JumbotronPic from "../../assets/car-banner.jpg";
-import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 
+const Home = () => {
 
-
-function Homepage() {
-
-const homepageData = {  
+  const homepageData = {
     pickUpLocation: "Pick-Up Location",
     pickUpDate: "Pick-Up Date",
+    dropDate: "Drop-off Date",
+    dropTime: "Drop-off Time",
     inputType2: "date",
     inputPlaceholder2: "Enter Date",
     pickUpTime: "Pick-Up Time",
@@ -31,167 +27,195 @@ const homepageData = {
     returnLocation: "Return Location",
     returnDate: "Return Date",
     returnTime: "Return Time",
-    experience: "Experience it now.",
-    follow: "Follow us on our social media",
-    copyright: "All Rights Reserved. © xxx",
     enterLocation1: "Enter Location",
-};
+  };
 
   const [branch, setBranch] = useState([]);
+  const [pickUpLocation, setPickUpLocation] = useState("");
+  const [dropOffLocation, setDropOffLocation] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
+  const [dropOffDate, setDropOffDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [returnTime, setReturnTime] = useState("");
+
+  //navigate and handleSearch button
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    let dateNow = new Date();
+    if (pickUpLocation === "" || dropOffLocation === "" || pickUpDate === "" || dropOffDate === "") {
+      alert("Please fill out all fields");
+    } else if (pickUpDate.getTime() < dateNow.getTime() || dropOffDate < pickUpDate ){
+      alert(`Please enter valid dates. Pick up date cannot be before ${dateNow}` )
+    }
+    else {
+      navigate("/car", {
+        state: {
+          pickUpLocation: pickUpLocation,
+          dropOffLocation: dropOffLocation,
+          pickUpDate: pickUpDate,
+          dropOffDate: dropOffDate,
+        },
+      });
+    }
+  };
+
 
   useEffect(() => {
     const getBranch = async () => {
-      console.log("Response here");
       const response = await fetch("/api/branches");
-      console.log("Response here");
-      console.log(response);
+      // console.log("Response here");
+      // console.log(response);
       const getData = await response.json();
       setBranch(getData);
-      console.log(getData);
-      
+      // console.log(getData);
     };
     getBranch();
   }, []);
-// console.log("Home O");
-  
 
-return (
-    
-    <div className="container-center-horizontal">
-      <form
-        className="homepage-mockup screen"
-        name="form2"
-        action="form2"
-        method="post"
-      >
-        {/* Jumbotron section */}
-        <div className={styles.overlap_group6}>
-          <div
-            className={styles.jumbotron}
-            style={{ backgroundImage: JumbotronPic }}
-          >
-            <Jumbotron />
-          </div>
-          {/* Locations section  */}
-          <div className={styles.group_14}>
-            <div className={styles.heading_div}>
-              <div className="poppins-normal-caribbean-green-17px" id={styles.left_top}>
-                <h4>{homepageData.pickUpLocation}</h4>
-                <div className="autocomplete-div">
-                  <EnterLocation className="location-input"
-                    inputType="text"
-                    inputPlaceholder={homepageData.enterLocation1}
-                    branches={branch}
-                  />
+  return (
+    <div className={styles.mainCon}>
+      <div className={styles.banner}></div>
+      <div className={styles.bannerText}>
+        <h1>Preminum Service For Personal Needs</h1>
+        <h3>Experience it now</h3>
+        <div className={styles.middleCon}>
+          <div className={styles.heading_div}>
+            <div
+              className="poppins-normal-caribbean-green-17px"
+              id={styles.left_top}
+            >
+              <h4>
+                <span>
                   <img
                     className={styles.icon_location_pin_1}
                     src={locationIcon}
                     alt="icon-location_pin"
                   />
-                </div>
-              </div>
+                </span>
+                {homepageData.pickUpLocation}
+              </h4>
 
-              <div className="poppins-normal-caribbean-green-17px" id={styles.right_top}>
-                <h4 >{homepageData.returnLocation}</h4>
-                <div className="autocomplete-div">
-                  <EnterLocation
+              <div className= {styles.autocomplete_div}>
+                <LocationInput
+                    className="location-input"
+                    inputType="text"
+                    inputPlaceholder={homepageData.enterLocation1}
+                    branches={branch}
+                    onChange={(branch) => setPickUpLocation(branch?.id)}
+                />
+              </div>
+            </div>
+
+            <div
+              className="poppins-normal-caribbean-green-17px"
+              id={styles.right_top}
+            >
+              <div>
+                <h4>
+                  <span>
+                    <img
+                      className={styles.icon_location_pin_1}
+                      src={locationIcon}
+                      alt="icon_location_pin"
+                    />
+                  </span>
+                  {homepageData.returnLocation}
+                </h4>
+              </div>
+              <div className=
+              {styles.autocomplete_div}>
+                  <LocationInput
                     id="right"
                     inputType="text"
                     inputPlaceholder={homepageData.enterLocation1}
                     branches={branch}
-                  />
+                    onChange={(branch) => setDropOffLocation(branch?.id)}
+                />
+              </div>
+            </div>
+          </div>
 
-                  <img
-                    className={styles.icon_location_pin_1}
-                    src={locationIcon}
-                    alt="icon_location_pin"
+          <div className={styles.bottom_div}>
+            <div className={styles.bottom_left}>
+              <div className={styles.date}>
+                <h4>
+                  <span>
+                    <img
+                      className={styles.calendar_size}
+                      src={calenderIcon}
+                      alt="icon-calendar"
+                    />
+                  </span>
+                  {homepageData.pickUpDate}
+                </h4>
+                <DatePicker
+                    selected={pickUpDate}
+                    onChange={(date) => setPickUpDate(date)}
+                    placeholderText  = "Enter Date"
                   />
-                </div>
               </div>
-            </div>
+              <div className={styles.time}>
+                <h4>{homepageData.pickUpTime}</h4>
 
-            <div className={styles.bottom_div}>
-              <div className={styles.bottom_left}>
-                <div className={styles.date}>
-                  <img className={styles.calendar_size} src={calenderIcon} alt="icon-calendar" />
-                  <h4>{homepageData.pickUpDate}</h4>
-                  <input
-                    name="enterdate"
-                    placeholder={homepageData.inputPlaceholder2}
-                    type="date"
-                    required
-                  />
-                </div>
-                <div className={styles.time}>
-                  <h4>{homepageData.pickUpTime}</h4>
-                  <input
-                    name="12_00pm"
-                    placeholder={homepageData.time}
-                    type="time"
-                    required
-                  />
-                </div>
-              </div>
-              <div className={styles.bottom_right}>
-                <div className={styles.date}>
-                  <img className={styles.calendar_size} src={calenderIcon} alt="icon-calendar" />
-                  <h4>{homepageData.pickUpDate}</h4>
-                  <input
-                    name="enterdate"
-                    placeholder={homepageData.inputPlaceholder2}
-                    type={homepageData.inputType2}
-                    required
-                  />
-                </div>
-                <div className={styles.time}>
-                  <h4>{homepageData.pickUpTime}</h4>
-                  <input
-                    name="12_00pm"
-                    placeholder={homepageData.time}
-                    type="time"
-                    required
-                  />
-                </div>
+                <TimePicker
+                  clockIcon={null}
+                  onChange={(value) => setPickupTime(value)}
+                  value={pickupTime}
+                />
               </div>
             </div>
-            <Link to= "/car">
-              <Button className="col-10 car-btn" size="lg">Search</Button>
-            </Link>
-          </div>
-          <div className={styles.banner}>
-            <HeroBanner>
-              <React.Fragment>Premium Service for<br />Personal Needs</React.Fragment>
-            </HeroBanner>
-            <div className={styles.experience_it_now}>{homepageData.experience}</div>
-          </div>
-          <Header  />
-        </div>
-        <div className={styles.item_container}>
-          <Airport />
-          <Business />
-          <Personal />
-        </div>
-        <div className={styles.footer}>
-          <div className="poppins-medium-white-25px" id={styles.overlap_group5}>
-            <p className={styles.follow_us_on_our_social_media}>{homepageData.follow}</p>
-            <div className={styles.icon_container}>
-              <img
-                className={styles.icon_instagram}
-                src={InstaIcon}
-                alt="icon-instagram"
-              />
-              <img
-                className={styles.icon_facebook}
-                src={FacebookIcon}
-                alt="icon-facebook"
-              />
+            <div className={styles.bottom_right}>
+              <div className={styles.date}>
+           
+                <h4><span>     <img
+                  className={styles.calendar_size}
+                  src={calenderIcon}
+                  alt="icon-calendar"
+                /></span> {homepageData.dropDate}</h4>
+
+                  <DatePicker
+                    selected={dropOffDate}
+                    onChange={(date) => setDropOffDate(date)}
+                    placeholderText  = "Enter Date"
+                  />
+              </div>
+              <div className={styles.time}>
+                <h4>{homepageData.dropTime}</h4>
+
+                <TimePicker
+                  clockIcon={null}
+                  onChange={(value) => setReturnTime(value)}
+                  value={returnTime}
+                />
+              </div>
             </div>
-            <p className={styles.copyright}>{homepageData.copyright}</p>
           </div>
+          <button className={styles.searchBtn} onClick={handleSearch}>Search</button>
         </div>
-      </form>
+      </div>
+
+      <div className={styles.blackCon}>
+        <div className={styles.airport}>
+          <img className="icon-plane" src={planeIcon} alt="icon-plane" />
+          <h4>To and From Airport</h4>
+          <p>Convenienient pick up and drop off in any major city.</p>
+        </div>
+        <div className={styles.airport}>
+          <img className="icon-plane" src={caseIcon} alt="icon-plane" />
+          <h4>Business Trips</h4>
+          <p>Reliability and varied selection are guaranteed.</p>
+        </div>
+        <div className={styles.airport}>
+          <img className="icon-plane" src={personIcon} alt="icon-plane" />
+          <h4>Personal Trips</h4>
+          <p>
+            Anywhere you want to go, you can count on us to help you get there.
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default Homepage;
+export default Home;

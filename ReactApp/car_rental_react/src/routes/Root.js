@@ -47,7 +47,7 @@ export default function Root() {
                     )}
                 </NavbarText>
             </Navbar>
-            <section className="container-fluid jumbotron"></section>
+            {/* <section className="container-fluid jumbotron"></section> */}
             {/* This is just a temp navigation bar */}
 
             {/* Section 1: Jumbotron */}

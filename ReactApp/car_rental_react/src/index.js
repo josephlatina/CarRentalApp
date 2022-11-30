@@ -8,11 +8,11 @@ import CarReserve from "./routes/CarReserve";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./routes/Root";
 import HomePage from "./components/HomePage/HomePage";
-
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
 import AdminHomePage from "./routes/AdminHomePage";
+
 
 const router = createBrowserRouter([
     {
@@ -27,13 +27,14 @@ const router = createBrowserRouter([
             { path: "/admin", element: <AdminHomePage /> },
         ],
     },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <ProvideAuth>
-        <RouterProvider router={router} />
-    </ProvideAuth>
+  <ProvideAuth>
+      <RouterProvider router={router} />
+  </ProvideAuth>
 );
 
 // If you want to start measuring performance in your app, pass a function
