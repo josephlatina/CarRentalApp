@@ -9,13 +9,15 @@ import CarFilter from "../components/CarFilter";
 
 const CarSelection = () => {
   const location = useLocation();
-  const pickuplocation = "1";
-  const returnlocation = "1";
-  const pickupdate = new Date("2022-10-27");
-  const returndate = new Date("2022-10-30");
+  const pickuplocation = location.state.pickUpLocation;
+  const returnlocation = location.state.dropOffLocation;
+  const pickupdate = new Date(location.state.pickUpDate);
+  const returndate = new Date(location.state.dropOffDate);
   const [cars, setCars] = useState([]);
   const [filteredcars, setFilteredCars] = useState([]);
   const [rentals, setRentals] = useState([]);
+  const [pickUpBranch, setPickUpBranch] = useState([]);
+  const [returnBranch, setReturnBranch] = useState([]);
   const [manufacturers, setManufacturers] = useState([]);
   const [fueltype, setFuelType] = useState([]);
   const [cartype, setCarType] = useState([]);
@@ -72,6 +74,28 @@ const CarSelection = () => {
     }
   };
 
+  const queryBranch = async () => {
+    try {
+      axios
+        .get("api/branches/")
+        .then((res) => {
+          setPickUpBranch(
+            res.data.filter((branch) => {
+              return branch.id === parseInt(pickuplocation);
+            })
+          );
+          setReturnBranch(
+            res.data.filter((branch) => {
+              return branch.id === parseInt(returnlocation);
+            })
+          )
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   // handle fetching of data here
   useEffect(() => {
     (async () => {
@@ -82,6 +106,9 @@ const CarSelection = () => {
     })();
     (async () => {
       await queryCarTypes();
+    })();
+    (async () => {
+      await queryBranch();
     })();
   }, []);
 
@@ -303,10 +330,10 @@ const CarSelection = () => {
       {/* Section 3: Reserve Summary */}
       <section className="container">
         <ReserveSummary
-          pickuplocation="Edmonton, AB"
-          returnlocation="Calgary, AB"
-          pickupdate="Aug 18, 2022 8:00am"
-          returndate="Aug 23, 2022 5:00pm"
+          pickuplocation={pickUpBranch}
+          returnlocation={returnBranch}
+          pickupdate={pickupdate}
+          returndate={returndate}
         />
       </section>
       {/* Section 4: Filter and Car Cards */}
