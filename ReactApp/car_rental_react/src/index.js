@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage/HomePage";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
+import RentalManager from "./routes/RentalManager";
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: "/home", element: <HomePage /> },
+      { path: "/manager", element: <RentalManager /> },
     ],
   },
 ]);
