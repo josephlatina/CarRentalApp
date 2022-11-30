@@ -24,6 +24,11 @@ export default function Root() {
                             Rent
                         </NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/manager">
+                            Manage Rentals
+                        </NavLink>
+                    </NavItem>
                 </Nav>
                 <NavbarText>
                     {isSignedIn ? (
