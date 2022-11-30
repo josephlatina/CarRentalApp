@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import '../css/style.css';
+import compactImg from "../assets/Compact.png";
+import suvImg from "../assets/SUV.png";
 
 const CarCard = (props) => {
     const {
@@ -17,6 +18,18 @@ const CarCard = (props) => {
         branchto
     } = props;
     const [ total, setTotal ] = useState(0);
+    const [ image, setImage ] = useState();
+
+    const images = [
+        {
+            title: "SUV",
+            imageUrl: suvImg
+        },
+        {
+            title: "Compact",
+            imageUrl: compactImg
+        }
+    ]
 
     const navigate = useNavigate();
 
@@ -70,10 +83,12 @@ const CarCard = (props) => {
     }, [cartypeitem]);
 
     return (
-        <div className="row box" id="car-box">
+        <div className="row" id="car-box">
             {/* Car Image */}
             <div className="col-sm-12 col-lg-4 car-info">
-                <p>Image here</p>
+                {/* <p>Image here</p> */}
+                <img src={images.filter((img) => {console.log(img.imageUrl); console.log(cartypeitem[0]?.description); return img.title === cartypeitem[0]?.description})[0].imageUrl} width={350} height={300} alt="Image here"/>
+                {/* <img src={images[0].imageUrl} width={350} height={300} alt="Image here"/> */}
             </div>
             {/* Car Info */}
             <div className="col-sm-12 col-lg-4 car-info">
