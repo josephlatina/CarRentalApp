@@ -11,20 +11,23 @@ import HomePage from "./components/HomePage/HomePage";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
+import AdminHomePage from "./routes/AdminHomePage";
 
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      { path: "/car", element: <CarSelection /> },
-      { path: "/rent", element: <CarReserve /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
-      { path: "/home", element: <HomePage /> },
-    ],
-  },
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            { path: "/car", element: <CarSelection /> },
+            { path: "/rent", element: <CarReserve /> },
+            { path: "/login", element: <Login /> },
+            { path: "/signup", element: <Signup /> },
+            { path: "/home", element: <HomePage /> },
+            { path: "/admin", element: <AdminHomePage /> },
+        ],
+    },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
