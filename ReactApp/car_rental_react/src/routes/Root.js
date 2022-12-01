@@ -24,6 +24,11 @@ export default function Root() {
                             Rent
                         </NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink to="/admin" tag={Link}>
+                            Admin
+                        </NavLink>
+                    </NavItem>
                 </Nav>
                 <NavbarText>
                     {isSignedIn ? (
@@ -46,7 +51,7 @@ export default function Root() {
             {/* This is just a temp navigation bar */}
 
             {/* Section 1: Jumbotron */}
-            <div>
+            <div style={{ minHeight: "75vh" }}>
                 <Outlet />
             </div>
         </div>
