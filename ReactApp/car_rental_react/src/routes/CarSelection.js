@@ -6,6 +6,7 @@ import CarCard from "../components/CarCard";
 import axios from "axios";
 import "../css/style.css";
 import CarFilter from "../components/CarFilter";
+import { useAuth } from "../provider/authContext";
 
 const CarSelection = () => {
   const location = useLocation();
@@ -27,12 +28,16 @@ const CarSelection = () => {
     filteredfueltype: new Set(),
     filteredcartype: new Set(),
   });
+  const [textInput,setTextInput] = useState("");
+  const [showList,setShowList] = useState(false);
   const [filterby, setFilterby] = useState(false);
+  const [upgrades, setUpgrades] = useState(false);
+  const { isSignedIn, user } = useAuth();
+  const [customers, setCustomers] = useState([]);
+  const [isGoldMember, setIsGoldMember] = useState(false);
 
   // handle retrieval of cars from query here
   const queryCars = async () => {
-    // parameters here
-
     // retrieve cars and filter by branch selected
     try {
       axios
@@ -96,6 +101,21 @@ const CarSelection = () => {
     }
   }
 
+  const queryCustomers = async() => {
+    // if (user.id !== null) {
+      try {
+        axios
+          .get("api/customers/")
+          .then((res) => {
+            setCustomers(res.data)
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        throw new Error(error);
+      }
+    // }
+  }
+
   // handle fetching of data here
   useEffect(() => {
     (async () => {
@@ -109,6 +129,9 @@ const CarSelection = () => {
     })();
     (async () => {
       await queryBranch();
+    })();
+    (async () => {
+      await queryCustomers();
     })();
   }, []);
 
@@ -146,7 +169,19 @@ const CarSelection = () => {
       });
       setFilteredCars(finalcars);
     }
-  }, [rentals, cars]);
+
+    // check for gold membership
+    if (isSignedIn && user.id !== null && customers.length > 0) {
+      console.log(user.id);
+      console.log(customers);
+      setIsGoldMember(() => {
+        let customer = customers.filter((customer) => {
+          return customer.id === user.id;
+        });
+        return customer[0].gold_member;
+      });
+    }
+  }, [rentals, cars, customers]);
 
   // set the list of manufacturers and fueltypes here for the filter box
   useEffect(() => {
@@ -161,8 +196,43 @@ const CarSelection = () => {
       setManufacturers(Array.from(new Set(car_manufacturers)));
       setFuelType(Array.from(new Set(car_fueltype)));
       setFilters({ ...filters, cards: filteredcars });
+
+      document.addEventListener("click",documentClickHandler);
+      return () => {
+        document.removeEventListener("click",documentClickHandler);
+      }
     }
   }, [filteredcars, cartype, rentals]);
+
+  const documentClickHandler = (event) => {
+    setShowList(false);
+  }
+
+  const inputClick = (event) => {
+    setShowList(true);
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  const itemClickHandler = (type,event) => {
+    const result = `${type.description}`;
+    setTextInput(result);
+    setShowList(false);
+    let carfiltered = filteredcars.filter((car) => {
+      return car.car_type === type.car_type_id;
+    })
+    setFilters({ ...filters, cards: carfiltered });
+    console.log("testing pls");
+    console.log(isGoldMember);
+    if (isSignedIn && isGoldMember && carfiltered.length == 0) {
+      setUpgrades(true);
+    }
+  }
+
+  const clearSearch = () => {
+    setTextInput("");
+    setFilters({ ...filters, cards: filteredcars });
+  }
 
   // handles the manufacturer filters in filter box
   const handleManufacturerFilterChange = useCallback(
@@ -173,7 +243,7 @@ const CarSelection = () => {
         let filteredcartype = new Set(prevFilter.filteredcartype);
         let cards = filteredcars;
 
-        if (event.target.checked) {
+        if (event.target.checked || event.target.value)  {
           filteredmanufacturers.add(event.target.value);
         } else {
           filteredmanufacturers.delete(event.target.value);
@@ -295,6 +365,10 @@ const CarSelection = () => {
     setFilterby(!filterby);
   };
 
+  const toggleUpgrades = () => {
+    setUpgrades(!upgrades);
+  };
+
   // clears past filters when entering the modal
   const clearFilter = () => {
     toggle();
@@ -312,7 +386,7 @@ const CarSelection = () => {
 
   return (
     <>
-      {/* Section 2: Progress */}
+      {/* Section 1: Progress */}
       <section className="container">
         {/* Progress Bar */}
         <div className="row" id="progress-bar">
@@ -327,7 +401,7 @@ const CarSelection = () => {
           </div>
         </div>
       </section>
-      {/* Section 3: Reserve Summary */}
+      {/* Section 2: Reserve Summary */}
       <section className="container">
         <ReserveSummary
           pickuplocation={pickUpBranch}
@@ -336,6 +410,41 @@ const CarSelection = () => {
           returndate={returndate}
         />
       </section>
+      {/* Section 3: Car Type Selection */}
+      <div className="row innerbox">
+          <div className="col-6 field">
+              <h5 id="selected">Requested Car Type</h5>
+              <input 
+                placeholder="Enter Car Type"
+                name="entercartype"
+                type="text"
+                value={textInput}
+                onClick={inputClick}
+                required
+              />
+              {cartype && cartype.length && showList && <div>
+                {cartype.map((type,index) => {
+                  return <div
+                          key={index}
+                          value={type.id}
+                          onClick={(event) => itemClickHandler(type,event)}>
+                    {type.description}
+                  </div>
+                })}
+              </div>}
+              {upgrades && <Modal isOpen={upgrades} toggle={toggleUpgrades} contentClassName="modal">
+                <ModalHeader toggle={toggleUpgrades}>Gold Member Perk</ModalHeader>
+                <ModalBody>
+                  <p>Unfortunately, your requested car type is not available. However, since you are a gold member, you are eligible for a free upgrade!
+                  </p>
+                  <p>Simply select an available car of a car type with a higher price point and you will be able to rent with the same base cost as your requested car type.</p>
+                </ModalBody>
+              </Modal>}
+          </div>
+          <div className="col-6">
+            <Button className="col-10 car-btn" size="lg" onClick={clearSearch}>Clear</Button>
+          </div>
+      </div>
       {/* Section 4: Filter and Car Cards */}
       <div id="filter-button">
         <Button className="col-10 car-btn" size="lg" onClick={clearFilter}>
