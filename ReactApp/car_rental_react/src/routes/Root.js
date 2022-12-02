@@ -25,6 +25,11 @@ export default function Root() {
                         </NavLink>
                     </NavItem>
                     <NavItem>
+                        <NavLink tag={Link} to="/manager">
+                            Manage Rentals
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
                         <NavLink to="/admin" tag={Link}>
                             Admin
                         </NavLink>
