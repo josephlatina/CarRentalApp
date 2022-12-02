@@ -11,6 +11,7 @@ const CarCard = (props) => {
         model,
         fueltype,
         cartypeitem,
+        requestedcartype,
         pickupdate,
         returndate,
         car,
@@ -18,7 +19,6 @@ const CarCard = (props) => {
         branchto
     } = props;
     const [ total, setTotal ] = useState(0);
-    const [ image, setImage ] = useState();
 
     const images = [
         {
@@ -73,7 +73,8 @@ const CarCard = (props) => {
             dateto: returndate,
             branchcamefrom: branchfrom,
             branchgoesto: branchto,
-            requestedcartype: cartypeitem[0]?.car_type_id
+            requestedcartype: (requestedcartype == 0) ? cartypeitem[0]?.car_type_id : requestedcartype,
+            estimatedcost: total
         }});
 
     }

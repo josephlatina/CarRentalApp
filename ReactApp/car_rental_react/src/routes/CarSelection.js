@@ -35,6 +35,7 @@ const CarSelection = () => {
   const { isSignedIn, user } = useAuth();
   const [customers, setCustomers] = useState([]);
   const [isGoldMember, setIsGoldMember] = useState(false);
+  const [requestedCarType, setRequestedCarType] = useState(0);
 
   // handle retrieval of cars from query here
   const queryCars = async () => {
@@ -217,6 +218,7 @@ const CarSelection = () => {
   const itemClickHandler = (type,event) => {
     const result = `${type.description}`;
     setTextInput(result);
+    setRequestedCarType(type.car_type_id);
     setShowList(false);
     let carfiltered = filteredcars.filter((car) => {
       return car.car_type === type.car_type_id;
@@ -496,6 +498,7 @@ const CarSelection = () => {
                   cartypeitem={cartype?.filter((cartype) => {
                     return cartype?.car_type_id === item.car_type;
                   })}
+                  requestedcartype={requestedCarType}
                   pickupdate={pickupdate}
                   returndate={returndate}
                   car={item.car_id}
