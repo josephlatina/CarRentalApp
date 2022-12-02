@@ -413,40 +413,42 @@ const CarSelection = () => {
         />
       </section>
       {/* Section 3: Car Type Selection */}
-      <div className="row innerbox">
-          <div className="col-6 field">
-              <h5 id="selected">Requested Car Type</h5>
-              <input 
-                placeholder="Enter Car Type"
-                name="entercartype"
-                type="text"
-                value={textInput}
-                onClick={inputClick}
-                required
-              />
-              {cartype && cartype.length && showList && <div>
-                {cartype.map((type,index) => {
-                  return <div
-                          key={index}
-                          value={type.id}
-                          onClick={(event) => itemClickHandler(type,event)}>
-                    {type.description}
-                  </div>
-                })}
-              </div>}
-              {upgrades && <Modal isOpen={upgrades} toggle={toggleUpgrades} contentClassName="modal">
-                <ModalHeader toggle={toggleUpgrades}>Gold Member Perk</ModalHeader>
-                <ModalBody>
-                  <p>Unfortunately, your requested car type is not available. However, since you are a gold member, you are eligible for a free upgrade!
-                  </p>
-                  <p>Simply select an available car of a car type with a higher price point and you will be able to rent with the same base cost as your requested car type.</p>
-                </ModalBody>
-              </Modal>}
+      <section className="container">
+        <div className="row" id="request-type">
+          <div className="col-sm-12 col-lg-6 field-no-border">
+            <h5 id="selected">Requested Car Type</h5>
+            <input 
+              placeholder="Enter Car Type"
+              name="entercartype"
+              type="text"
+              value={textInput}
+              onClick={inputClick}
+              required
+            />
+            {cartype && cartype.length && showList && <div>
+              {cartype.map((type,index) => {
+                return <div
+                        key={index}
+                        value={type.id}
+                        onClick={(event) => itemClickHandler(type,event)}>
+                  {type.description}
+                </div>
+              })}
+            </div>}
           </div>
-          <div className="col-6">
+          <div className="col-sm-12 col-lg-6">
             <Button className="col-10 car-btn" size="lg" onClick={clearSearch}>Clear</Button>
           </div>
-      </div>
+        </div>
+        {upgrades && <Modal isOpen={upgrades} toggle={toggleUpgrades} contentClassName="modal">
+            <ModalHeader toggle={toggleUpgrades}>Gold Member Perk</ModalHeader>
+            <ModalBody>
+              <p>Unfortunately, your requested car type is not available. However, since you are a gold member, you are eligible for a free upgrade!
+              </p>
+              <p>Simply select an available car of a car type with a higher price point and you will be able to rent with the same base cost as your requested car type.</p>
+            </ModalBody>
+          </Modal>}
+      </section>
       {/* Section 4: Filter and Car Cards */}
       <div id="filter-button">
         <Button className="col-10 car-btn" size="lg" onClick={clearFilter}>
