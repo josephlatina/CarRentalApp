@@ -34,6 +34,11 @@ export default function Root() {
                             Admin
                         </NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink to="/admincar" tag={Link}>
+                            Admin Car
+                        </NavLink>
+                    </NavItem>
                 </Nav>
                 <NavbarText>
                     {isSignedIn ? (
@@ -56,7 +61,7 @@ export default function Root() {
             {/* This is just a temp navigation bar */}
 
             {/* Section 1: Jumbotron */}
-            <div style={{ minHeight: "75vh" }}>
+            <div style={{ minHeight: "100vh" }}>
                 <Outlet />
             </div>
         </div>

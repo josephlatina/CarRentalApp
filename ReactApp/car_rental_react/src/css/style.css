@@ -319,3 +319,11 @@
     width: 70vw; 
     margin-bottom: 20px;
 }
+
+/*+++++++++++++++++++ ADMIN CAR LIST PAGE +++++++++++++++++++ */
+.dropdown {
+    border-color: white;
+    width: 100%;
+    border-style: solid;
+    margin-bottom: 20px;
+}

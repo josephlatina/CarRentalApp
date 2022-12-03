@@ -13,6 +13,7 @@ import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
 import RentalManager from "./routes/RentalManager";
 import AdminHomePage from "./routes/AdminHomePage";
+import AdminCar from "./routes/AdminCar";
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
             { path: "/home", element: <HomePage /> },
       { path: "/manager", element: <RentalManager /> },
             { path: "/admin", element: <AdminHomePage /> },
+            { path: "/admincar", element: <AdminCar /> },
         ],
     },
 
