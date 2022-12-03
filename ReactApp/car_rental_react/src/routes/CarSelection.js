@@ -34,7 +34,8 @@ const CarSelection = () => {
     // retrieve cars and filter by branch selected
     try {
       axios
-        .get("api/cars/")
+        // .get("api/cars/")
+        .get("http://127.0.0.1:8000/api/cars/")
         .then((res) => {
           setCars(
             res.data.filter((car) => {
@@ -53,7 +54,8 @@ const CarSelection = () => {
     // handle query here
     try {
       axios
-        .get("/api/cartypes/")
+        // .get("/api/cartypes/")
+        .get("http://127.0.0.1:8000/api/cartypes/")
         .then((res) => setCarType(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
@@ -64,13 +66,15 @@ const CarSelection = () => {
   const queryRentals = async () => {
     try {
       axios
-        .get("/api/rentals")
+        // .get("/api/rentals")
+        .get("http://127.0.0.1:8000/api/rentals/")
         .then((res) => setRentals(res.data))
         .catch((err) => console.log(err));
     } catch (error) {
       throw new Error(error);
     }
   };
+
 
   // handle fetching of data here
   useEffect(() => {
