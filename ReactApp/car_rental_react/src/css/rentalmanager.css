@@ -1,5 +1,6 @@
 .Table-Container{
-    height: 50vh;
+    height: 55vh;
+    background-color: #242424;
 }
 .Table-Head th{
     background-color: #242424;
@@ -29,7 +30,9 @@
 .tr-row:hover{
     background-color: #0FB877;
 }
-
+svg.MuiSelect-iconStandard{
+    color: #0FB877;
+}
 .collapsed-box{
     color: #0FB877;
 }
