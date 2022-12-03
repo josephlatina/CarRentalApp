@@ -45,7 +45,7 @@ const CarCard = (props) => {
             if (diffDays < 7) {
                 estimatedCost = diffDays * cartypeitem[0]?.daily_cost;
             }
-            if (30 > diffDays >= 7) {
+            if (diffDays >= 7 && diffDays < 30) {
                 const weeks = diffDays / 7;
                 const leftDays = diffDays - (weeks * 7);
                 estimatedCost = (weeks * cartypeitem[0]?.weekly_cost) + (leftDays * cartypeitem[0]?.daily_cost);
