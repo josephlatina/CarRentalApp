@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import '../css/style.css';
+import compactImg from "../assets/Compact.png";
+import suvImg from "../assets/SUV.png";
 
 const CarCard = (props) => {
     const {
@@ -10,6 +11,7 @@ const CarCard = (props) => {
         model,
         fueltype,
         cartypeitem,
+        requestedcartype,
         pickupdate,
         returndate,
         car,
@@ -17,6 +19,17 @@ const CarCard = (props) => {
         branchto
     } = props;
     const [ total, setTotal ] = useState(0);
+
+    const images = [
+        {
+            title: "SUV",
+            imageUrl: suvImg
+        },
+        {
+            title: "Compact",
+            imageUrl: compactImg
+        }
+    ]
 
     const navigate = useNavigate();
 
@@ -27,7 +40,7 @@ const CarCard = (props) => {
 
         if (returnDate >= pickupDate) {
             const diff = returnDate - pickupDate;
-            const diffDays = diff/(1000 * 60 * 60 * 24);
+            const diffDays = diff/(1000 * 60 * 60 * 24) + 1;
 
             if (diffDays < 7) {
                 estimatedCost = diffDays * cartypeitem[0]?.daily_cost;
@@ -60,7 +73,8 @@ const CarCard = (props) => {
             dateto: returndate,
             branchcamefrom: branchfrom,
             branchgoesto: branchto,
-            requestedcartype: cartypeitem[0]?.car_type_id
+            requestedcartype: (requestedcartype == 0) ? cartypeitem[0]?.car_type_id : requestedcartype,
+            estimatedcost: total
         }});
 
     }
@@ -70,22 +84,27 @@ const CarCard = (props) => {
     }, [cartypeitem]);
 
     return (
-        <div className="row box" id="car-box">
+        <div className="row" id="car-box">
             {/* Car Image */}
             <div className="col-sm-12 col-lg-4 car-info">
-                <p>Image here</p>
+                {/* <p>Image here</p> */}
+                <img src={images.filter((img) => {return img.title === cartypeitem[0]?.description})[0]?.imageUrl} width={350} height={300} alt="Image here"/>
+                {/* <img src={images[0].imageUrl} width={350} height={300} alt="Image here"/> */}
             </div>
             {/* Car Info */}
             <div className="col-sm-12 col-lg-4 car-info">
                 <h3>{manufacturer} {model}</h3>
-                <p>{cartypeitem[0]?.description}</p>
-                <p>{fueltype}</p>
+                <h5>Car Type: {cartypeitem[0]?.description}</h5>
+                <h5>Fuel Type: {fueltype}</h5>
+                <p>Daily Cost: ${cartypeitem[0]?.daily_cost} </p>
+                <p>Weekly Cost: ${cartypeitem[0]?.weekly_cost}</p>
+                <p>Monthly Cost: ${cartypeitem[0]?.monthly_cost}</p>
             </div>
             {/* Car Price */}
             <div className="col-sm-12 col-lg-4 car-info">
                 <div className="car-price">
                     <p>CAD</p>
-                    <h3>{total.toFixed(2)}</h3>
+                    <h4>{total.toFixed(2)}</h4>
                     <p>Total</p>
                 </div>
                 {/* Button */}
