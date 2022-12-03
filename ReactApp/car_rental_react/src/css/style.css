@@ -74,7 +74,7 @@
 
     #filter-box {
         background-color: #242424;
-        height: 800px;
+        min-height: 800px;
         width: 90%;
         border-radius: 10px;
         margin: 40px;
