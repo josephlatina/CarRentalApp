@@ -11,10 +11,12 @@ import HomePage from "./components/HomePage/HomePage";
 import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth } from "./provider/authContext";
+import CustomerList from "./components/CustomerList/CustomerList";
 import RentalManager from "./routes/RentalManager";
 import AdminHomePage from "./routes/AdminHomePage";
 import AdminCar from "./routes/AdminCar";
 import AdminCarDetails from "./routes/AdminCarDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
       { path: "/home", element: <HomePage /> },
       { path: "/manager", element: <RentalManager /> },
       { path: "/admin", element: <AdminHomePage /> },
+      { path: "/admin/customers", element: <CustomerList /> },
       { path: "/admincar", element: <AdminCar /> },
       { path: "/admincardetails", element: <AdminCarDetails /> },
     ],
@@ -37,7 +40,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ProvideAuth>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </ProvideAuth>
 );
 
