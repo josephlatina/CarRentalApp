@@ -1,8 +1,11 @@
+//info
 import { useLocation, Link } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import React from 'react';
-import rentalStyling from "../css/rentalmanager.css";
+import axios from "axios";
 
+//styling
+import rentalStyling from "../css/rentalmanager.css";
 import TablePagination from '@mui/material/TablePagination';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,63 +16,46 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { create } from "@mui/material/styles/createTransitions";
+
+export function getList(str) {
+    return fetch(str)
+      .then(data => data.json())
+  }
 
 const columns = [
-    { id: 'ID', label: 'Customer ID', minWidth: 20 },
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'car', label: 'Car Model', minWidth: 170 },
-    { id: 'pickup', label: 'Pickup Date', minWidth: 170 },
-    { id: 'expected', label: 'Expected Return', minWidth: 170 },
-    { id: 'returned', label: 'Returned', minWidth: 170 },
-    { id: 'total', label: 'Subtotal', minWidth: 170 },
+    { id: 'ID', label: 'Rental ID', minWidth: 30 },
+    { id: 'name', label: 'Name', minWidth: 100 },
+    { id: 'car', label: 'Car Model', minWidth: 100 },
+    { id: 'pickup', label: 'Pickup Date', minWidth: 100 },
+    { id: 'expected', label: 'Expected Return', minWidth: 100 },
+    { id: 'returned', label: 'Returned', minWidth: 100 },
+    { id: 'total', label: 'Subtotal', minWidth: 100 },
 
   ];
-  
-  function createData(name, ID, car, pickup, expected, returned, total) {
-    return { name, ID, car, pickup, expected, returned, total };
-  }
-  
-const rows = [
-    createData('India', '1', 'Lamborghini Huracan', '07-23-2022'),
-    createData('China', '2', 'Lamborghini Huracan', 9596961),
-    createData('Italy', '4', 'Lamborghini Huracan', 301340),
-    createData('United States', '5', 'Lamborghini Huracan', 9833520),
-    createData('Canada', '3', 'Lamborghini Huracan', 9984670),
-    createData('Australia', '90', 'Lamborghini Huracan', 7692024),
-    createData('Germany', '45', 'Lamborghini Huracan', 357578),
-    createData('Ireland', '22', 'Lamborghini Huracan', 70273),
-    createData('Mexico', '46', 'Lamborghini Huracan', 1972550),
-    createData('Japan', '77', 'Lamborghini Huracan', 377973),
-    createData('France', '53', 'Lamborghini Huracan', 640679),
-    createData('United Kingdom', '72', 'Lamborghini Huracan', 242495),
-    createData('Russia', '13', 'Lamborghini Huracan', 17098246),
-    createData('Nigeria', '11', 'Lamborghini Huracan', 923768),
-    createData('Brazil', '87', 'Lamborghini Huracan', 8515767),
-  ];
-
+    
 function RentalManager(props) {
     const { row } = props;
     const [visible, setVisible] = React.useState(false);
-
     return (
         <React.Fragment>
             <TableRow onClick={() => setVisible(!visible)} className="tr-row">  
-                    <TableCell>{row.ID}</TableCell>
-                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.rental_id}</TableCell>
+                    <TableCell>{row.customer}</TableCell>
                     <TableCell>{row.car}</TableCell>
-                    <TableCell>{row.pickup}</TableCell>
-                    <TableCell>{row.expected}</TableCell>
-                    <TableCell>{row.returned}</TableCell>
-                    <TableCell>{row.total}</TableCell>
+                    <TableCell>{row.date_from}</TableCell>
+                    <TableCell>{row.date_to}</TableCell>
+                    <TableCell>{row.date_returned}</TableCell>
+                    <TableCell>{row.total_cost}</TableCell>
             </TableRow>
             <TableRow role="checkbox" tabIndex={-1} key={row.ID}>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor:'#393939' }} colSpan={8}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor:'#444444cc' }} colSpan={8}>
                     <Collapse in={visible}>
                         <Box sx={{ margin: 1 }} className="collapsed-box">
                             <h4 align="center">Transaction Details</h4>
-                            <h6 align="left">Employee: {row.name}</h6>
-                            <h6 align="left">Branch From:</h6>
-                            <h6 align="left">Branch To:</h6>
+                            <h6 align="left">Employee: {row.employee_given_by}</h6>
+                            <h6 align="left">Branch From: {row.branch_came_from}</h6>
+                            <h6 align="left">Branch To: {row.branch_goes_to}</h6>
                             <h6 align="center"><button type="submit" className="btn btn-primary">process</button></h6>
                         </Box>
                     </Collapse>
@@ -84,6 +70,8 @@ export default function CollapsibleTable() {
     const[search, setSearch] = useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rentals, setRentals] = useState([]);
+    const RENTAL_API = `http://127.0.0.1:8000/api/rentals/`;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -97,6 +85,17 @@ export default function CollapsibleTable() {
     const handleChangeSearch = event => {
         setSearch(event.target.value);
       };
+
+    useEffect(() => {
+        let mounted = true;
+        getList(RENTAL_API)
+          .then(items => {
+            if(mounted){
+              setRentals(items)
+            }
+          })
+          return () => mounted = false;
+      }, [])
     return (
         <>
             <section className="container" id="table-section">
@@ -131,10 +130,11 @@ export default function CollapsibleTable() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows
+                                    {rentals
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => (
-                                        <RentalManager key={row.ID} row={row} />
+                                    .map((item) => (
+                                        <RentalManager key={item.rental_id} row={item} />
+                                        
                                     ))}
                                 </TableBody>
                             </Table>
@@ -143,7 +143,7 @@ export default function CollapsibleTable() {
                             className="Table-Footer"
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rows.length}
+                            count={rentals.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}
