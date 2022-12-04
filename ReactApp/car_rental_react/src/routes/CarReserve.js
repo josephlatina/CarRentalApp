@@ -12,12 +12,11 @@ const CarReserve = () => {
 
   // get info from car selection
   const location = useLocation();
-  console.log(location.state);
 
   //get car information
-  var car_model;
-  var car_type;
-  var car_id;
+  let car_model;
+  let car_type;
+  let car_id;
   axios
     .get("/api/cars/" + location.state.carid + "/")
     .then((res) => {
@@ -35,7 +34,7 @@ const CarReserve = () => {
     .catch((err) => console.log(err));
 
   //get return branch information
-  var branch_to;
+  let branch_to;
   axios
     .get("/api/branches/" + location.state.branchgoesto + "/")
     .then((res) => {
@@ -46,7 +45,7 @@ const CarReserve = () => {
     .catch((err) => console.log(err));
 
   //get pickup branch information
-  var branch_from;
+  let branch_from;
   axios
     .get("/api/branches/" + location.state.branchcamefrom + "/")
     .then((res) => {
