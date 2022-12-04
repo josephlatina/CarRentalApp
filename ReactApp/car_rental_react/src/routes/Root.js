@@ -3,7 +3,7 @@ import { Button, Nav, Navbar, NavbarText, NavItem, NavLink } from "reactstrap";
 import { useAuth } from "../provider/authContext";
 
 export default function Root() {
-    const { isSignedIn, user, logOut } = useAuth();
+    const { isSignedIn, user, logOut, customer } = useAuth();
 
     return (
         <div className="root-style font-link">
@@ -46,7 +46,10 @@ export default function Root() {
                             <span
                                 style={{ color: "white", marginRight: "1rem" }}
                             >
-                                Hello {user.email}
+                                Hello{" "}
+                                {!!customer && !!customer.first_name
+                                    ? `${customer.first_name} ${customer.last_name}`
+                                    : user.email}
                             </span>
                             <Button onClick={logOut}>Sign out</Button>
                         </div>
@@ -61,7 +64,7 @@ export default function Root() {
             {/* This is just a temp navigation bar */}
 
             {/* Section 1: Jumbotron */}
-            <div>
+            <div style={{ minHeight: "100vh" }}>
                 <Outlet />
             </div>
         </div>
