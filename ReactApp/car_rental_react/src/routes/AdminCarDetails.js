@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from "reactstrap";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../provider/authContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AdminCarDetails = () => {
   const [manufacturer, setManufacturer] = useState("text");
@@ -17,19 +17,47 @@ const AdminCarDetails = () => {
   // ensure page not loaded with null location.state
 
   // get car details CURRENTLY HARDCODED UNTIL CONNECTED TO OTHER PAGE
-
-  axios
-    .get("/api/cars/14")
-    .then((res) => {
-      //assign variables
+  useEffect(() => {
+    const getCar = async () => {
+      const res = await axios.get("/api/cars/14");
       setManufacturer(res.data.manufacturer);
       setModel(res.data.model);
       setFuel(res.data.fuel_type);
       setColour(res.data.colour);
       setPlate(res.data.license_plate);
       setMileage(res.data.mileage);
-    })
-    .catch((err) => console.log(err));
+    };
+
+    getCar();
+  }, []);
+
+  // Used to update details of a car
+  function updateDetails() {
+    // create car details TYPE, BRANCH, STATUS HARDCODED.
+    const car_details = {
+      car_id: 14,
+      car_type: 3,
+      branch: 6,
+      manufacturer: manufacturer,
+      model: model,
+      fuel_type: fuel,
+      colour: colour,
+      license_plate: plate,
+      status: "Available",
+      mileage: mileage,
+    };
+
+    alert(colour);
+
+    // update details
+    axios
+      .put("/api/cars/14/", car_details)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err.response.data));
+
+    alert("Car Details Modified");
+  }
+
   return (
     <>
       <section class="rental-container">
@@ -38,44 +66,56 @@ const AdminCarDetails = () => {
           <h2 className="header-text">Car Details</h2>
           <Row className="car-info-row">
             <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">Manufacturer</h6>
-                {manufacturer}
-              </div>
+              <h6 className="car-info-label">Manufacturer</h6>
+              <input
+                className="car-info-box"
+                value={manufacturer}
+                onChange={(event) => setManufacturer(event.target.value)}
+              ></input>
             </Col>
             <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">Model</h6>
-                {model}
-              </div>
-            </Col>
-          </Row>
-          <Row className="car-info-row">
-            <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">Fuel Type</h6>
-                {fuel}
-              </div>
-            </Col>
-            <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">Colour</h6>
-                {colour}
-              </div>
+              <h6 className="car-info-label">Model</h6>
+              <input
+                className="car-info-box"
+                value={model}
+                onChange={(event) => setModel(event.target.value)}
+              ></input>
             </Col>
           </Row>
           <Row className="car-info-row">
             <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">License Plate</h6>
-                {plate}
-              </div>
+              <h6 className="car-info-label">Fuel Type</h6>
+              <input
+                className="car-info-box"
+                value={fuel}
+                onChange={(event) => setFuel(event.target.value)}
+              ></input>
             </Col>
             <Col>
-              <div className="car-info-box">
-                <h6 className="car-info-label">Mileage</h6>
-                {mileage}
-              </div>
+              <h6 className="car-info-label">Colour</h6>
+              <input
+                className="car-info-box"
+                value={colour}
+                onChange={(event) => setColour(event.target.value)}
+              ></input>
+            </Col>
+          </Row>
+          <Row className="car-info-row">
+            <Col>
+              <h6 className="car-info-label">License Plate</h6>
+              <input
+                className="car-info-box"
+                value={plate}
+                onChange={(event) => setPlate(event.target.value)}
+              ></input>
+            </Col>
+            <Col>
+              <h6 className="car-info-label">Mileage</h6>
+              <input
+                className="car-info-box"
+                value={mileage}
+                onChange={(event) => setMileage(event.target.value)}
+              ></input>
             </Col>
           </Row>
           <h2 className="header-text">Car Type</h2>
@@ -94,7 +134,7 @@ const AdminCarDetails = () => {
             <option value="Available">Available</option>
             <option value="Not Available">Not Available</option>
           </select>
-          <Button>Update</Button>
+          <Button onClick={updateDetails}>Update</Button>
         </div>
       </section>
     </>

@@ -362,6 +362,8 @@
 }
 
 .car-info-box {
+    color: white;
+    background-color:  #242424;
     border-radius: 10px;
     border: 1px solid white;
     width: 30vw;
