@@ -1,17 +1,36 @@
 import { Button } from "reactstrap";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../provider/authContext";
 import { useState } from "react";
 
 const CarReserve = () => {
+  const { isSignedIn, customer } = useAuth();
+  const location = useLocation();
   const [pickupBranch, setPickupBranch] = useState("text");
   const [returnBranch, setReturnBranch] = useState("text");
   const [carType, setCarType] = useState("text");
   const [estPrice, setEstPrice] = useState("text");
+  const [greeting, setGreeting] = useState("text");
+  const navigate = useNavigate();
 
-  // get info from car selection
-  const location = useLocation();
+  // error handling: display if user is not signed in
+  if (!isSignedIn) {
+    return (
+      <section className="rental-container">
+        <h1 className="header-text">Error, please sign in to continue</h1>
+      </section>
+    );
+  }
+
+  // error handling: display if no info passed from car selection
+  if (location.state == null) {
+    return (
+      <section className="rental-container">
+        <h1 className="header-text">Error, no car selection made</h1>
+      </section>
+    );
+  }
 
   //get car information
   let car_model;
@@ -28,8 +47,13 @@ const CarReserve = () => {
       car_type = res.data.car_type;
       car_id = res.data.car_id;
 
-      // update estimated price
-      setEstPrice("Estimated Price: " + location.state.estimatedcost + "$");
+      // update estimated price and greeting
+      setGreeting(
+        customer.first_name + " " + customer.last_name + "'s Rental Details"
+      );
+      setEstPrice(
+        "Estimated Price: " + location.state.estimatedcost.toFixed(2) + "$"
+      );
     })
     .catch((err) => console.log(err));
 
@@ -63,7 +87,7 @@ const CarReserve = () => {
       date_returned: null,
       total_cost: null,
       car: car_id,
-      customer: 1,
+      customer: customer.id,
       branch_came_from: parseInt(location.state.branchcamefrom),
       branch_goes_to: parseInt(location.state.branchgoesto),
       employee_given_by: null,
@@ -75,7 +99,8 @@ const CarReserve = () => {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
 
-    alert("Done!");
+    alert("Rental Created!");
+    navigate("/home");
   }
 
   return (
@@ -97,7 +122,9 @@ const CarReserve = () => {
 
       <section class="rental-container">
         <div className="rental-details">
-          <h3 className="header-text">Rental Details</h3>
+          <h3 className="header-text" id="greeting">
+            {greeting}
+          </h3>
           <h5 className="sub-text" id="pbranch">
             {pickupBranch}
           </h5>

@@ -52,6 +52,10 @@
     #reserve-button {
         width: 30vw;
     }
+
+    #greeting {
+        font-size: medium;
+    }
 }
 
 /*+++++++++++++++++++ MEDIA QUERY FOR LARGE +++++++++++++++++++ */
