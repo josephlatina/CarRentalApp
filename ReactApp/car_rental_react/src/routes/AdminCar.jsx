@@ -180,6 +180,9 @@ function RentalManager(props) {
                                     </div>
                                 </div>
                             </div>
+                            <div className="row">
+                                <h6 align="center"><button type="submit" className="btn btn-primary">Update</button></h6>
+                            </div>
                         </Box>
                     </Collapse>
                 </TableCell>
