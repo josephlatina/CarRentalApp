@@ -2,10 +2,13 @@ import { Button } from "reactstrap";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../provider/authContext";
+import { useState } from "react";
 
 const CarReserve = () => {
-  //const { isSignedIn, user, logOut } = useAuth();
-  //console.log(isSignedIn, user);
+  const [pickupBranch, setPickupBranch] = useState("text");
+  const [returnBranch, setReturnBranch] = useState("text");
+  const [carType, setCarType] = useState("text");
+  const [estPrice, setEstPrice] = useState("text");
 
   // get info from car selection
   const location = useLocation();
@@ -18,19 +21,16 @@ const CarReserve = () => {
   axios
     .get("/api/cars/" + location.state.carid + "/")
     .then((res) => {
-      // get model of car
+      // get model of car and update text
       car_model = res.data.manufacturer + " " + res.data.model;
-      let element = document.getElementById("cartype");
-      element.innerHTML = "Car Type: " + car_model;
+      setCarType("Car Type: " + car_model);
 
       // get car type and car id
       car_type = res.data.car_type;
       car_id = res.data.car_id;
 
       // update estimated price
-      let price_element = document.getElementById("price");
-      price_element.innerHTML =
-        "Estimated Price: " + location.state.estimatedcost + "$";
+      setEstPrice("Estimated Price: " + location.state.estimatedcost + "$");
     })
     .catch((err) => console.log(err));
 
@@ -41,8 +41,7 @@ const CarReserve = () => {
     .then((res) => {
       // set return branch name and update summary
       branch_to = res.data.street_number + " " + res.data.street_name;
-      let element = document.getElementById("rbranch");
-      element.innerHTML = "Return Branch: " + branch_to;
+      setReturnBranch("Return Branch: " + branch_to);
     })
     .catch((err) => console.log(err));
 
@@ -53,8 +52,7 @@ const CarReserve = () => {
     .then((res) => {
       // set pickup branch name and update summary
       branch_from = res.data.street_number + " " + res.data.street_name;
-      let element = document.getElementById("pbranch");
-      element.innerHTML = "Pick-Up Branch: " + branch_from;
+      setPickupBranch("Pickup Branch: " + branch_from);
     })
     .catch((err) => console.log(err));
 
@@ -101,16 +99,24 @@ const CarReserve = () => {
       <section class="rental-container">
         <div className="rental-details">
           <h3 className="header-text">Rental Details</h3>
-          <h5 className="sub-text" id="pbranch"></h5>
-          <h5 className="sub-text" id="rbranch"></h5>
+          <h5 className="sub-text" id="pbranch">
+            {pickupBranch}
+          </h5>
+          <h5 className="sub-text" id="rbranch">
+            {returnBranch}
+          </h5>
           <h5 className="sub-text">
             Pickup Date: {location.state.datefrom.toISOString().split("T")[0]}
           </h5>
           <h5 className="sub-text">
             Return Date: {location.state.dateto.toISOString().split("T")[0]}
           </h5>
-          <h5 className="sub-text" id="cartype"></h5>
-          <h5 className="sub-text" id="price"></h5>
+          <h5 className="sub-text" id="cartype">
+            {carType}
+          </h5>
+          <h5 className="sub-text" id="price">
+            {estPrice}
+          </h5>
           <Button
             className="wide-car-btn"
             id="reserve-button"
