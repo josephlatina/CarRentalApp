@@ -44,6 +44,14 @@
         background-color: #242424;
         color: #0FB877;
     }
+
+    .sub-text {
+        font-size: medium;
+    }
+
+    #reserve-button {
+        width: 30vw;
+    }
 }
 
 /*+++++++++++++++++++ MEDIA QUERY FOR LARGE +++++++++++++++++++ */
@@ -87,6 +95,8 @@
     #filter-button .car-btn {
         display: none;
     }
+
+    
 
 }
 
@@ -288,7 +298,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    height: 90vh;
+    height: 55vh;
     width: 70vw; 
     margin-bottom: 20px;
+    margin-top: 20px;
 }
+
