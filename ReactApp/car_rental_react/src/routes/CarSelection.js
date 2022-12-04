@@ -419,29 +419,30 @@ const CarSelection = () => {
       {/* Section 3: Car Type Selection */}
       <section className="container">
         <div className="row" id="request-type">
-          <div className="col-sm-12 col-lg-6 field-no-border">
-            <h5 id="selected">Requested Car Type</h5>
-            <input 
-              placeholder="Enter Car Type"
-              name="entercartype"
-              type="text"
-              value={textInput}
-              onClick={inputClick}
-              required
-            />
-            {cartype && cartype.length && showList && <div>
-              {cartype.map((type,index) => {
-                return <div
-                        key={index}
-                        value={type.id}
-                        onClick={(event) => itemClickHandler(type,event)}>
-                  {type.description}
-                </div>
-              })}
-            </div>}
-          </div>
-          <div className="col-sm-12 col-lg-6">
-            <Button className="col-10 car-btn" size="lg" onClick={clearSearch}>Clear</Button>
+          <div className="col-12 field-no-border">
+              <h5 id="selected">Requested Car Type</h5>
+              <input 
+                placeholder="Enter Car Type"
+                name="entercartype"
+                type="text"
+                value={textInput}
+                onClick={inputClick}
+                required
+              />
+              {cartype && cartype.length && showList && <div className="auto-complete-items">
+                {cartype.map((type,index) => {
+                  return <div
+                          className="item"
+                          key={index}
+                          value={type.id}
+                          onClick={(event) => itemClickHandler(type,event)}>
+                    {type.description}
+                  </div>
+                })}
+              </div>}
+              <div>
+                <Button className="col-10 car-btn" size="lg" onClick={clearSearch}>Clear</Button>
+              </div>
           </div>
         </div>
         {upgrades && <Modal isOpen={upgrades} toggle={toggleUpgrades} contentClassName="modal">
