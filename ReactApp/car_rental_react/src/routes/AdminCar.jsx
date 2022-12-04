@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { createTheme, ThemeProvider } from '@mui/material';
 
 const theme = createTheme({
@@ -52,8 +52,53 @@ const rows = [
 ];
 
 function RentalManager(props) {
-    const { row, onClick, carTypeInfo } = props;
+    const { row, onClick, carTypeInfo, branches, onRefresh } = props;
     const [visible, setVisible] = React.useState(false);
+    const [branch, setBranch] = React.useState([]);
+
+    const handleChange = (event) => {
+        const {
+          target: { value },
+        } = event;
+        setBranch(
+          // On autofill we get a stringified value.
+          typeof value === 'string' ? value.split(',') : value,
+        );
+        console.log("hello there");
+        console.log(value);
+    };
+    
+    const handleTransfer = async (e, car, branchid) => {
+        e.preventDefault();
+        console.log("sup");
+        console.log(car);
+        console.log(branchid);
+
+        try {
+            await axios.put(`http://127.0.0.1:8000/api/cars/${car.car_id}/`, {
+                car_type: car.car_type,
+                branch: branchid,
+                manufacturer: car.manufacturer,
+                model: car.model,
+                fuel_type: car.fuel_type,
+                colour: car.colour,
+                license_plate: car.license_plate,
+                status: car.status,
+                mileage: car.mileage
+            });
+
+        } catch (error) {
+            // throw new Error(error);
+            const errorMessage = Object.keys(error.response.data).map(
+                (k) => k + ": " + error.response.data[k] + "\n"
+            );
+            console.log(errorMessage);
+        }
+
+        setVisible(!visible);
+        setBranch([]);
+        await onRefresh();
+    }
 
     return (
         <React.Fragment>
@@ -114,18 +159,24 @@ function RentalManager(props) {
                                                 className="dropdown"
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                // value={age}
-                                                label="Age"
-                                                // onChange={handleChange}
+                                                value={branch}
+                                                label="Branch"
+                                                multiple
+                                                onChange={handleChange}
                                             >
-                                                <MenuItem value={10}>Ten</MenuItem>
-                                                <MenuItem value={20}>Twenty</MenuItem>
-                                                <MenuItem value={30}>Thirty</MenuItem>
+                                                {branches?.map((branch) => {
+                                                    return (<MenuItem
+                                                        key={branch.id}
+                                                        value={branch.id}
+                                                    >
+                                                        {branch?.street_number} {branch?.street_name} {branch?.city}
+                                                    </MenuItem>);
+                                                })}
                                             </Select>
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <h6 align="right"><button type="submit" className="btn btn-primary">Transfer</button></h6>
+                                        <h6 align="right"><button type="submit" onClick={(event) => handleTransfer(event, row, branch[0])} className="btn btn-primary">Transfer</button></h6>
                                     </div>
                                 </div>
                             </div>
@@ -145,31 +196,67 @@ const AdminCar = () => {
     const [cars, setCars] = useState([]);
     const [carTypes, setCarTypes] = useState([]);
     const [carTypeInfo, setCarTypeInfo] = useState([]);
+    const [branches, setBranches] = useState([]);
+    const [chosenBranch, setChosenBranch] = useState();
+
+    // hard-coded for now
+    const branchid = 1;
 
     // handle retrieval of cars from query here
     const queryCars = async () => {
         // retrieve cars and filter by branch selected
         try {
         axios
-            .get("api/cars/")
-            .then((res) => setCars(res.data))
+            .get("http://127.0.0.1:8000/api/cars")
+            .then((res) => setCars(
+                res.data.filter((car) => {
+                    return car.branch === parseInt(branchid);
+                })))
             .catch((err) => console.log(err));
         } catch (error) {
         throw new Error(error);
         }
     };
 
+    const refreshCars = async () => {
+        // retrieve cars and filter by branch selected
+        try {
+            axios
+                .get("http://127.0.0.1:8000/api/cars")
+                .then((res) => setCars(
+                    res.data.filter((car) => {
+                        return car.branch === parseInt(branchid);
+                    })))
+                .catch((err) => console.log(err));
+            } catch (error) {
+            throw new Error(error);
+            }
+    }
+
     // handle retrieval of car types from query here
     const queryCarTypes = async () => {
         // handle query here
         try {
         axios
-            .get("/api/cartypes/")
+            .get("http://127.0.0.1:8000/api/cartypes")
             .then((res) => setCarTypes(res.data))
             .catch((err) => console.log(err));
         } catch (error) {
         throw new Error(error);
         }
+    };
+
+    // handle retrieval of branches from query here
+    const queryBranches = async () => {
+        // handle query here
+        try {
+            axios
+              .get("http://127.0.0.1:8000/api/branches")
+              .then((res) => setBranches(res.data))
+              .catch((err) => console.log(err));
+          } catch (error) {
+            throw new Error(error);
+          }
     };
 
     // handle checking the car type for specific car
@@ -182,11 +269,14 @@ const AdminCar = () => {
     // handle fetching of data here
     useEffect(() => {
         (async () => {
-        await queryCars();
+        await refreshCars();
         })();
         (async () => {
             await queryCarTypes();
           })();
+        (async () => {
+        await queryBranches();
+        })();
     }, []);
 
     useEffect(() => {
@@ -234,7 +324,7 @@ const AdminCar = () => {
                                     {cars
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((car, index) => (
-                                        <RentalManager key={index} row={car} onClick={(event) => getCarTypeInfo(car.car_type, event)} carTypeInfo={carTypeInfo}/>
+                                        <RentalManager key={index} row={car} onClick={(event) => getCarTypeInfo(car.car_type, event)} onRefresh = {refreshCars} carTypeInfo={carTypeInfo} branches={branches}/>
                                     ))}
                                 </TableBody>
                                 </ThemeProvider>
