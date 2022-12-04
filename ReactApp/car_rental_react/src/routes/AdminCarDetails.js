@@ -5,11 +5,31 @@ import { useAuth } from "../provider/authContext";
 import { useState } from "react";
 
 const AdminCarDetails = () => {
+  const [manufacturer, setManufacturer] = useState("text");
+  const [model, setModel] = useState("text");
+  const [fuel, setFuel] = useState("text");
+  const [colour, setColour] = useState("text");
+  const [plate, setPlate] = useState("text");
+  const [mileage, setMileage] = useState("text");
+
   // auth check
 
   // ensure page not loaded with null location.state
 
-  // get car details
+  // get car details CURRENTLY HARDCODED UNTIL CONNECTED TO OTHER PAGE
+
+  axios
+    .get("/api/cars/14")
+    .then((res) => {
+      //assign variables
+      setManufacturer(res.data.manufacturer);
+      setModel(res.data.model);
+      setFuel(res.data.fuel_type);
+      setColour(res.data.colour);
+      setPlate(res.data.license_plate);
+      setMileage(res.data.mileage);
+    })
+    .catch((err) => console.log(err));
   return (
     <>
       <section class="rental-container">
@@ -20,11 +40,13 @@ const AdminCarDetails = () => {
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">Manufacturer</h6>
+                {manufacturer}
               </div>
             </Col>
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">Model</h6>
+                {model}
               </div>
             </Col>
           </Row>
@@ -32,11 +54,13 @@ const AdminCarDetails = () => {
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">Fuel Type</h6>
+                {fuel}
               </div>
             </Col>
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">Colour</h6>
+                {colour}
               </div>
             </Col>
           </Row>
@@ -44,11 +68,13 @@ const AdminCarDetails = () => {
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">License Plate</h6>
+                {plate}
               </div>
             </Col>
             <Col>
               <div className="car-info-box">
                 <h6 className="car-info-label">Mileage</h6>
+                {mileage}
               </div>
             </Col>
           </Row>
