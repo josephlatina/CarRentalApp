@@ -14,30 +14,30 @@ import { ProvideAuth } from "./provider/authContext";
 import RentalManager from "./routes/RentalManager";
 import AdminHomePage from "./routes/AdminHomePage";
 import AdminCar from "./routes/AdminCar";
-
+import AdminCarDetails from "./routes/AdminCarDetails";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Root />,
-        children: [
-            { path: "/car", element: <CarSelection /> },
-            { path: "/rent", element: <CarReserve /> },
-            { path: "/login", element: <Login /> },
-            { path: "/signup", element: <Signup /> },
-            { path: "/home", element: <HomePage /> },
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      { path: "/car", element: <CarSelection /> },
+      { path: "/rent", element: <CarReserve /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <Signup /> },
+      { path: "/home", element: <HomePage /> },
       { path: "/manager", element: <RentalManager /> },
-            { path: "/admin", element: <AdminHomePage /> },
-            { path: "/admincar", element: <AdminCar /> },
-        ],
-    },
-
+      { path: "/admin", element: <AdminHomePage /> },
+      { path: "/admincar", element: <AdminCar /> },
+      { path: "/admincardetails", element: <AdminCarDetails /> },
+    ],
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ProvideAuth>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </ProvideAuth>
 );
 
