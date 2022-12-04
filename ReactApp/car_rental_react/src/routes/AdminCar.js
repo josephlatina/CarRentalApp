@@ -52,35 +52,59 @@ const rows = [
 ];
 
 function RentalManager(props) {
-    const { row } = props;
+    const { row, onClick, carTypeInfo } = props;
     const [visible, setVisible] = React.useState(false);
 
     return (
         <React.Fragment>
-            <TableRow onClick={() => setVisible(!visible)} className="tr-row">  
-                    <TableCell>{row.ID}</TableCell>
+            <TableRow onClick={() => {setVisible(!visible); onClick()}} className="tr-row">  
+                    <TableCell>{row.car_id}</TableCell>
                     <TableCell>{row.manufacturer}</TableCell>
                     <TableCell>{row.model}</TableCell>
-                    <TableCell>{row.licenseplate}</TableCell>
-                    <TableCell>{row.fueltype}</TableCell>
+                    <TableCell>{row.license_plate}</TableCell>
+                    <TableCell>{row.fuel_type}</TableCell>
                     <TableCell>{row.status}</TableCell>
             </TableRow>
-            <TableRow role="checkbox" tabIndex={-1} key={row.ID}>
+            <TableRow role="checkbox" tabIndex={-1} key={row.car_id}>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor:'#393939' }} colSpan={8}>
                     <Collapse in={visible}>
                         <Box sx={{ margin: 1 }} className="collapsed-box">
                             <div className="row">
                                 <div className="col-4" align="left">
-                                    <h6 >Car Type: </h6>
-                                    <h6 align="left">Daily Price:</h6>
-                                    <h6 align="left">Weekly Price:</h6>
-                                    <h6 align="left">Monthly Price:</h6>
-                                    <h6 align="left">Late Fee:</h6>
-                                    <h6 align="left">Change Branch Fee:</h6>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Car Type: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>{carTypeInfo[0]?.description}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Daily Price: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>${carTypeInfo[0]?.daily_cost}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Weekly Price: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>${carTypeInfo[0]?.weekly_cost}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Monthly Price: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>${carTypeInfo[0]?.monthly_cost}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Late Fee: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>${carTypeInfo[0]?.late_fee}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Change Branch Fee: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>${carTypeInfo[0]?.change_branch_fee}</h6>
+                                    </div>
                                 </div>
                                 <div className="col-4" align="center">
-                                    <h6>Colour:</h6>
-                                    <h6>Mileage:</h6>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Colour: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>{row.colour}</h6>
+                                    </div>
+                                    <div className="row table-box-info">
+                                        <h6 className="col-6" align="right" style={{textAlign: 'right'}}>Mileage: </h6>
+                                        <h6 className="col-6" id="table-box-info-value" align="center" style={{textAlign: 'left'}}>{row.mileage}</h6>
+                                    </div>
                                 </div>
                                 <div className="col-4">
                                     <div className="row">
@@ -118,6 +142,57 @@ const AdminCar = () => {
     const[search, setSearch] = useState('');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [cars, setCars] = useState([]);
+    const [carTypes, setCarTypes] = useState([]);
+    const [carTypeInfo, setCarTypeInfo] = useState([]);
+
+    // handle retrieval of cars from query here
+    const queryCars = async () => {
+        // retrieve cars and filter by branch selected
+        try {
+        axios
+            .get("api/cars/")
+            .then((res) => setCars(res.data))
+            .catch((err) => console.log(err));
+        } catch (error) {
+        throw new Error(error);
+        }
+    };
+
+    // handle retrieval of car types from query here
+    const queryCarTypes = async () => {
+        // handle query here
+        try {
+        axios
+            .get("/api/cartypes/")
+            .then((res) => setCarTypes(res.data))
+            .catch((err) => console.log(err));
+        } catch (error) {
+        throw new Error(error);
+        }
+    };
+
+    // handle checking the car type for specific car
+    const getCarTypeInfo = (cartypeid, event) => {
+        setCarTypeInfo(carTypes.filter((type) => {
+            return cartypeid === type.car_type_id;
+        }));
+    }
+
+    // handle fetching of data here
+    useEffect(() => {
+        (async () => {
+        await queryCars();
+        })();
+        (async () => {
+            await queryCarTypes();
+          })();
+    }, []);
+
+    useEffect(() => {
+        console.log("testing cars");
+        console.log(cars);
+    }, [cars]);
 
     return (
         <section className="container" id="table-section">
@@ -156,10 +231,10 @@ const AdminCar = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows
+                                    {cars
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => (
-                                        <RentalManager key={row.ID} row={row} />
+                                    .map((car, index) => (
+                                        <RentalManager key={index} row={car} onClick={(event) => getCarTypeInfo(car.car_type, event)} carTypeInfo={carTypeInfo}/>
                                     ))}
                                 </TableBody>
                                 </ThemeProvider>

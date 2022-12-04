@@ -327,3 +327,12 @@
     border-style: solid;
     margin-bottom: 20px;
 }
+
+.table-box-info {
+    display: flex;
+    justify-content: center;
+}
+
+#table-box-info-value {
+    color: white;
+}
