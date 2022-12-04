@@ -67,6 +67,24 @@ class CustomerView(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset
+
+        # Filter by user id
+        request_user_id = self.request.GET.get('user_id')
+        if (request_user_id != None):
+            query_set = queryset.filter(user=request_user_id)
+            return query_set
+
+ # Filter by customer id
+        customer_id = self.kwargs['pk']
+        if (customer_id != None):
+            query_set = queryset.filter(id=customer_id)
+            return query_set
+
+        # No filter then just return all
+        return queryset
+
 
 class CustomerPhoneNumberView(viewsets.ModelViewSet):
     serializer_class = CustomerPhoneNumberSerializer
