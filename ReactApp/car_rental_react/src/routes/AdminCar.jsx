@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from 'react';
 import axios from "axios";
@@ -36,25 +36,12 @@ const columns = [
     { id: 'status', label: 'Status', minWidth: 170 },
   ];
 
-function createData(ID, manufacturer, model, licenseplate, fueltype, status) {
-return { ID, manufacturer, model, licenseplate, fueltype, status };
-}
-
-const rows = [
-    createData('1', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('2', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('3', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('4', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('5', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('6', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('7', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('8', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-];
-
 function RentalManager(props) {
-    const { row, onClick, carTypeInfo, branches, onRefresh } = props;
+    const { row, onClick, carTypeInfo, branches, onRefresh, chosenBranch } = props;
     const [visible, setVisible] = React.useState(false);
     const [branch, setBranch] = React.useState([]);
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const {
@@ -64,15 +51,10 @@ function RentalManager(props) {
           // On autofill we get a stringified value.
           typeof value === 'string' ? value.split(',') : value,
         );
-        console.log("hello there");
-        console.log(value);
     };
     
     const handleTransfer = async (e, car, branchid) => {
         e.preventDefault();
-        console.log("sup");
-        console.log(car);
-        console.log(branchid);
 
         try {
             await axios.put(`http://127.0.0.1:8000/api/cars/${car.car_id}/`, {
@@ -98,6 +80,14 @@ function RentalManager(props) {
         setVisible(!visible);
         setBranch([]);
         await onRefresh();
+    }
+
+    const handleUpdate = () => {
+        navigate('/admincardetails', {state: {
+            carid: row.car_id, 
+            branchid: chosenBranch,
+            addflag: 0,
+        }});
     }
 
     return (
@@ -181,7 +171,7 @@ function RentalManager(props) {
                                 </div>
                             </div>
                             <div className="row">
-                                <h6 align="center"><button type="submit" className="btn btn-primary">Update</button></h6>
+                                <h6 align="center"><button type="submit" onClick={handleUpdate} className="btn btn-primary">Update</button></h6>
                             </div>
                         </Box>
                     </Collapse>
@@ -200,26 +190,9 @@ const AdminCar = () => {
     const [carTypes, setCarTypes] = useState([]);
     const [carTypeInfo, setCarTypeInfo] = useState([]);
     const [branches, setBranches] = useState([]);
-    const [chosenBranch, setChosenBranch] = useState();
+    const [chosenBranch, setChosenBranch] = useState(1);
 
-    // hard-coded for now
-    const branchid = 1;
-
-    // handle retrieval of cars from query here
-    const queryCars = async () => {
-        // retrieve cars and filter by branch selected
-        try {
-        axios
-            .get("http://127.0.0.1:8000/api/cars")
-            .then((res) => setCars(
-                res.data.filter((car) => {
-                    return car.branch === parseInt(branchid);
-                })))
-            .catch((err) => console.log(err));
-        } catch (error) {
-        throw new Error(error);
-        }
-    };
+    const navigate = useNavigate();
 
     const refreshCars = async () => {
         // retrieve cars and filter by branch selected
@@ -228,7 +201,7 @@ const AdminCar = () => {
                 .get("http://127.0.0.1:8000/api/cars")
                 .then((res) => setCars(
                     res.data.filter((car) => {
-                        return car.branch === parseInt(branchid);
+                        return car.branch === parseInt(chosenBranch);
                     })))
                 .catch((err) => console.log(err));
             } catch (error) {
@@ -269,6 +242,14 @@ const AdminCar = () => {
         }));
     }
 
+    // handle adding another car
+    const handleAdd = () => {
+        navigate('/admincardetails', {state: {
+            branchid: chosenBranch,
+            addflag: 1,
+        }});
+    }
+
     // handle fetching of data here
     useEffect(() => {
         (async () => {
@@ -283,18 +264,18 @@ const AdminCar = () => {
     }, []);
 
     useEffect(() => {
-        console.log("testing cars");
         console.log(cars);
     }, [cars]);
 
     return (
         <section className="container" id="table-section">
+            <h1 className="header-text" align="center">Branch ID No. {chosenBranch}</h1>
             {/* Title */}
             <div id="title-contained">
                 <h3>Car List</h3>
             </div>
             {/* Search Bar */}
-            <div className="row" id="search-contained">
+            {/* <div className="row" id="search-contained">
                 <div className="searchBar">
                     <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search"/>
                     <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
@@ -303,7 +284,7 @@ const AdminCar = () => {
                             </svg>
                         </button>
                 </div>
-            </div>
+            </div> */}
             {/* Table */}
             <section className="container" id="table-contained">
                     <Paper sx={{ width: '100%' , height: '100%' , overflow: 'hidden', backgroundColor: '#242424', borderColor: 'white'}} variant="outlined">
@@ -327,7 +308,7 @@ const AdminCar = () => {
                                     {cars
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((car, index) => (
-                                        <RentalManager key={index} row={car} onClick={(event) => getCarTypeInfo(car.car_type, event)} onRefresh = {refreshCars} carTypeInfo={carTypeInfo} branches={branches}/>
+                                        <RentalManager key={index} row={car} onClick={(event) => getCarTypeInfo(car.car_type, event)} onRefresh = {refreshCars} carTypeInfo={carTypeInfo} branches={branches} chosenBranch={chosenBranch}/>
                                     ))}
                                 </TableBody>
                                 </ThemeProvider>
@@ -346,7 +327,7 @@ const AdminCar = () => {
                     </Paper>
                 </section>
                 <section className="container" id="add-contained">
-                    <button type="submit" className="btn btn-primary">+Add</button>
+                    <button type="submit" onClick={handleAdd} className="btn btn-primary">+Add</button>
                 </section>
         </section>
     );
