@@ -36,21 +36,6 @@ const columns = [
     { id: 'status', label: 'Status', minWidth: 170 },
   ];
 
-function createData(ID, manufacturer, model, licenseplate, fueltype, status) {
-return { ID, manufacturer, model, licenseplate, fueltype, status };
-}
-
-const rows = [
-    createData('1', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('2', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('3', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('4', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('5', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('6', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('7', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-    createData('8', 'Lamborghini', 'Huracan', 'CLW-2457',' Gasoline', 'Available'),
-];
-
 function RentalManager(props) {
     const { row, onClick, carTypeInfo, branches, onRefresh } = props;
     const [visible, setVisible] = React.useState(false);
