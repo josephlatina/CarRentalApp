@@ -1,7 +1,7 @@
 import { Button, Col, Container, Row } from "reactstrap";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "../provider/authContext";
+import { useLocation } from "react-router-dom"; // used later
+import { useAuth } from "../provider/authContext"; //used later
 import { useState, useEffect } from "react";
 
 const AdminCarDetails = () => {
@@ -11,47 +11,90 @@ const AdminCarDetails = () => {
   const [colour, setColour] = useState("text");
   const [plate, setPlate] = useState("text");
   const [mileage, setMileage] = useState("text");
+  const [options, setOptions] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [availability, setAvailability] = useState("text");
+  const [type, setType] = useState(0);
 
   // auth check
 
   // ensure page not loaded with null location.state
 
-  // get car details CURRENTLY HARDCODED UNTIL CONNECTED TO OTHER PAGE
+  // get car details CAR ID CURRENTLY HARDCODED UNTIL CONNECTED TO OTHER PAGE
   useEffect(() => {
+    //variables needed for logic
+    let current_type;
+    let current_description;
+    let current_status;
+    //set states and get current type and status
     const getCar = async () => {
-      const res = await axios.get("/api/cars/14");
+      const res = await axios.get("/api/cars/1");
       setManufacturer(res.data.manufacturer);
       setModel(res.data.model);
       setFuel(res.data.fuel_type);
       setColour(res.data.colour);
       setPlate(res.data.license_plate);
       setMileage(res.data.mileage);
+      setType(res.data.car_type);
+      setAvailability(res.data.status);
+      current_type = res.data.car_type;
+      current_status = res.data.status;
+    };
+
+    const getCarTypes = async () => {
+      const res = await axios.get("/api/cartypes/");
+      const results = [];
+      // Store results in the results array
+      res.data.forEach((value) => {
+        if (value.car_type_id === current_type) {
+          current_description = value.description;
+        }
+        results.push({
+          key: value.description,
+          value: value.car_type_id,
+        });
+      });
+      if (current_status === "Available") {
+        setStatus([
+          { key: current_status, value: current_status },
+          { key: "Not Available", value: "Not Available" },
+        ]);
+      } else {
+        setStatus([
+          { key: current_status, value: current_status },
+          { key: "Available", value: "Available" },
+        ]);
+      }
+      // Update the options state
+      setOptions([
+        { key: current_description, value: current_type },
+        ...results,
+      ]);
     };
 
     getCar();
+    getCarTypes();
   }, []);
 
   // Used to update details of a car
   function updateDetails() {
     // create car details TYPE, BRANCH, STATUS HARDCODED.
+    alert(type);
     const car_details = {
-      car_id: 14,
-      car_type: 3,
+      car_type: type,
       branch: 6,
       manufacturer: manufacturer,
       model: model,
       fuel_type: fuel,
       colour: colour,
       license_plate: plate,
-      status: "Available",
+      status: availability,
       mileage: mileage,
     };
 
-    alert(colour);
-
     // update details
     axios
-      .put("/api/cars/14/", car_details)
+      .put("/api/cars/1/", car_details)
       .then((response) => console.log(response))
       .catch((err) => console.log(err.response.data));
 
@@ -62,12 +105,13 @@ const AdminCarDetails = () => {
     <>
       <section class="rental-container">
         <h1 className="header-text">BRANCH NAME HERE</h1>
-        <div className="car-details">
+        <div className="car-details" id="details-box">
           <h2 className="header-text">Car Details</h2>
           <Row className="car-info-row">
             <Col>
               <h6 className="car-info-label">Manufacturer</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={manufacturer}
                 onChange={(event) => setManufacturer(event.target.value)}
@@ -76,6 +120,7 @@ const AdminCarDetails = () => {
             <Col>
               <h6 className="car-info-label">Model</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={model}
                 onChange={(event) => setModel(event.target.value)}
@@ -86,6 +131,7 @@ const AdminCarDetails = () => {
             <Col>
               <h6 className="car-info-label">Fuel Type</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={fuel}
                 onChange={(event) => setFuel(event.target.value)}
@@ -94,6 +140,7 @@ const AdminCarDetails = () => {
             <Col>
               <h6 className="car-info-label">Colour</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={colour}
                 onChange={(event) => setColour(event.target.value)}
@@ -104,6 +151,7 @@ const AdminCarDetails = () => {
             <Col>
               <h6 className="car-info-label">License Plate</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={plate}
                 onChange={(event) => setPlate(event.target.value)}
@@ -112,6 +160,7 @@ const AdminCarDetails = () => {
             <Col>
               <h6 className="car-info-label">Mileage</h6>
               <input
+                id="detail-box"
                 className="car-info-box"
                 value={mileage}
                 onChange={(event) => setMileage(event.target.value)}
@@ -123,18 +172,34 @@ const AdminCarDetails = () => {
             className="car-detail-dropdown"
             id="car-types"
             name="car-types"
+            onChange={(e) => setType(e.target.value)}
           >
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
+            {options.map((option) => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.key}
+                </option>
+              );
+            })}
           </select>
           <h2 className="header-text">Status</h2>
-          <select className="car-detail-dropdown" id="status" name="status">
-            <option value="Available">Available</option>
-            <option value="Not Available">Not Available</option>
+          <select
+            className="car-detail-dropdown"
+            id="status"
+            name="status"
+            onChange={(e) => setAvailability(e.target.value)}
+          >
+            {status.map((option) => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.key}
+                </option>
+              );
+            })}
           </select>
-          <Button onClick={updateDetails}>Update</Button>
+          <Button onClick={updateDetails} id="update-button">
+            Update
+          </Button>
         </div>
       </section>
     </>
