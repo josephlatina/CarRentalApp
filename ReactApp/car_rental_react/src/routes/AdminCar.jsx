@@ -86,6 +86,7 @@ function RentalManager(props) {
         navigate('/admincardetails', {state: {
             carid: row.car_id, 
             branchid: chosenBranch,
+            addflag: 0,
         }});
     }
 
@@ -191,6 +192,8 @@ const AdminCar = () => {
     const [branches, setBranches] = useState([]);
     const [chosenBranch, setChosenBranch] = useState(1);
 
+    const navigate = useNavigate();
+
     const refreshCars = async () => {
         // retrieve cars and filter by branch selected
         try {
@@ -237,6 +240,14 @@ const AdminCar = () => {
         setCarTypeInfo(carTypes.filter((type) => {
             return cartypeid === type.car_type_id;
         }));
+    }
+
+    // handle adding another car
+    const handleAdd = () => {
+        navigate('/admincardetails', {state: {
+            branchid: chosenBranch,
+            addflag: 1,
+        }});
     }
 
     // handle fetching of data here
@@ -316,7 +327,7 @@ const AdminCar = () => {
                     </Paper>
                 </section>
                 <section className="container" id="add-contained">
-                    <button type="submit" className="btn btn-primary">+Add</button>
+                    <button type="submit" onClick={handleAdd} className="btn btn-primary">+Add</button>
                 </section>
         </section>
     );

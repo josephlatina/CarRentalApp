@@ -31,7 +31,7 @@ const AdminCarDetails = () => {
     let current_status;
     //set states and get current type and status
     const getCar = async () => {
-      const res = await axios.get(`http://127.0.0.1:8000/api/cars/${location.state.carid}`);
+      const res = await axios.get(`http://127.0.0.1:8000/api/cars/${location.state?.carid}`);
       setManufacturer(res.data.manufacturer);
       setModel(res.data.model);
       setFuel(res.data.fuel_type);
@@ -40,8 +40,7 @@ const AdminCarDetails = () => {
       setMileage(res.data.mileage);
       setType(res.data.car_type);
       setAvailability(res.data.status);
-      setBranch(location.state.branchid);
-      console.log(location.state.carid);
+      console.log(location.state?.carid);
       current_type = res.data.car_type;
       current_status = res.data.status;
     };
@@ -77,8 +76,9 @@ const AdminCarDetails = () => {
       ]);
     };
 
-    getCar();
+    {location.state?.carid && getCar();}
     getCarTypes();
+    setBranch(location.state?.branchid);
   }, []);
 
   // Used to update details of a car
@@ -86,7 +86,7 @@ const AdminCarDetails = () => {
     // create car details TYPE, BRANCH, STATUS HARDCODED.
     const car_details = {
       car_type: type,
-      branch: location.state.branchid,
+      branch: location.state?.branchid,
       manufacturer: manufacturer,
       model: model,
       fuel_type: fuel,
@@ -98,11 +98,33 @@ const AdminCarDetails = () => {
 
     // update details
     axios
-      .put(`http://127.0.0.1:8000/api/cars/${location.state.carid}/`, car_details)
+      .put(`http://127.0.0.1:8000/api/cars/${location.state?.carid}/`, car_details)
       .then((response) => console.log(response))
       .catch((err) => console.log(err.response.data));
 
     alert("Car Details Modified");
+  }
+
+  const handleAdd = async () => {
+    const car_details = {
+      car_type: type,
+      branch: location.state?.branchid,
+      manufacturer: manufacturer,
+      model: model,
+      fuel_type: fuel,
+      colour: colour,
+      license_plate: plate,
+      status: availability,
+      mileage: mileage,
+    };
+
+    try {
+      await axios.post("http://127.0.0.1:8000/api/cars/", car_details);
+    } catch (error) {
+      throw new Error(error);
+    }
+
+    alert("Car Added");
   }
 
   return (
@@ -201,9 +223,12 @@ const AdminCarDetails = () => {
               );
             })}
           </select>
-          <Button onClick={updateDetails} id="update-button">
+          {location.state?.addflag === 0 ? <Button onClick={updateDetails} id="update-button">
             Update
           </Button>
+          : <Button id="update-button" onClick={handleAdd}>
+            Add
+          </Button>}
         </div>
       </section>
     </>
