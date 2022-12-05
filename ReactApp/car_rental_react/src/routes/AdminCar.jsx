@@ -275,7 +275,7 @@ const AdminCar = () => {
                 <h3>Car List</h3>
             </div>
             {/* Search Bar */}
-            <div className="row" id="search-contained">
+            {/* <div className="row" id="search-contained">
                 <div className="searchBar">
                     <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search"/>
                     <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
@@ -284,7 +284,7 @@ const AdminCar = () => {
                             </svg>
                         </button>
                 </div>
-            </div>
+            </div> */}
             {/* Table */}
             <section className="container" id="table-contained">
                     <Paper sx={{ width: '100%' , height: '100%' , overflow: 'hidden', backgroundColor: '#242424', borderColor: 'white'}} variant="outlined">
