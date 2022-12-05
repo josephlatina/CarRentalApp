@@ -380,6 +380,10 @@
     color: white;
 }
 
+#table-section table {
+    height: 0px;
+}
+
 /*+++++++++++++++++++ ADMIN CAR DETIALS +++++++++++++++++++ */
 
 .car-details {
