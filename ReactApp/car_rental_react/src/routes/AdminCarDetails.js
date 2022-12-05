@@ -79,7 +79,6 @@ const AdminCarDetails = () => {
   // Used to update details of a car
   function updateDetails() {
     // create car details TYPE, BRANCH, STATUS HARDCODED.
-    alert(type);
     const car_details = {
       car_type: type,
       branch: 6,
