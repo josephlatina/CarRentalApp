@@ -53,6 +53,11 @@
         width: 30vw;
     }
 
+
+    #greeting {
+        font-size: medium;
+    }
+
     #update-button {
         width: 40vw;
         margin: 3%;
@@ -78,6 +83,7 @@
     }
 
     
+
 }
 
 /*+++++++++++++++++++ MEDIA QUERY FOR LARGE +++++++++++++++++++ */
