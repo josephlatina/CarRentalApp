@@ -15,6 +15,7 @@ import CustomerList from "./components/CustomerList/CustomerList";
 import RentalManager from "./routes/RentalManager";
 import AdminHomePage from "./routes/AdminHomePage";
 import AdminCar from "./routes/AdminCar";
+import AdminCarDetails from "./routes/AdminCarDetails";
 
 
 const router = createBrowserRouter([
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "/admin", element: <AdminHomePage /> },
       { path: "/admin/customers", element: <CustomerList /> },
       { path: "/admincar", element: <AdminCar /> },
+      { path: "/admincardetails", element: <AdminCarDetails /> },
     ],
   },
 ]);
