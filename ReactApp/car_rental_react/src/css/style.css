@@ -53,9 +53,37 @@
         width: 30vw;
     }
 
+
     #greeting {
         font-size: medium;
     }
+
+    #update-button {
+        width: 40vw;
+        margin: 3%;
+    }
+    
+    #status {
+        width: 90vw;
+        height: 5vh;
+    }
+
+    #car-types {
+        width: 90vw;
+        height: 5vh;
+    }
+
+    #details-box {
+        height: 90vh;
+        width: 95vw; 
+    }
+ 
+    #detail-box {
+        width: 90vw;
+    }
+
+    
+
 }
 
 /*+++++++++++++++++++ MEDIA QUERY FOR LARGE +++++++++++++++++++ */
@@ -350,4 +378,47 @@
 
 #table-box-info-value {
     color: white;
+}
+
+/*+++++++++++++++++++ ADMIN CAR DETIALS +++++++++++++++++++ */
+
+.car-details {
+    background-color:  #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 60vh;
+    width: 70vw;
+}
+
+.car-info-box {
+    color: white;
+    background-color:  #242424;
+    border-radius: 10px;
+    border: 1px solid white;
+    width: 30vw;
+    height: 5vh;
+}
+
+.car-info-label {
+    color: #04D484;
+    margin: 1%;
+}
+
+.car-info-row {
+    margin: 2%;
+    color: white;
+}
+
+.car-detail-dropdown {
+    width: 30vw;
+    height: 3vh;
+    margin: 2%;
+    color: white;
+    text-align: center;
+    background-color: #242424;
+    border-radius: 10px;
+    border: 1px solid white;
 }

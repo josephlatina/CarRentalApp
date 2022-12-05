@@ -1,0 +1,238 @@
+:root { 
+    --black: #000000;
+    --black-2: #00000099;
+    --caribbean-green: #04d484;
+    --cod-gray: #070707e8;
+    --eerie-black: #1c241c;
+    --pear: #c8e745;
+    --tundora: #444444cc;
+    --white-22: #ffffff80;
+    --white2: #ffffff;
+    --wild-sand: #f4f4f4;
+   
+    --font-size-l: 20px;
+    --font-size-m: 17px;
+    --font-size-xl: 25px;
+    --font-size-xxxl: 45px;
+   
+    --font-family-poppins: "Poppins", Helvetica;
+  }
+  .poppins-normal-caribbean-green-17px {
+    color: var(--caribbean-green);
+    font-family: var(--font-family-poppins);
+    /* font-size: var(--font-size-m); */
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .poppins-normal-white-17px {
+    color: var(--white-22);
+    font-family: var(--font-family-poppins);
+    /* font-size: var(--font-size-m); */
+    font-style: normal;
+    font-weight: 400;
+    background: transparent;
+  }
+  
+  .poppins-normal-pear-20px {
+    color: var(--pear);
+    font-family: var(--font-family-poppins);
+    font-size: var(--font-size-l);
+    font-style: normal;
+    font-weight: 400;
+
+  }
+  .poppins-normal-pear-20px:hover {
+    color: var(--pear);
+    font-family: var(--font-family-poppins);
+    font-size: var(--font-size-l);
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .poppins-normal-white-17px-2 {
+    color: var(--white2);
+    font-family: var(--font-family-poppins);
+    /* font-size: var(--font-size-m); */
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+  .poppins-medium-white-25px {
+    color: var(--white2);
+    font-family: var(--font-family-poppins);
+    font-size: var(--font-size-xl);
+    font-style: normal;
+    font-weight: 500;
+  }
+  
+  .poppins-normal-eerie-black-20px {
+    color: var(--eerie-black);
+    font-family: var(--font-family-poppins);
+    /* font-size: var(--font-size-l); */
+    font-style: normal;
+    font-weight: 400;
+  }
+  
+body{
+    background-color: #444444cc;
+    /* color: white; */
+}
+
+.darkcolor{
+  color: var(--eerie-black);
+}
+
+.whitecolor{
+  color: white;
+}
+
+tr{
+    border-bottom: var(--white2) 1px solid;
+    border-radius: 10px;
+}
+
+
+table {
+    border: var(--white2) 2px solid;
+    border-radius: 8px;
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    overflow-y: scroll;
+    white-space: nowrap;
+    height: 400px;
+}
+
+th{
+    color: var(--caribbean-green);
+}
+
+.detail-head{
+    color: var(--caribbean-green);
+
+}
+
+.btn-pear{
+  color: var(--eerie-black);
+  background-color: var(--pear);
+  border-radius: 10px;  
+}
+
+.btn-confirm-pear{
+  color: var(--eerie-black);
+  background-color: var(--pear);
+  border-radius: 10px;  
+}
+.btn-confirm-pear:hover{
+  color: black;
+  border-color: black;
+  background-color: white;
+}
+
+
+
+.searchbar{
+  padding-left: 10px;
+  float: right; 
+}
+
+.btn-pear:hover{
+  color: var(--white2);
+  background-color: transparent;
+  border-color: wheat;
+}
+
+.button-sm{
+    color: var(--eerie-black);
+    background-color: var(--pear);
+    padding: 1px 20px;
+    border-radius: 5px;
+}
+.button-sm-click{
+    color: var(--white2);
+    background-color: transparent;
+    padding: 1px 20px;
+    border-radius: 5px;
+}
+
+.hide{
+    display: none;
+}
+@media only screen and (max-width: 450px) {
+    .button-sm{
+        padding: 1px 10px;
+    }
+    .button-sm-click{
+        padding: 1px 10px;
+    }
+    .mob-mar{
+      margin-left: -20px;
+    }
+    .left-margin{
+      margin-left: 20px;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+
+}
+
+@media only screen and (max-width: 1200px) {
+
+}
+
+/* modal */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.delmodal {
+  position: fixed;
+  top: 30vh;
+  left: 10%;
+  width: 80%;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.card {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+}
+
+.header {
+  background: var(--eerie-black);
+  padding: 1rem;
+}
+
+.header h4 {
+  margin: 0;
+  color: white;
+}
+
+.content {
+  padding: 1rem;
+  color: black;
+}
+
+.actions {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .delmodal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+}

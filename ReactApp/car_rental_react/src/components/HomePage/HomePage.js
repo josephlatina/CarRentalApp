@@ -77,7 +77,7 @@ const Home = () => {
     <div className={styles.mainCon}>
       <div className={styles.banner}></div>
       <div className={styles.bannerText}>
-        <h1>Preminum Service For Personal Needs</h1>
+        <h1>Premium Service For Personal Needs</h1>
         <h3>Experience it now</h3>
         <div className={styles.middleCon}>
           <div className={styles.heading_div}>
