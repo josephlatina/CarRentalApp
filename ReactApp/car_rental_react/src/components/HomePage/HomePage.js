@@ -66,12 +66,9 @@ const Home = () => {
 
   useEffect(() => {
     const getBranch = async () => {
-      const response = await fetch("/api/branches");
-      // console.log("Response here");
-      // console.log(response);
+      const response = await fetch("http://127.0.0.1:8000/api/branches");
       const getData = await response.json();
       setBranch(getData);
-      // console.log(getData);
     };
     getBranch();
   }, []);
