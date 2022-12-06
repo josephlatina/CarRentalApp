@@ -86,7 +86,7 @@ const CarSelection = () => {
   const queryBranch = async () => {
     try {
       axios
-        .get("api/branches/")
+        .get("http://127.0.0.1:8000/api/branches/")
         .then((res) => {
           setPickUpBranch(
             res.data.filter((branch) => {
@@ -109,7 +109,7 @@ const CarSelection = () => {
     // if (user.id !== null) {
       try {
         axios
-          .get("api/customers/")
+          .get("http://127.0.0.1:8000/api/customers/")
           .then((res) => {
             setCustomers(res.data)
           })
@@ -177,8 +177,6 @@ const CarSelection = () => {
 
     // check for gold membership
     if (isSignedIn && user.id !== null && customers.length > 0) {
-      console.log(user.id);
-      console.log(customers);
       setIsGoldMember(() => {
         let customer = customers.filter((customer) => {
           return customer.id === user.id;
@@ -228,8 +226,6 @@ const CarSelection = () => {
       return car.car_type === type.car_type_id;
     })
     setFilters({ ...filters, cards: carfiltered });
-    console.log("testing pls");
-    console.log(isGoldMember);
     if (isSignedIn && isGoldMember && carfiltered.length == 0) {
       setUpgrades(true);
     }
@@ -249,7 +245,7 @@ const CarSelection = () => {
         let filteredcartype = new Set(prevFilter.filteredcartype);
         let cards = filteredcars;
 
-        if (event.target.checked || event.target.value)  {
+        if (event.target.checked)  {
           filteredmanufacturers.add(event.target.value);
         } else {
           filteredmanufacturers.delete(event.target.value);
