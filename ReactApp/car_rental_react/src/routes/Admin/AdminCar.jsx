@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
@@ -18,6 +18,10 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material";
+
+export function loader({ params }) {
+    return params.branchId;
+}
 
 const theme = createTheme({
     typography: {
@@ -338,7 +342,7 @@ const AdminCar = () => {
     const [carTypes, setCarTypes] = useState([]);
     const [carTypeInfo, setCarTypeInfo] = useState([]);
     const [branches, setBranches] = useState([]);
-    const [chosenBranch, setChosenBranch] = useState(1);
+    const chosenBranch = useLoaderData();
 
     const navigate = useNavigate();
 

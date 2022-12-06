@@ -12,9 +12,9 @@ import Login from "./routes/Login";
 import Signup from "./routes/Signup";
 import { ProvideAuth, useAuth } from "./provider/authContext";
 import CustomerList from "./components/CustomerList/CustomerList";
-import RentalManager from "./routes/RentalManager";
+import RentalManager, { loader as rentalLoader } from "./routes/RentalManager";
 import AdminHomePage from "./routes/Admin/AdminHomePage";
-import AdminCar from "./routes/Admin/AdminCar";
+import AdminCar, { loader as adminCarLoader } from "./routes/Admin/AdminCar";
 import AdminCarDetails from "./routes/Admin/AdminCarDetails";
 import BranchView, {
     loader as branchViewLoader,
@@ -43,12 +43,13 @@ const router = createBrowserRouter([
             { path: "/signup", element: <Signup /> },
             { index: true, element: <HomePage /> },
             {
-                path: "/manager",
+                path: "/admin/branches/:branchId/rentals",
                 element: (
                     <AdminRoute>
                         <RentalManager />
                     </AdminRoute>
                 ),
+                loader: rentalLoader,
             },
             {
                 path: "/admin",
@@ -72,12 +73,13 @@ const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/admincar",
+                path: "/admin/branches/:branchId/cars",
                 element: (
                     <AdminRoute>
                         <AdminCar />
                     </AdminRoute>
                 ),
+                loader: adminCarLoader,
             },
             {
                 path: "/admincardetails",

@@ -19,10 +19,7 @@ export default function BranchView() {
                     <h2 style={{ textAlign: "center", color: "white" }}>
                         Rental List
                     </h2>
-                    <Button
-                        tag={Link}
-                        to={`admin/branches/${branchId}/rentals`}
-                    >
+                    <Button tag={Link} to={`rentals`}>
                         View
                     </Button>
                 </Container>
@@ -35,7 +32,7 @@ export default function BranchView() {
                     <h2 style={{ textAlign: "center", color: "white" }}>
                         Car List
                     </h2>
-                    <Button tag={Link} to={`admin/branches/${branchId}/cars`}>
+                    <Button tag={Link} to={`cars`}>
                         View
                     </Button>
                 </Container>
