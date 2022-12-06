@@ -125,11 +125,20 @@
 #left_top h4 {
   text-align: center;
   margin-bottom: 1rem;
-  /* border: solid blue; */
-  display: flex;
-  justify-content: center;
+
   align-items: center;
   color: #04d484;
+
+}
+
+#right_top h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+  
+  display: flex;
+  justify-content: center;
+  color: #04d484;
+  width: 100% ;
 }
 #left_top h4 span img,
 #right_top h4 span img {
@@ -138,15 +147,7 @@
   margin-right: 0.5rem;
 }
 
-#right_top h4 {
-  text-align: center;
-  margin-bottom: 1rem;
-  /* border: solid blue; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #04d484;
-}
+
 
 .autoCompleteInput {
   position: absolute;
@@ -163,10 +164,11 @@
   width: 90%;
   height: 90px;
   align-items: center;
+  justify-content: center;
 }
 
 .date {
-  border-right: solid 1px white;
+  /* border-right: solid 1px white; */
   width: 50%;
   position: relative;
   display: flex;
@@ -296,10 +298,12 @@
   }
   #left_top h4,
   #right_top h4 {
-    justify-content: flex-start;
-    align-items: flex-start;
+    /* justify-content: flex-start; */
+    /* align-items: flex-start; */
     padding: 1rem;
     margin-bottom: 0;
+    width: 100%;
+    justify-content: center;
   }
   .autocomplete_div {
     padding: 1rem;
