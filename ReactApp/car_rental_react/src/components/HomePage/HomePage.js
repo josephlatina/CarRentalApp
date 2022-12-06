@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import planeIcon from "../../assets/airplane-1-1@2x.png";
 import personIcon from "../../assets/person-1-1@2x.png";
 import caseIcon from "../../assets/suitcase-1-1@2x.png";
-import TimePicker from "react-time-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./HomePage.module.css";
 import LocationInput from "../LocationInput/LocationInput";
@@ -11,9 +10,7 @@ import calenderIcon from "../../assets/calendar-icon-1-2@2x.png";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 
-
 const Home = () => {
-
   const homepageData = {
     pickUpLocation: "Pick-Up Location",
     pickUpDate: "Pick-Up Date",
@@ -35,20 +32,27 @@ const Home = () => {
   const [dropOffLocation, setDropOffLocation] = useState("");
   const [pickUpDate, setPickUpDate] = useState("");
   const [dropOffDate, setDropOffDate] = useState("");
-  const [pickupTime, setPickupTime] = useState("");
-  const [returnTime, setReturnTime] = useState("");
 
   //navigate and handleSearch button
   const navigate = useNavigate();
 
   const handleSearch = () => {
     let dateNow = new Date();
-    if (pickUpLocation === "" || dropOffLocation === "" || pickUpDate === "" || dropOffDate === "") {
+    if (
+      pickUpLocation === "" ||
+      dropOffLocation === "" ||
+      pickUpDate === "" ||
+      dropOffDate === ""
+    ) {
       alert("Please fill out all fields");
-    } else if (pickUpDate.getTime() < dateNow.getTime() || dropOffDate < pickUpDate ){
-      alert(`Please enter valid dates. Pick up date cannot be before ${dateNow}` )
-    }
-    else {
+    } else if (
+      pickUpDate.getTime() < dateNow.getTime() ||
+      dropOffDate < pickUpDate
+    ) {
+      alert(
+        `Please enter valid dates. Pick up date cannot be before ${dateNow}`
+      );
+    } else {
       navigate("/car", {
         state: {
           pickUpLocation: pickUpLocation,
@@ -59,7 +63,6 @@ const Home = () => {
       });
     }
   };
-
 
   useEffect(() => {
     const getBranch = async () => {
@@ -96,13 +99,13 @@ const Home = () => {
                 {homepageData.pickUpLocation}
               </h4>
 
-              <div className= {styles.autocomplete_div}>
+              <div className={styles.autocomplete_div}>
                 <LocationInput
-                    className="location-input"
-                    inputType="text"
-                    inputPlaceholder={homepageData.enterLocation1}
-                    branches={branch}
-                    onChange={(branch) => setPickUpLocation(branch?.id)}
+                  className="location-input"
+                  inputType="text"
+                  inputPlaceholder={homepageData.enterLocation1}
+                  branches={branch}
+                  onChange={(branch) => setPickUpLocation(branch?.id)}
                 />
               </div>
             </div>
@@ -111,26 +114,24 @@ const Home = () => {
               className="poppins-normal-caribbean-green-17px"
               id={styles.right_top}
             >
-              <div>
-                <h4>
-                  <span>
-                    <img
-                      className={styles.icon_location_pin_1}
-                      src={locationIcon}
-                      alt="icon_location_pin"
-                    />
-                  </span>
-                  {homepageData.returnLocation}
-                </h4>
-              </div>
-              <div className=
-              {styles.autocomplete_div}>
-                  <LocationInput
-                    id="right"
-                    inputType="text"
-                    inputPlaceholder={homepageData.enterLocation1}
-                    branches={branch}
-                    onChange={(branch) => setDropOffLocation(branch?.id)}
+              <h4>
+                <span>
+                  <img
+                    className={styles.icon_location_pin_1}
+                    src={locationIcon}
+                    alt="icon_location_pin"
+                  />
+                </span>
+                {homepageData.returnLocation}
+              </h4>
+
+              <div className={styles.autocomplete_div}>
+                <LocationInput
+                  id="right"
+                  inputType="text"
+                  inputPlaceholder={homepageData.enterLocation1}
+                  branches={branch}
+                  onChange={(branch) => setDropOffLocation(branch?.id)}
                 />
               </div>
             </div>
@@ -150,51 +151,39 @@ const Home = () => {
                   {homepageData.pickUpDate}
                 </h4>
                 <DatePicker
-                    selected={pickUpDate}
-                    onChange={(date) => setPickUpDate(date)}
-                    placeholderText  = "Enter Date"
-                  />
-              </div>
-              <div className={styles.time}>
-                <h4>{homepageData.pickUpTime}</h4>
-
-                <TimePicker
-                  clockIcon={null}
-                  onChange={(value) => setPickupTime(value)}
-                  value={pickupTime}
+                  selected={pickUpDate}
+                  onChange={(date) => setPickUpDate(date)}
+                  placeholderText="Enter Date"
                 />
               </div>
             </div>
             <div className={styles.bottom_right}>
               <div className={styles.date}>
-           
-                <h4><span>     <img
-                  className={styles.calendar_size}
-                  src={calenderIcon}
-                  alt="icon-calendar"
-                /></span> {homepageData.dropDate}</h4>
+                <h4>
+                  <span>
+                    {" "}
+                    <img
+                      className={styles.calendar_size}
+                      src={calenderIcon}
+                      alt="icon-calendar"
+                    />
+                  </span>{" "}
+                  {homepageData.dropDate}
+                </h4>
 
-                  <DatePicker
-                    selected={dropOffDate}
-                    onChange={(date) => setDropOffDate(date)}
-                    placeholderText  = "Enter Date"
-                  />
-              </div>
-              <div className={styles.time}>
-                <h4>{homepageData.dropTime}</h4>
-
-                <TimePicker
-                  clockIcon={null}
-                  onChange={(value) => setReturnTime(value)}
-                  value={returnTime}
+                <DatePicker
+                  selected={dropOffDate}
+                  onChange={(date) => setDropOffDate(date)}
+                  placeholderText="Enter Date"
                 />
               </div>
             </div>
           </div>
-          <button className={styles.searchBtn} onClick={handleSearch}>Search</button>
+          <button className={styles.searchBtn} onClick={handleSearch}>
+            Search
+          </button>
         </div>
       </div>
-
       <div className={styles.blackCon}>
         <div className={styles.airport}>
           <img className="icon-plane" src={planeIcon} alt="icon-plane" />
