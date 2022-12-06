@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ReserveSummary from "../components/ReserveSummary";
 import CarCard from "../components/CarCard";
@@ -10,10 +10,10 @@ import { useAuth } from "../provider/authContext";
 
 const CarSelection = () => {
   const location = useLocation();
-  const pickuplocation = location.state.pickUpLocation;
-  const returnlocation = location.state.dropOffLocation;
-  const pickupdate = new Date(location.state.pickUpDate);
-  const returndate = new Date(location.state.dropOffDate);
+  const pickuplocation = location.state?.pickUpLocation;
+  const returnlocation = location.state?.dropOffLocation;
+  const pickupdate = new Date(location.state?.pickUpDate);
+  const returndate = new Date(location.state?.dropOffDate);
   const [cars, setCars] = useState([]);
   const [filteredcars, setFilteredCars] = useState([]);
   const [rentals, setRentals] = useState([]);
@@ -32,10 +32,12 @@ const CarSelection = () => {
   const [showList,setShowList] = useState(false);
   const [filterby, setFilterby] = useState(false);
   const [upgrades, setUpgrades] = useState(false);
-  const { isSignedIn, user } = useAuth();
+  const { isSignedIn, user, customer } = useAuth();
   const [customers, setCustomers] = useState([]);
   const [isGoldMember, setIsGoldMember] = useState(false);
   const [requestedCarType, setRequestedCarType] = useState(0);
+
+  const navigate = useNavigate();
 
   // handle retrieval of cars from query here
   const queryCars = async () => {
@@ -123,6 +125,15 @@ const CarSelection = () => {
 
   // handle fetching of data here
   useEffect(() => {
+    if (!isSignedIn) {
+      alert("Error: Please sign in to continue");
+      navigate('/login');
+    }
+  
+    if (location.state == null) {
+      alert("Error: No query passed for car selection");
+      navigate('/home');
+    }
     (async () => {
       await queryRentals();
     })();
