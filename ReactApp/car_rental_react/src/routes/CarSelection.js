@@ -186,15 +186,6 @@ const CarSelection = () => {
       setFilteredCars(finalcars);
     }
 
-    // check for gold membership
-    if (isSignedIn && user.id !== null && customers.length > 0) {
-      setIsGoldMember(() => {
-        let customer = customers.filter((customer) => {
-          return customer.id === user.id;
-        });
-        return customer[0].gold_member;
-      });
-    }
   }, [rentals, cars, customers]);
 
   // set the list of manufacturers and fueltypes here for the filter box
@@ -237,7 +228,7 @@ const CarSelection = () => {
       return car.car_type === type.car_type_id;
     })
     setFilters({ ...filters, cards: carfiltered });
-    if (isSignedIn && isGoldMember && carfiltered.length == 0) {
+    if (isSignedIn && customer.gold_member) {
       setUpgrades(true);
     }
   }

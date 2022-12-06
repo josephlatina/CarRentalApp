@@ -37,7 +37,7 @@ const CarReserve = () => {
   let car_type;
   let car_id;
   axios
-    .get("/api/cars/" + location.state.carid + "/")
+    .get("http://127.0.0.1:8000/api/cars/" + location.state.carid + "/")
     .then((res) => {
       // get model of car and update text
       car_model = res.data.manufacturer + " " + res.data.model;
@@ -60,7 +60,7 @@ const CarReserve = () => {
   //get return branch information
   let branch_to;
   axios
-    .get("/api/branches/" + location.state.branchgoesto + "/")
+    .get("http://127.0.0.1:8000/api/branches/" + location.state.branchgoesto + "/")
     .then((res) => {
       // set return branch name and update summary
       branch_to = res.data.street_number + " " + res.data.street_name;
@@ -71,7 +71,7 @@ const CarReserve = () => {
   //get pickup branch information
   let branch_from;
   axios
-    .get("/api/branches/" + location.state.branchcamefrom + "/")
+    .get("http://127.0.0.1:8000/api/branches/" + location.state.branchcamefrom + "/")
     .then((res) => {
       // set pickup branch name and update summary
       branch_from = res.data.street_number + " " + res.data.street_name;
