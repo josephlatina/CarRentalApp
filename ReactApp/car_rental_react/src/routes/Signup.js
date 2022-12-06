@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "reactstrap";
+import CustomerInfoForm from "../components/Auth/CustomerInfoForm";
 import "../css/auth.css";
 import { useAuth } from "../provider/authContext";
 
@@ -8,7 +9,7 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    const { signup, error, isSignedIn, isLoading } = useAuth();
+    const { signup, error, isSignedIn, isLoading, customer } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,9 +23,20 @@ export default function Signup() {
         }
     };
 
+    const renderCustomerInfoForm = () => {
+        if (isSignedIn && !!customer && !!!customer.first_name)
+            return <CustomerInfoForm customer_id={customer.id} />;
+    };
+
     return (
         <div className="Auth-form-container">
-            {isSignedIn && <div>Already signed in</div>}
+            {renderCustomerInfoForm()}
+            {isSignedIn && !!customer && !!customer.first_name && (
+                <div>
+                    You're already signed-in, go back to{" "}
+                    <Link to="/">Home</Link>
+                </div>
+            )}
             {isLoading && <Spinner>Loading...</Spinner>}
             {!isLoading && !isSignedIn && (
                 <form className="Auth-form">
