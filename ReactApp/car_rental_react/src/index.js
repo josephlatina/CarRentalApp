@@ -13,9 +13,12 @@ import Signup from "./routes/Signup";
 import { ProvideAuth, useAuth } from "./provider/authContext";
 import CustomerList from "./components/CustomerList/CustomerList";
 import RentalManager from "./routes/RentalManager";
-import AdminHomePage from "./routes/AdminHomePage";
-import AdminCar from "./routes/AdminCar";
-import AdminCarDetails from "./routes/AdminCarDetails";
+import AdminHomePage from "./routes/Admin/AdminHomePage";
+import AdminCar from "./routes/Admin/AdminCar";
+import AdminCarDetails from "./routes/Admin/AdminCarDetails";
+import BranchView, {
+    loader as branchViewLoader,
+} from "./routes/Admin/Branch/BranchView";
 
 const AdminRoute = ({ children }) => {
     const { user, isSignedIn } = useAuth();
@@ -54,6 +57,11 @@ const router = createBrowserRouter([
                         <AdminHomePage />
                     </AdminRoute>
                 ),
+            },
+            {
+                path: "/admin/branches/:branchId",
+                loader: branchViewLoader,
+                element: <BranchView />,
             },
             {
                 path: "/admin/customers",

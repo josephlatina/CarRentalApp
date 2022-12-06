@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import BranchCard from "../components/Admin/BranchCard";
-import BranchForm from "../components/Admin/BranchForm";
+import BranchCard from "../../components/Admin/BranchCard";
+import BranchForm from "../../components/Admin/BranchForm";
 
 export default function AdminHomePage() {
     const [isLoading, setIsLoading] = useState(false);
