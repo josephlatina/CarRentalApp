@@ -22,7 +22,24 @@ export function getList(str) {
     return fetch(str)
       .then(data => data.json())
   }
-
+export function trimString(s) {
+    var l=0, r=s.length -1;
+    while(l < s.length && s[l] == ' ') l++;
+    while(r > l && s[r] == ' ') r-=1;
+    return s.substring(l, r+1);
+  }
+  
+export function compareObjects(o1, o2) {
+    var k = '';
+    for(k in o1) if(o1[k] != o2[k]) return false;
+    for(k in o2) if(o1[k] != o2[k]) return false;
+    return true;
+  }
+  
+export function itemExists(haystack, needle) {
+    for(var i=0; i<haystack.length; i++) if(compareObjects(haystack[i], needle)) return true;
+    return false;
+  }
 const columns = [
     { id: 'ID', label: 'Rental ID', minWidth: 30 },
     { id: 'name', label: 'Name', minWidth: 100 },
@@ -71,6 +88,7 @@ export default function CollapsibleTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rentals, setRentals] = useState([]);
+    const filtered = {};
     const RENTAL_API = `http://127.0.0.1:8000/api/rentals/`;
 
     const handleChangePage = (event, newPage) => {
@@ -96,6 +114,18 @@ export default function CollapsibleTable() {
           })
           return () => mounted = false;
       }, [])
+    function searchFor(toSearch) {
+        var results = [];
+        toSearch = trimString(toSearch); // trim it
+        for(var i=0; i<rentals.length; i++) {
+          for(var key in rentals[i]) {
+            if(rentals[i][key].toString().indexOf(toSearch)!=-1) {
+              if(!itemExists(results, rentals[i])) results.push(rentals[i]);
+            }
+          }
+        }
+        return results;
+      }
     return (
         <>
             <section className="container" id="table-section">
@@ -130,12 +160,28 @@ export default function CollapsibleTable() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rentals
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((item) => (
-                                        <RentalManager key={item.rental_id} row={item} />
-                                        
-                                    ))}
+                                    <>
+                                        {(() => {
+                                            if (search === "") {
+                                            return (
+                                                rentals
+                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                    .map((item) => (
+                                                        <RentalManager key={item.rental_id} row={item} />
+                                                    ))
+                                            )
+                                            } else {
+                                            return (
+                                                searchFor(search)
+                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                    .map((item) => (
+
+                                                        <RentalManager key={item.rental_id} row={item} />
+                                                    ))
+                                            )
+                                            }
+                                        })()}
+                                    </>
                                 </TableBody>
                             </Table>
                         </TableContainer>
