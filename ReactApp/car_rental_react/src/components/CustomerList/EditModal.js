@@ -6,7 +6,7 @@ import { useMutate } from "../../hooks/axios";
 const EditModal = (props) => {
   const [customer, setCustomer] = useState(props.data);
   const [edit, { loading }] = useMutate({
-    url: `/api/customers/${customer.id}/`,
+    url: `http://127.0.0.1:8000/api/customers/${customer.id}/`,
     method: "PUT",
     onCompleted: () => {
       props.close();

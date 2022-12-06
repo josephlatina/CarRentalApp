@@ -6,7 +6,7 @@ import { useMutate } from "../../hooks/axios";
 const DeleteModal = (props) => {
 
   const [deleteCustomer, { loading }] = useMutate({
-    url: `/api/customers/${props.customerId}/`,
+    url: `http://127.0.0.1:8000/api/customers/${props.customerId}/`,
     method: "DELETE",
     onCompleted: () => {
       props.close();
@@ -23,11 +23,11 @@ const DeleteModal = (props) => {
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete customer?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.close}>
-            No
-          </Button>
-          <Button className="btn btn-confirm-pear" onClick={deleteCustomer}>
+        <Button className="btn btn-confirm-pear" onClick={deleteCustomer}>
             Yes
+          </Button>
+          <Button variant="secondary" className="btn btn-confirm-pear" onClick={props.close}>
+            No
           </Button>
         </Modal.Footer>
       </Modal>

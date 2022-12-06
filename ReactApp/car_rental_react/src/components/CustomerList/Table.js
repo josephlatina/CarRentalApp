@@ -22,7 +22,7 @@ const TableList = () => {
     handleShowEdit();
   };
 
-  const { data, loading, error, refetch } = useGet("/api/customers");
+  const { data, loading, error, refetch } = useGet("http://127.0.0.1:8000/api/customers");
 
   if (error) {
     return <div>ERROR</div>;

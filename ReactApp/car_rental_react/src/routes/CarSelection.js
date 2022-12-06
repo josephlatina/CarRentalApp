@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ReserveSummary from "../components/ReserveSummary";
 import CarCard from "../components/CarCard";
@@ -10,10 +10,10 @@ import { useAuth } from "../provider/authContext";
 
 const CarSelection = () => {
   const location = useLocation();
-  const pickuplocation = location.state.pickUpLocation;
-  const returnlocation = location.state.dropOffLocation;
-  const pickupdate = new Date(location.state.pickUpDate);
-  const returndate = new Date(location.state.dropOffDate);
+  const pickuplocation = location.state?.pickUpLocation;
+  const returnlocation = location.state?.dropOffLocation;
+  const pickupdate = new Date(location.state?.pickUpDate);
+  const returndate = new Date(location.state?.dropOffDate);
   const [cars, setCars] = useState([]);
   const [filteredcars, setFilteredCars] = useState([]);
   const [rentals, setRentals] = useState([]);
@@ -32,10 +32,12 @@ const CarSelection = () => {
   const [showList,setShowList] = useState(false);
   const [filterby, setFilterby] = useState(false);
   const [upgrades, setUpgrades] = useState(false);
-  const { isSignedIn, user } = useAuth();
+  const { isSignedIn, user, customer } = useAuth();
   const [customers, setCustomers] = useState([]);
   const [isGoldMember, setIsGoldMember] = useState(false);
   const [requestedCarType, setRequestedCarType] = useState(0);
+
+  const navigate = useNavigate();
 
   // handle retrieval of cars from query here
   const queryCars = async () => {
@@ -86,7 +88,7 @@ const CarSelection = () => {
   const queryBranch = async () => {
     try {
       axios
-        .get("api/branches/")
+        .get("http://127.0.0.1:8000/api/branches/")
         .then((res) => {
           setPickUpBranch(
             res.data.filter((branch) => {
@@ -109,7 +111,7 @@ const CarSelection = () => {
     // if (user.id !== null) {
       try {
         axios
-          .get("api/customers/")
+          .get("http://127.0.0.1:8000/api/customers/")
           .then((res) => {
             setCustomers(res.data)
           })
@@ -123,6 +125,15 @@ const CarSelection = () => {
 
   // handle fetching of data here
   useEffect(() => {
+    if (!isSignedIn) {
+      alert("Error: Please sign in to continue");
+      navigate('/login');
+    }
+  
+    if (location.state == null) {
+      alert("Error: No query passed for car selection");
+      navigate('/home');
+    }
     (async () => {
       await queryRentals();
     })();
@@ -175,17 +186,6 @@ const CarSelection = () => {
       setFilteredCars(finalcars);
     }
 
-    // check for gold membership
-    if (isSignedIn && user.id !== null && customers.length > 0) {
-      console.log(user.id);
-      console.log(customers);
-      setIsGoldMember(() => {
-        let customer = customers.filter((customer) => {
-          return customer.id === user.id;
-        });
-        return customer[0].gold_member;
-      });
-    }
   }, [rentals, cars, customers]);
 
   // set the list of manufacturers and fueltypes here for the filter box
@@ -228,9 +228,7 @@ const CarSelection = () => {
       return car.car_type === type.car_type_id;
     })
     setFilters({ ...filters, cards: carfiltered });
-    console.log("testing pls");
-    console.log(isGoldMember);
-    if (isSignedIn && isGoldMember && carfiltered.length == 0) {
+    if (isSignedIn && customer.gold_member) {
       setUpgrades(true);
     }
   }
@@ -249,7 +247,7 @@ const CarSelection = () => {
         let filteredcartype = new Set(prevFilter.filteredcartype);
         let cards = filteredcars;
 
-        if (event.target.checked || event.target.value)  {
+        if (event.target.checked)  {
           filteredmanufacturers.add(event.target.value);
         } else {
           filteredmanufacturers.delete(event.target.value);
