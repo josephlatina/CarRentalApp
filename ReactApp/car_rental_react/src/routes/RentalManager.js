@@ -89,7 +89,49 @@ export default function CollapsibleTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [rentals, setRentals] = useState([]);
     const RENTAL_API = `http://127.0.0.1:8000/api/rentals/`;
-
+    const [customers, setCustomers] = useState([]);
+    const CUSTOMER_API = `http://127.0.0.1:8000/api/customers/`;
+    const [employees, setEmployees] = useState([]);
+    const  EMPLOYEE_API = `http://127.0.0.1:8000/api/employees/`;
+    const [branches, setBranches] = useState([]);
+    const  BRANCHES_API = `http://127.0.0.1:8000/api/branches/`;
+    const [cars, setCars] = useState([]); 
+    const  CAR_API = `http://127.0.0.1:8000/api/cars/`;
+    
+    useEffect(() => {
+        let mounted = true;
+        getList(CAR_API)
+          .then(items => {
+            if(mounted){
+              setCars(items)
+            }
+          })
+        getList(BRANCHES_API)
+          .then(items => {
+            if(mounted){
+              setBranches(items)
+            }
+          })
+        getList(EMPLOYEE_API)
+          .then(items => {
+            if(mounted){
+              setEmployees(items)
+            }
+          })
+        getList(CUSTOMER_API)
+          .then(items => {
+            if(mounted){
+              setCustomers(items)
+            }
+          })
+        getList(RENTAL_API)
+          .then(items => {
+            if(mounted){
+              setRentals(items)
+            }
+          })
+          return () => mounted = false;
+    }, [])
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -100,25 +142,15 @@ export default function CollapsibleTable() {
     };
 
     const handleChangeSearch = event => {
-        setSearch(event.target.value);
+        setSearch(event.target.value.toLowerCase());
       };
 
-    useEffect(() => {
-        let mounted = true;
-        getList(RENTAL_API)
-          .then(items => {
-            if(mounted){
-              setRentals(items)
-            }
-          })
-          return () => mounted = false;
-    }, [])
     function searchFor(toSearch) {
         var results = [];
         toSearch = trimString(toSearch); // trim it
         for(var i=0; i<rentals.length; i++) {
           for(var key in rentals[i]) {
-            if(rentals[i][key]?.toString().indexOf(toSearch)!==-1 || '') {
+            if(rentals[i][key]?.toString().toLowerCase().indexOf(toSearch)!==-1 || '') {
               if(!itemExists(results, rentals[i])) results.push(rentals[i]);
             }
           }
@@ -165,18 +197,40 @@ export default function CollapsibleTable() {
                                             return (
                                                 rentals
                                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    .map((item) => (
-                                                        <RentalManager key={item.rental_id} row={item} />
-                                                    ))
+                                                    .map((item) => {
+                                                        customers.map((customer) => {
+                                                            if(item.customer === customer.id){
+                                                                item.customer = customer.first_name + " " + customer.last_name;
+                                                            }
+                                                            employees.map((employee) => {
+                                                                if(item.employee_given_by === employee.id){
+                                                                    item.employee_given_by = employee.first_name + " " + employee.last_name;
+                                                                }
+                                                            })
+                                                            branches.map((branch) => {
+                                                                if(item.branch_goes_to === branch.id){
+                                                                    item.branch_goes_to = branch.street_number + " " + branch.street_name + " " + branch.city;
+                                                                }
+                                                                if(item.branch_came_from === branch.id){
+                                                                    item.branch_came_from = branch.street_number + " " + branch.street_name + " " + branch.city;
+                                                                }
+                                                            })
+                                                            cars.map((car) => {
+                                                                if(item.car === car.car_id){
+                                                                    item.car = car.manufacturer + " " + car.model;
+                                                                }
+                                                            })
+                                                        })
+                                                        return <RentalManager key={item.rental_id} row={item} />
+                                                    })
                                             )
                                             } else {
                                             return (
                                                 searchFor(search)
                                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    .map((item) => (
-
-                                                        <RentalManager key={item.rental_id} row={item} />
-                                                    ))
+                                                    .map((item) => {
+                                                        return <RentalManager key={item.rental_id} row={item} />
+                                                    })
                                             )
                                             }
                                         })()}
