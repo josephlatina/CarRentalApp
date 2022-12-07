@@ -2,7 +2,6 @@ import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
-import { Button, Col, Container, Row } from "reactstrap";
 
 import TablePagination from "@mui/material/TablePagination";
 import Box from "@mui/material/Box";
@@ -15,12 +14,32 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 export function loader({ params }) {
     return params.branchId;
+}
+
+export function trimString(s) {
+    var l = 0,
+        r = s.length - 1;
+    while (l < s.length && s[l] === " ") l++;
+    while (r > l && s[r] === " ") r -= 1;
+    return s.substring(l, r + 1);
+}
+
+export function compareObjects(o1, o2) {
+    var k = "";
+    for (k in o1) if (o1[k] !== o2[k]) return false;
+    for (k in o2) if (o1[k] !== o2[k]) return false;
+    return true;
+}
+
+export function itemExists(haystack, needle) {
+    for (var i = 0; i < haystack.length; i++)
+        if (compareObjects(haystack[i], needle)) return true;
+    return false;
 }
 
 const theme = createTheme({
@@ -409,6 +428,38 @@ const AdminCar = () => {
         });
     };
 
+    function searchFor(toSearch) {
+        var results = [];
+        toSearch = trimString(toSearch); // trim it
+        for (var i = 0; i < cars.length; i++) {
+            for (var key in cars[i]) {
+                console.log(cars[i][key]);
+                if (
+                    cars[i][key]?.toString().toLowerCase().indexOf(toSearch.toLowerCase()) !== -1 ||
+                    ""
+                ) {
+                    if (!itemExists(results, cars[i])) {
+                        results.push(cars[i]);
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeSearch = (event) => {
+        setSearch(event.target.value);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
     // handle fetching of data here
     useEffect(() => {
         (async () => {
@@ -436,16 +487,31 @@ const AdminCar = () => {
                 <h3>Car List</h3>
             </div>
             {/* Search Bar */}
-            {/* <div className="row" id="search-contained">
+            <div className="row" id="search-contained">
                 <div className="searchBar">
-                    <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search"/>
-                    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                            <svg style={{width:"24px",height:"24px"}} viewBox="0 0 24 24"><path fill="#666666"
-                             d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                    <input 
+                        id="searchQueryInput" 
+                        type="text" 
+                        name="searchQueryInput" 
+                        placeholder="Search"
+                        onChange={handleChangeSearch}
+                        value={search}
+                    />
+                    <button 
+                        id="searchQuerySubmit" 
+                        type="submit" 
+                        name="searchQuerySubmit"
+                        >
+                            <svg 
+                                style={{width:"24px",height:"24px"}} 
+                                viewBox="0 0 24 24">
+                                    <path 
+                                        fill="#666666"
+                                        d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                             </svg>
                         </button>
                 </div>
-            </div> */}
+            </div>
             {/* Table */}
             <section className="container" id="table-contained">
                 <Paper
@@ -484,41 +550,71 @@ const AdminCar = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {cars
-                                        .slice(
-                                            page * rowsPerPage,
-                                            page * rowsPerPage + rowsPerPage
-                                        )
-                                        .map((car, index) => (
-                                            <RentalManager
-                                                key={index}
-                                                row={car}
-                                                onClick={(event) =>
-                                                    getCarTypeInfo(
-                                                        car.car_type,
-                                                        event
+                                    <>
+                                        {(() => {
+                                            if (search == "") {
+                                                return cars
+                                                    .slice(
+                                                        page * rowsPerPage,
+                                                        page * rowsPerPage + rowsPerPage
                                                     )
-                                                }
-                                                onRefresh={refreshCars}
-                                                carTypeInfo={carTypeInfo}
-                                                branches={branches}
-                                                chosenBranch={chosenBranch}
-                                            />
-                                        ))}
+                                                    .map((car, index) => (
+                                                        <RentalManager
+                                                            key={index}
+                                                            row={car}
+                                                            onClick={(event) =>
+                                                                getCarTypeInfo(
+                                                                    car.car_type,
+                                                                    event
+                                                                )
+                                                            }
+                                                            onRefresh={refreshCars}
+                                                            carTypeInfo={carTypeInfo}
+                                                            branches={branches}
+                                                            chosenBranch={chosenBranch}
+                                                        />
+                                                    ))
+                                            } else {
+                                                console.log("hello");
+                                                return searchFor(search)
+                                                    .slice(
+                                                        page * rowsPerPage,
+                                                        page * rowsPerPage + rowsPerPage
+                                                    )
+                                                    .map((car, index) => (
+                                                        <RentalManager
+                                                            key={index}
+                                                            row={car}
+                                                            onClick={(event) =>
+                                                                getCarTypeInfo(
+                                                                    car.car_type,
+                                                                    event
+                                                                )
+                                                            }
+                                                            onRefresh={refreshCars}
+                                                            carTypeInfo={carTypeInfo}
+                                                            branches={branches}
+                                                            chosenBranch={chosenBranch}
+                                                        />
+                                                    ))
+                                            }
+                                        })()}
+                                    </>
+
                                 </TableBody>
                             </ThemeProvider>
                         </Table>
                     </TableContainer>
-                    {/* <TablePagination 
+                    <TablePagination 
                             className="Table-Footer"
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rows.length}
+                            count={cars.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
-                        /> */}
+                        />
                 </Paper>
             </section>
             <section className="container" id="add-contained">
