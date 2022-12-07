@@ -1,7 +1,6 @@
 import { Button, Col, Container, Row } from "reactstrap";
 import axios from "axios";
 import { useLocation } from "react-router-dom"; // used later
-import { useAuth } from "../provider/authContext"; //used later
 import { useState, useEffect } from "react";
 
 const AdminCarDetails = () => {
@@ -26,12 +25,15 @@ const AdminCarDetails = () => {
   // get car details CAR ID CURRENTLY HARDCODED UNTIL CONNECTED TO OTHER PAGE
   useEffect(() => {
     //variables needed for logic
+    //variables needed for logic
     let current_type;
     let current_description;
     let current_status;
     //set states and get current type and status
     const getCar = async () => {
-      const res = await axios.get(`http://127.0.0.1:8000/api/cars/${location.state?.carid}`);
+      const res = await axios.get(
+        `http://127.0.0.1:8000/api/cars/${location.state?.carid}`
+      );
       setManufacturer(res.data.manufacturer);
       setModel(res.data.model);
       setFuel(res.data.fuel_type);
@@ -40,16 +42,13 @@ const AdminCarDetails = () => {
       setMileage(res.data.mileage);
       setType(res.data.car_type);
       setAvailability(res.data.status);
-      console.log(location.state?.carid);
       current_type = res.data.car_type;
       current_status = res.data.status;
-    };
 
-    const getCarTypes = async () => {
-      const res = await axios.get("http://127.0.0.1:8000/api/cartypes/");
+      const res_type = await axios.get("http://127.0.0.1:8000/api/cartypes/");
       const results = [];
       // Store results in the results array
-      res.data.forEach((value) => {
+      res_type.data.forEach((value) => {
         if (value.car_type_id === current_type) {
           current_description = value.description;
         }
@@ -58,6 +57,7 @@ const AdminCarDetails = () => {
           value: value.car_type_id,
         });
       });
+
       if (current_status === "Available") {
         setStatus([
           { key: current_status, value: current_status },
@@ -76,8 +76,10 @@ const AdminCarDetails = () => {
       ]);
     };
 
-    {location.state?.carid && getCar();}
-    getCarTypes();
+    {
+      location.state?.carid && getCar();
+    }
+
     setBranch(location.state?.branchid);
   }, []);
 
@@ -98,7 +100,10 @@ const AdminCarDetails = () => {
 
     // update details
     axios
-      .put(`http://127.0.0.1:8000/api/cars/${location.state?.carid}/`, car_details)
+      .put(
+        `http://127.0.0.1:8000/api/cars/${location.state?.carid}/`,
+        car_details
+      )
       .then((response) => console.log(response))
       .catch((err) => console.log(err.response.data));
 
@@ -125,7 +130,7 @@ const AdminCarDetails = () => {
     }
 
     alert("Car Added");
-  }
+  };
 
   return (
     <>
@@ -223,12 +228,15 @@ const AdminCarDetails = () => {
               );
             })}
           </select>
-          {location.state?.addflag === 0 ? <Button onClick={updateDetails} id="update-button">
-            Update
-          </Button>
-          : <Button id="update-button" onClick={handleAdd}>
-            Add
-          </Button>}
+          {location.state?.addflag === 0 ? (
+            <Button onClick={updateDetails} id="update-button">
+              Update
+            </Button>
+          ) : (
+            <Button id="update-button" onClick={handleAdd}>
+              Add
+            </Button>
+          )}
         </div>
       </section>
     </>
