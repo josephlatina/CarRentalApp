@@ -88,7 +88,7 @@ const CarCard = (props) => {
             {/* Car Image */}
             <div className="col-sm-12 col-lg-4 car-info">
                 {/* <p>Image here</p> */}
-                <img src={images.filter((img) => {return img.title === cartypeitem[0]?.description})[0]?.imageUrl} width={350} height={300} alt="Image here"/>
+                <img src={images.filter((img) => {return img.title === "SUV"})[0]?.imageUrl} width={350} height={300} alt="Image here"/>
                 {/* <img src={images[0].imageUrl} width={350} height={300} alt="Image here"/> */}
             </div>
             {/* Car Info */}
