@@ -117,6 +117,8 @@ function RentalManager(props) {
     }, [])
     function handleCalculation(goldMember,branch_came_from,branch_goes_to,returnDate, dateFrom,dateTo, car_type){
       let estimatedCost = 0;
+      const diff = new Date(returnDate) - new Date(dateTo);
+      const diffDays = diff/(1000 * 60 * 60 * 24);
         carTypes.forEach((cartypeitem) => {
           let dailyLateFee = cartypeitem.late_fee;
           let branchChangeFee = cartypeitem.change_branch_fee;
@@ -125,18 +127,18 @@ function RentalManager(props) {
           }
           if(cartypeitem.car_type_id === car_type){
             if(branch_came_from === branch_goes_to){
-              if (returnDate <= dateTo) {
+              if (Date.parse(returnDate) <= Date.parse(dateTo)) {
                 estimatedCost = dateCostChecker(returnDate, dateFrom, cartypeitem);
               }
-              if(returnDate > dateTo){
+              if(Date.parse(returnDate) > Date.parse(dateTo)){
                 estimatedCost = (dateCostChecker(returnDate, dateTo, cartypeitem) + (dailyLateFee));
               }
             }
             if(branch_came_from !== branch_goes_to){
-              if (returnDate <= dateTo) {
+              if (Date.parse(returnDate) <= Date.parse(dateTo)) {
                 estimatedCost = ((dateCostChecker(returnDate, dateFrom, cartypeitem)) + (branchChangeFee));
               }
-              if(returnDate > dateTo){
+              if(Date.parse(returnDate) > Date.parse(dateTo)){
                 estimatedCost = ((dateCostChecker(returnDate, dateTo, cartypeitem)) + (branchChangeFee) + (dailyLateFee));
               }
             }
@@ -162,7 +164,6 @@ function RentalManager(props) {
         customers.forEach((customer) => {
           if(row.date_returned === null){
             if(row.car === car.car_id && row.customer === customer.first_name + " " + customer.last_name){
-              console.log(customer.first_name + " " + customer.gold_member);
               patchRentals(customer.gold_member,row.branch_came_from,row.branch_goes_to, row.date_from, row.date_to, car.car_type);
             }
           }
@@ -212,7 +213,7 @@ export default function CollapsibleTable() {
     const [customers, setCustomers] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [branches, setBranches] = useState([]); 
-    const chosenBranch = useLoaderData();
+    const branchSelection = (window.location.pathname.split('/')[3]);
     
     useEffect(() => {
         const  BRANCHES_API = `http://127.0.0.1:8000/api/branches/`;
@@ -266,6 +267,19 @@ export default function CollapsibleTable() {
           for(var key in rentals[i]) {
             if(rentals[i][key]?.toString().toLowerCase().indexOf(toSearch)!==-1 || "") {
               if(!itemExists(results, rentals[i])) results.push(rentals[i]);
+            }
+          }
+        }
+        return results;
+      }
+      function branchFilter(selectedBranch) {
+        var results = [];
+        for(var i=0; i<rentals.length; i++) {
+          for(var key in rentals[i]) {
+            if(key === "branch_goes_to" || key === "branch_came_from"){
+              if(rentals[i][key]?.toString() === selectedBranch || ""){
+                if(!itemExists(results, rentals[i])) results.push(rentals[i]);
+              }
             }
           }
         }
@@ -349,7 +363,7 @@ export default function CollapsibleTable() {
                                         {(() => {
                                             if (search === "") {                                          
                                             return (
-                                              rentals
+                                              branchFilter(branchSelection)
                                                 .map((item) => {
                                                     customers.forEach((customer) => {
                                                         if(item.customer === customer.id){                                                        
@@ -392,7 +406,7 @@ export default function CollapsibleTable() {
                             className="Table-Footer"
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rentals.length}
+                            count={branchFilter(branchSelection).length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}
@@ -401,7 +415,7 @@ export default function CollapsibleTable() {
                     </Paper>
                 </section>
                 <section className="container" id="add-contained">
-                    <button type="submit" className="btn btn-primary">+Add</button>
+                    <button type="submit" className="btn btn-primary">Branch ID: {branchSelection}</button>
                 </section>
             </section>
         </>

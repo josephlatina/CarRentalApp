@@ -52,13 +52,20 @@ svg.MuiSelect-iconStandard{
 
 #add-contained{
     display: flex;
-    justify-content: right;
-    align-items: right;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding-top: 3rem;
     padding-bottom: 3rem;
 }
 
+#add-contained button{
+    font-size: larger;
+    width: 50%;
+    height: 40%;
+    background-color: #242424;
+    color: #0FB877;
+}
 .searchBar {
     width: 30%;
     display: flex;
