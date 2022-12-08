@@ -117,6 +117,8 @@ function RentalManager(props) {
     }, [])
     function handleCalculation(goldMember,branch_came_from,branch_goes_to,returnDate, dateFrom,dateTo, car_type){
       let estimatedCost = 0;
+      const diff = new Date(returnDate) - new Date(dateTo);
+      const diffDays = diff/(1000 * 60 * 60 * 24);
         carTypes.forEach((cartypeitem) => {
           let dailyLateFee = cartypeitem.late_fee;
           let branchChangeFee = cartypeitem.change_branch_fee;
@@ -125,18 +127,18 @@ function RentalManager(props) {
           }
           if(cartypeitem.car_type_id === car_type){
             if(branch_came_from === branch_goes_to){
-              if (returnDate <= dateTo) {
+              if (Date.parse(returnDate) <= Date.parse(dateTo)) {
                 estimatedCost = dateCostChecker(returnDate, dateFrom, cartypeitem);
               }
-              if(returnDate > dateTo){
+              if(Date.parse(returnDate) > Date.parse(dateTo)){
                 estimatedCost = (dateCostChecker(returnDate, dateTo, cartypeitem) + (dailyLateFee));
               }
             }
             if(branch_came_from !== branch_goes_to){
-              if (returnDate <= dateTo) {
+              if (Date.parse(returnDate) <= Date.parse(dateTo)) {
                 estimatedCost = ((dateCostChecker(returnDate, dateFrom, cartypeitem)) + (branchChangeFee));
               }
-              if(returnDate > dateTo){
+              if(Date.parse(returnDate) > Date.parse(dateTo)){
                 estimatedCost = ((dateCostChecker(returnDate, dateTo, cartypeitem)) + (branchChangeFee) + (dailyLateFee));
               }
             }
@@ -275,7 +277,7 @@ export default function CollapsibleTable() {
         for(var i=0; i<rentals.length; i++) {
           for(var key in rentals[i]) {
             if(key === "branch_goes_to" || key === "branch_came_from"){
-              if(rentals[i][key].toString() === selectedBranch){
+              if(rentals[i][key]?.toString() === selectedBranch || ""){
                 if(!itemExists(results, rentals[i])) results.push(rentals[i]);
               }
             }
